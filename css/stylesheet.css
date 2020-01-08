@@ -6,6 +6,15 @@ body {
     font-family: 'Lato', sans-serif !important;
 }
 
+h1 {
+    color: white;
+    font-weight: bold !important;
+    margin: 15px !important;
+    text-transform: uppercase;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #b4b4b4;
+}
+
 /* Bootstrap classes */
 .navbar {
     min-height: 100px;
@@ -15,6 +24,33 @@ body {
 .nav-item {
     padding: 15px;
 }
+
+.nav-text {
+    color: white !important;
+    font-weight: bold !important;
+    letter-spacing: 0.15em;
+    display: inline-block;
+    position: relative;
+}
+
+
+.nav-text:after {
+    background: #fff;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 50%;
+    height: 2px;
+    position: absolute;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0;
+}
+
+.nav-text:hover:after {
+    width: 100%;
+    left: 0;
+}
+
 
 /* Social Icons */
 ul.social {
@@ -37,36 +73,45 @@ ul.social li {
 }
 
 .social .facebook:hover i, .social .instagram:hover i {
-    color:#afafaf;
+    color: #afafaf;
 }
 
 .social-circle li a i {
-    display:inline-block;
-    position:relative;
-    margin:0 auto 0 auto;
-    text-align:center;
-    width: 50px;
-    height: 50px;
-    font-size:20px;
     background-color: #afafaf;
+    border-radius:50%;
+    display: inline-block;
+    font-size:20px;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    position: relative;
+    width: 50px;
     -moz-border-radius:50%;
     -webkit-border-radius:50%;
-    border-radius:50%;
 }
 .social-circle li i {
-    margin:0;
     line-height:50px;
     text-align: center;
+    margin:0;
+    transition-duration: 0.3s;
 }
 
 .social-circle i {
-    color: #fff;
+    color: #ffffff;
 }
 
 /* Other classes */
 .navbar-yellow {
     background-color: #F8D76E;
     font-weight: bold;
+}
+
+.bg-blue {
+    background-color: #5DBCD2;
+}
+
+.row-imgs {
+   height: 200px;
 }
 
 /* IDs */
@@ -81,7 +126,11 @@ ul.social li {
 @media screen and (max-width: 600px) {
     .navbar {
         min-height: 100px;
-        font-size: 12px;
+        font-size: 16px;
+    }
+
+    .nav-text:after {
+        height: 0;
     }
 
     .nav-item {
