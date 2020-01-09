@@ -11,11 +11,14 @@ h1 {
     font-weight: bold !important;
     margin: 15px !important;
     text-transform: uppercase;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #b4b4b4;
 }
 
 /* Bootstrap classes */
+.img-fluid {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 .navbar {
     min-height: 100px;
     font-size: 28px;
@@ -50,7 +53,6 @@ h1 {
     width: 100%;
     left: 0;
 }
-
 
 /* Social Icons */
 ul.social {
@@ -110,8 +112,27 @@ ul.social li {
     background-color: #5DBCD2;
 }
 
-.row-imgs {
-   height: 200px;
+.row-images {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 650px;
+}
+
+.col-images {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100%;
+}
+
+.choice-circle {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    font-size: 50px;
+    color: #fff;
+    line-height: 500px;
+    text-align: center;
+    background: #000
 }
 
 /* IDs */
@@ -123,7 +144,26 @@ ul.social li {
 }
 
 /* Media conditions */
+@media screen and (max-width: 1200px) {
+    .row-images {
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    h1 {
+        font-size: 28px !important;
+    }
+    .row-images {
+        height: 400px;
+    }
+}
+
 @media screen and (max-width: 600px) {
+    h1 {
+        font-size: 24px !important;
+    }
+
     .navbar {
         min-height: 100px;
         font-size: 16px;
@@ -135,6 +175,10 @@ ul.social li {
 
     .nav-item {
         padding: 5px 0;
+    }
+
+    .row-images {
+        height: 200px;
     }
 
     #login-button {
