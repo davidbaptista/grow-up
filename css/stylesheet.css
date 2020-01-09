@@ -36,7 +36,6 @@ h1 {
     position: relative;
 }
 
-
 .nav-text:after {
     background: #fff;
     bottom: 0;
@@ -109,7 +108,7 @@ ul.social li {
 }
 
 .bg-blue {
-    background-color: #5DBCD2;
+    background-color: #31acd2;
 }
 
 .row-images {
@@ -125,21 +124,24 @@ ul.social li {
 }
 
 .choice-circle {
-    width: 500px;
-    height: 500px;
+    line-height: 250px;
+    width: 250px;
+    align-content: center;
+    background-color: #31ACD2;
+    font-size: 28px;
+    color: white;
+    font-weight: bold;
+    border: #F8D76E solid 5px;
     border-radius: 50%;
-    font-size: 50px;
-    color: #fff;
-    line-height: 500px;
-    text-align: center;
-    background: #000
+    display: inline-block;
+    vertical-align: middle !important;
 }
 
 /* IDs */
 #login-button {
     border-style: solid;
     border-width: 5px;
-    border-color: #F8D76E #F8D76E #F8D76E #5DBCD2;
+    border-color: #F8D76E #F8D76E #F8D76E #31ACD2;
     padding: 3px;
 }
 
