@@ -13,6 +13,10 @@ h1 {
     text-transform: uppercase;
 }
 
+footer {
+    padding: 15px 0;
+}
+
 /* Bootstrap classes */
 .img-fluid {
     width: 100% !important;
@@ -124,17 +128,26 @@ ul.social li {
 }
 
 .choice-circle {
-    line-height: 250px;
-    width: 250px;
-    align-content: center;
-    background-color: #31ACD2;
-    font-size: 28px;
-    color: white;
-    font-weight: bold;
     border: #F8D76E solid 5px;
     border-radius: 50%;
+    background-color: #31ACD2;
+    color: white;
     display: inline-block;
-    vertical-align: middle !important;
+    font-size: 28px;
+    font-weight: bold;
+    height: 250px;
+    padding: 75px 0 0 0;
+    width: 250px;
+}
+
+.hand {
+    height: 50px;
+    width: 50px;
+}
+
+.footer-text {
+    margin: 0;
+    padding: 10px 0 0 0;
 }
 
 /* IDs */
@@ -143,6 +156,10 @@ ul.social li {
     border-width: 5px;
     border-color: #F8D76E #F8D76E #F8D76E #31ACD2;
     padding: 3px;
+}
+
+#choice-row {
+    padding: 50px 0;
 }
 
 /* Media conditions */
@@ -166,8 +183,17 @@ ul.social li {
         font-size: 24px !important;
     }
 
+    footer {
+        height: 150px !important;
+        font-size: 14px;
+    }
+
+    .social-circle {
+        line-height: 25 px !important;
+    }
+
     .navbar {
-        min-height: 100px;
+        min-height: 50px;
         font-size: 16px;
     }
 
@@ -183,8 +209,28 @@ ul.social li {
         height: 200px;
     }
 
+    .choice-circle {
+        height: 150px;
+        padding: 35px 0 0 0;
+        font-size: 18px;
+        width: 150px;
+    }
+
+    .footer-text {
+        padding: 0 0 5px 0
+    }
+
     #login-button {
         border-width: 0;
         padding: 5px 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .choice-circle {
+        height: 125px;
+        padding: 25px 0 0 0;
+        font-size: 16px;
+        width: 125px;
     }
 }
