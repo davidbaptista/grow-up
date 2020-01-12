@@ -1,11 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-	<link rel="stylesheet" href="css/stylesheet.css">
-
-	<!-- CSS Library -->
+	<!-- CSS Libraries -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'website/css/stylesheet.css' %}">
 
+    <!-- Metas -->
 	<meta charset="utf-8">
 	<meta name="description" content="grow up">
 	<meta name="author" content="grow up">
@@ -13,10 +14,10 @@
 
 	<title>Grow Up</title>
 </head>
-<body class="bg-blue">
-	<!--Navbar -->
+<body class="bg-yellow">
+	<!-- Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-light navbar-yellow">
-		<a class="navbar-brand text-dark" href="index.html">Grow Up</a>
+		<a class="navbar-brand text-dark" href="{% url 'index' %}"><img src="{% static 'website/img/logo.png' %}" alt="Logo" id="logo"></a>
 
 		<!-- Collapse Button-->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-items"
@@ -28,7 +29,7 @@
 		<div class="collapse navbar-collapse" id="collapse-items">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link nav-text" href="index.html">Início</a>
+					<a class="nav-link nav-text" href="{% url 'index' %}">Início</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link nav-text" href="#">Organizações</a>
@@ -47,13 +48,13 @@
 	<div class="container-fluid row-images">
 		<div class="row row-images">
 			<div class="col-4 col-images">
-				<img src="img/index1.jpg" class="img-fluid" alt="Imagem 1">
+				<img src="../../static/website/img/index1.jpg" class="img-fluid" alt="Imagem 1">
 			</div>
 			<div class="col-4 col-images">
-				<img src="img/index2.jpg" class="img-fluid" alt="Imagem 2">
+				<img src="../../static/website/img/index2.jpg" class="img-fluid" alt="Imagem 2">
 			</div>
 			<div class="col-4 col-images">
-				<img src="img/index3.jpg" class="img-fluid" alt="Imagem 3">
+				<img src="../../static/website/img/index3.jpg" class="img-fluid" alt="Imagem 3">
 			</div>
 		</div>
 	</div>
@@ -74,7 +75,7 @@
 				<a href="#">
 					<figure class="choice-circle">
 						<figcaption >Organizações</figcaption>
-						<img src="img/hand.png" alt="Hand pointing up" class="hand">
+						<img src="../../static/website/img/hand.png" alt="Hand pointing up" class="hand">
 					</figure>
 				</a>
 			</div>
@@ -82,12 +83,21 @@
 				<a href="#">
 				<figure class="choice-circle">
 					<figcaption >Voluntários</figcaption>
-					<img src="img/hand.png" alt="Hand pointing up" class="hand">
+					<img src="../../static/website/img/hand.png" alt="Hand pointing up" class="hand">
 				</figure>
 				</a>
 			</div>
 		</div>
 	</div>
+
+    <!-- About us text -->
+	<div class="container-fluid text-center bg-yellow">
+        <br>
+		<h2><u>Sobre nós</u></h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae urna mollis, tincidunt neque ac, dignissim nulla. Morbi gravida tortor felis, ut condimentum felis pharetra id. Etiam consectetur ex nulla, eu bibendum felis tincidunt eget. Proin tristique pharetra diam eu volutpat. Integer nisi sapien, congue non accumsan et, aliquam eu ante. Pellentesque ultrices volutpat ligula, vitae pellentesque orci aliquet id. Proin at lacinia quam. Donec feugiat consequat quam. Curabitur sit amet sem a ligula consequat dapibus. Nullam vitae ligula pulvinar, rutrum tortor id, viverra turpis. Duis in dapibus lectus. Aenean eu quam id ante facilisis ullamcorper et eu ipsum. Suspendisse potenti. Morbi vulputate libero ac turpis convallis, vitae vestibulum ligula congue. Integer ullamcorper lobortis laoreet. In porttitor a neque sed ullamcorper.</p>
+			<p>ras posuere lectus eu massa eleifend laoreet. Duis varius porta neque at condimentum. Quisque pellentesque maximus lacus, in sagittis nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi at nunc eu ligula ullamcorper ultrices. Sed eleifend sapien ornare orci feugiat interdum. Morbi non nisl et lacus eleifend porta in non eros. Phasellus tincidunt bibendum tellus, et malesuada orci venenatis nec. Quisque suscipit nulla at euismod tristique. Duis pulvinar hendrerit nunc, vitae bibendum felis lobortis vitae. Nunc a commodo neque. Donec sit amet varius ante, sed sagittis turpis. Integer quis condimentum mi, sed posuere eros. Etiam ultricies tempor velit quis malesuada. Morbi ac magna gravida, condimentum velit nec, dictum nisi.</p>
+        <br>
+    </div>
 
 	<!-- Footer -->
 	<footer class="bg-blue">

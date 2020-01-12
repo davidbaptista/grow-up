@@ -1,6 +1,12 @@
 /* Imports */
 @import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
+/* Variables */
+:root {
+    --main-blue-color: #31ACD2;
+    --main-yellow-color: #F8D76E;
+}
+
 /* Basic HTML Tags */
 body {
     font-family: 'Lato', sans-serif !important;
@@ -61,7 +67,7 @@ footer {
 ul.social {
     display: inline;
     list-style: none;
-    margin-left:0;
+    margin-left: 0;
     padding: 0;
 }
 ul.social li {
@@ -83,7 +89,7 @@ ul.social li {
 
 .social-circle li a i {
     background-color: #afafaf;
-    border-radius:50%;
+    border-radius: 50%;
     display: inline-block;
     font-size:20px;
     height: 50px;
@@ -91,8 +97,8 @@ ul.social li {
     margin: 0 auto 0 auto;
     position: relative;
     width: 50px;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
 }
 .social-circle li i {
     line-height:50px;
@@ -113,6 +119,10 @@ ul.social li {
 
 .bg-blue {
     background-color: #31acd2;
+}
+
+.bg-yellow {
+    background-color: #F8D76E;
 }
 
 .row-images {
@@ -141,7 +151,7 @@ ul.social li {
 }
 
 .hand {
-    height: 50px;
+    height: 85px;
     width: 50px;
 }
 
@@ -160,6 +170,11 @@ ul.social li {
 
 #choice-row {
     padding: 50px 0;
+}
+
+#logo {
+    height: 150px;
+    width: 160px;
 }
 
 /* Media conditions */
@@ -189,7 +204,7 @@ ul.social li {
     }
 
     .social-circle {
-        line-height: 25 px !important;
+        line-height: 25px !important;
     }
 
     .navbar {
