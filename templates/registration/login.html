@@ -1,0 +1,17 @@
+{% extends 'website/../base/generic.html' %}
+
+{% load static %}
+{% block title %} Login {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <br>
+    <div class="container bg-white">
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-success">Login</button>
+            <p>Não se registou? <a href="{% url 'register' %}">Crie uma conta </a></p>
+        </form>
+    </div>
+{% endblock  %}

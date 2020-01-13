@@ -15,7 +15,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'website.apps.GrowUpWebsiteConfig'
+    'website.apps.GrowUpWebsiteConfig',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -91,3 +92,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     'static/',
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/'

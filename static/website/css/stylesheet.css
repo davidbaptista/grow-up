@@ -113,16 +113,16 @@ ul.social li {
 
 /* Other classes */
 .navbar-yellow {
-    background-color: #F8D76E;
+    background-color: var(--main-yellow-color);
     font-weight: bold;
 }
 
 .bg-blue {
-    background-color: #31acd2;
+    background-color: var(--main-blue-color);
 }
 
 .bg-yellow {
-    background-color: #F8D76E;
+    background-color: var(--main-yellow-color);
 }
 
 .row-images {
@@ -138,9 +138,9 @@ ul.social li {
 }
 
 .choice-circle {
-    border: #F8D76E solid 5px;
+    border: var(--main-yellow-color) solid 5px;
     border-radius: 50%;
-    background-color: #31ACD2;
+    background-color: var(--main-blue-color);
     color: white;
     display: inline-block;
     font-size: 28px;
@@ -164,7 +164,7 @@ ul.social li {
 #login-button {
     border-style: solid;
     border-width: 5px;
-    border-color: #F8D76E #F8D76E #F8D76E #31ACD2;
+    border-color: var(--main-yellow-color) var(--main-yellow-color) var(--main-yellow-color) var(--main-blue-color);
     padding: 3px;
 }
 
