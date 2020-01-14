@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-'''
 class OrganizationType(models.Model):
     name = models.CharField(max_length=255)
 
@@ -46,4 +45,3 @@ class OrganizationProfile(models.Model, Profile):
     )
 
     organization_types = models.ManyToManyField(OrganizationType)
-'''
