@@ -1,4 +1,4 @@
-{% extends 'website/../base/generic.html' %}
+{% extends 'base/generic.html' %}
 
 {% load static %}
 {% block title %} Login {% endblock %}
@@ -7,7 +7,7 @@
 {% block content %}
     <br>
     <div class="container bg-white">
-        <form method="POST" class="form-group">
+        <form method="POST" class="form-group" novalidate>
             {% csrf_token %}
             {{ form|crispy }}
             <button type="submit" class="btn btn-success">Login</button>

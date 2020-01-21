@@ -1,8 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template import loader
-from django.utils.translation import gettext_lazy as _
 
 from website.forms import RegisterForm
 
@@ -20,7 +16,7 @@ def register(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             form.save()
-        return redirect('index')
+            return redirect('index')
     else:
         form = RegisterForm()
 
