@@ -9,7 +9,8 @@
         <form method="POST" class="form-group" novalidate>
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="btn btn-success">Registar</button>
+            <button type="submit" name="volunteer" class="btn btn-warning float-left">Registar como voluntário</button>
+            <button type="submit" name="organization" class="btn btn-danger float-right">Registar como organização</button>
         </form>
     </div>
 {% endblock %}
