@@ -100,6 +100,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'example@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_USER = 'grow.up.portugal@gmail.com'
+EMAIL_HOST_PASSWORD = 'vlylnaqnqpkzaefb'
 EMAIL_PORT = 587

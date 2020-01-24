@@ -1,9 +1,39 @@
 from django import forms
 from django.contrib.auth import password_validation
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+
+
+class LoginForm(AuthenticationForm):
+    username = UsernameField(
+        label=_('Nome de utilizador'),
+        widget=forms.TextInput(attrs={'autofocus': True}),
+        error_messages={'required': 'Este campo é obrigatório'},
+    )
+
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'}),
+        error_messages={'required': 'Este campo é obrigatório'},
+    )
+
+    error_messages = {
+        'invalid_login': _(
+            'Por favor insira credenciais válidas'
+        ),
+        'inactive': _("Esta conta está inativa"),
+    }
+
+    def __init__(self, *args, **kwargs):
+        self.error_messages['invalid_login'] = 'Credenciais erradas'
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
 
 
 class RegisterForm(UserCreationForm):
