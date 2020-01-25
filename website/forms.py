@@ -42,6 +42,10 @@ class LoginForm(forms.Form):
 class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         label=_('Nome de utilizador'),
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Nome de utilizador',
+            'class': 'form-input-password form-control mb-2'
+        }),
         error_messages={'required': 'Este campo é obrigatório',
                         'unique': 'Já existe um utilizador com esse nome',
                         'invalid': 'Nome de utilizador inválido: Insira apenas letras e números'},
@@ -49,6 +53,10 @@ class RegisterForm(forms.ModelForm):
 
     email = forms.EmailField(
         label=_('Email'),
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Email',
+            'class': 'form-control mb-2'
+        }),
         error_messages={'required': 'Este campo é obrigatório',
                         'invalid': 'Email inválido',
                         'unique': 'Já existe um utilizador com esse email'},
@@ -61,7 +69,10 @@ class RegisterForm(forms.ModelForm):
     password1 = forms.CharField(
         label=_('Palavra passe'),
         strip=False,
-        widget=forms.PasswordInput(),
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Password',
+            'class': 'form-control mb-2'
+        }),
         help_text=password_validation.password_validators_help_text_html(),
         error_messages={'required': 'Este campo é obrigatório',
                         'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
@@ -70,7 +81,10 @@ class RegisterForm(forms.ModelForm):
     password2 = forms.CharField(
         label=_('Confirmação da palavra passe'),
         strip=False,
-        widget=forms.PasswordInput(),
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Confirmação',
+            'class': 'form-control mb-2'
+        }),
         error_messages={'required': 'Este campo é obrigatório',
                         'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
     )

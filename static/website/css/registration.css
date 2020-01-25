@@ -18,7 +18,7 @@ body {
 }
 .form-signin {
   width: 100%;
-  max-width: 330px;
+  max-width: 400px;
   padding: 15px;
   margin: 0 auto;
   border-radius: 25px;
@@ -49,8 +49,11 @@ body {
 .bg-yellow {
   background-color: #F3AE3A;
 }
+.btn-primary {
+  background-color: #3A67B9;
+}
 #body-login {
-  background-image: url("/static/website/media/website/login-background.jpg");
+  background-color: whitesmoke;
   background-size: cover;
 }
 /*# sourceMappingURL=registration.css.map */

@@ -4,27 +4,33 @@
 {% block title %} Criar uma conta {% endblock %}
 
 {% block content %}
-    <br>
-    <div class="container-fluid">
+    <form method="POST" class="form-signin" novalidate>
+        {% csrf_token %}
+        <a href="{% url 'index' %}">
+            <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+        </a>
+        <h1 class="h3 mb-3 font-weight-normal">Criar uma conta</h1>
+
+        {% for error in form.non_field_errors %}
+            <span class="text-danger float-left"> {{ error }} </span>
+        {% endfor %}
+
+        {% for field in form %}
+            <div class="text-danger">
+                {% for error in field.errors %}
+                    <span class="float-left">{{ error | escape }}</span>
+                {% endfor %}
+            </div>
+            {{ field }}
+        {% endfor %}
         <div class="row">
-            <div class="col-lg-4 col-md-3 col-sm-3">
-                <form method="POST" class="form-group" novalidate>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {{ field.label }} {{ field }}
-                        <div class="text-danger">
-                            {% for error in field.errors %}
-                                <span>{{ error | escape }}</span>
-                            {% endfor %}
-                        </div>
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <span class="text-danger"> {{ error }} </span>
-                    {% endfor %}
-                    <button type="submit" name="volunteer" class="btn btn-warning float-left">Registar como voluntário</button>
-                    <button type="submit" name="organization" class="btn btn-danger float-right">Registar como organização</button>
-                </form>
+            <div class="col-6">
+                <button type="submit" name="volunteer" class="btn btn-lg btn-danger btn-block">Registar como voluntário</button>
+            </div>
+            <div class="col-6">
+                <button type="submit" name="organization" class="btn btn-lg btn-warning btn-block">Registar como organização</button>
             </div>
         </div>
-    </div>
+
+    </form>
 {% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base/generic.html' %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <p>Hello friend :)</p>
+    <a href="{% url 'logout' %}">Log out</a>
+    {% endif%}
+{% endblock %}

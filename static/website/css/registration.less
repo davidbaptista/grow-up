@@ -1,4 +1,4 @@
-@color-yellow: #F3AE3A;
+@import "constants";
 
 html, body {
   height: 100%;
@@ -21,7 +21,7 @@ body {
 
 .form-signin {
   	width: 100%;
-  	max-width: 330px;
+  	max-width: 400px;
   	padding: 15px;
   	margin: 0 auto;
 	border-radius: 25px;
@@ -55,12 +55,16 @@ body {
   	border-top-right-radius: 0;
 }
 
-
 .bg-yellow {
     background-color: @color-yellow
 }
 
+.btn-primary {
+	background-color: @color-blue;
+}
+
 #body-login {
-  	background-image: url("/static/website/media/website/login-background.jpg");
+  	//background-image: url("/static/website/media/website/login-background.jpg");
+	background-color: whitesmoke;
 	background-size: cover;
 }

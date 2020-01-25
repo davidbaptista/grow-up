@@ -6,7 +6,6 @@
   font-display: swap;
   src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
 }
-/* Variables */
 /* Functions */
 /* Mixin variables */
 /* HTML Tags */
@@ -181,10 +180,6 @@ ul.social li {
 }
 #choice-row {
   padding: 50px 0;
-}
-#body-login {
-  background-image: url("/static/website/media/website/login-background.jpg");
-  background-size: cover;
 }
 #login-box {
   height: 300px;
