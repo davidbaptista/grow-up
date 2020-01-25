@@ -4,7 +4,7 @@
 {% block title %} Criar uma conta {% endblock %}
 
 {% block content %}
-    <form method="POST" class="form-signin" novalidate>
+    <form method="POST" class="form-signin bg-gray" novalidate>
         {% csrf_token %}
         <a href="{% url 'index' %}">
             <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
@@ -25,10 +25,10 @@
         {% endfor %}
         <div class="row">
             <div class="col-6">
-                <button type="submit" name="volunteer" class="btn btn-lg btn-danger btn-block">Registar como voluntário</button>
+                <button type="submit" name="volunteer" class="btn btn-lg btn-blue text-white btn-block">Registar como voluntário</button>
             </div>
             <div class="col-6">
-                <button type="submit" name="organization" class="btn btn-lg btn-warning btn-block">Registar como organização</button>
+                <button type="submit" name="organization" class="btn btn-lg btn-yellow text-white btn-block">Registar como organização</button>
             </div>
         </div>
 

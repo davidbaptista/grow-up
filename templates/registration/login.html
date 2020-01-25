@@ -4,7 +4,7 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
-    <form method="POST" class="form-signin" novalidate>
+    <form method="POST" class="form-signin bg-gray" novalidate>
         {% csrf_token %}
 
         <a href="{% url 'index' %}" >
