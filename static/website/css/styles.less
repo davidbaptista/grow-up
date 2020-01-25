@@ -1,0 +1,373 @@
+/* Imports */
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+/* Variables */
+@empty: "";
+@color-blue: #3A67B9;
+@color-yellow: #F3AE3A;
+@color-white: #FFFFFF;
+@color-green: #009933;
+@font-base: 'Lato', sans-serif;
+@font-header: paralucent-stencil, sans-serif;
+
+/* Functions */
+.font-size(@size) {
+    font-size: @size;
+}
+
+.margin(@size) {
+    margin: @size;
+}
+
+.margin(@size1, @size2) {
+    margin: @size1 @size2;
+}
+
+.margin(@size1, @size2, @size3) {
+    margin: @size1 @size2, @size3;
+}
+
+.margin(@size1, @size2, @size3, @size4) {
+    margin: @size1 @size2, @size3, @size4;
+}
+
+.padding(@size) {
+    padding: @size;
+}
+
+.padding(@size1, @size2) {
+    padding: @size1 @size2;
+}
+
+.padding(@size1, @size2, @size3) {
+    padding: @size1 @size2, @size3;
+}
+
+.padding(@size1, @size2, @size3, @size4) {
+    padding: @size1 @size2, @size3, @size4;
+}
+
+/* Mixin variables */
+.color-white() {
+    color: @color-white;
+}
+
+.color-blue() {
+    color: @color-blue;
+}
+
+.color-yellow() {
+    color: @color-yellow;
+}
+
+.font-base() {
+    font-family: @font-base;
+}
+
+.font-header() {
+    font-family: @font-header;
+    text-transform: uppercase;
+}
+
+.fill() {
+    width: 100%;
+    height: 100%;
+}
+
+/* HTML Tags */
+html, body {
+    .font-base();
+  	margin: 0;
+  	height: percentage(1);
+}
+
+h1 {
+    .color-white();
+    .font-header();
+    .margin(15px);
+}
+
+h2 {
+   .font-header()
+}
+
+footer {
+    .padding(15px, 0);
+}
+
+/* Bootstrap classes */
+.container-fluid {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.row {
+		margin: 0 !important;
+	padding: 0 !important;
+	width: 100%;
+}
+
+.img-fluid {
+    .fill();
+}
+
+.navbar {
+    .color-white();
+    .font-header();
+    .font-size(28px);
+}
+
+.nav-item {
+    .padding(15px)
+}
+
+.nav-text {
+	.color-white() !important;
+	.font-header();
+	letter-spacing: 0.1em;
+	position: relative;
+	&:after {
+		background: @color-white;
+		bottom: 0;
+		content: @empty;
+		display: block;
+		left: percentage(0.5);
+		height: 2px;
+		position: absolute;
+		transition: width 0.3s ease 0s, left 0.3s ease 0s;
+		width: 0;
+	}
+	&:hover {
+		&:after {
+			width: percentage(1);
+			left: 0;
+		}
+	}
+}
+ul.social {
+	display: inline;
+	list-style: none;
+	margin-left: 0;
+	padding: 0;
+	li {
+		display: inline;
+		margin: 0 6px;
+	}
+}
+.facebook {
+	&:hover {
+		background-color: #3B5998;
+	}
+}
+.instagram {
+	&:hover {
+		background-color: #bd3799;
+	}
+}
+.social {
+	.facebook {
+		&:hover {
+			i {
+				color: #afafaf;
+			}
+		}
+	}
+	.instagram {
+		&:hover {
+			i {
+				color: #afafaf;
+			}
+		}
+	}
+}
+.social-circle {
+	li {
+		a {
+			i {
+				background-color: #afafaf;
+				border-radius: percentage(0.5);
+				display: inline-block;
+				font-size: 20px;
+				height: 50px;
+				text-align: center;
+				margin: 0 auto 0 auto;
+				position: relative;
+				width: 50px;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+			}
+		}
+		i {
+			line-height: 50px;
+			text-align: center;
+			margin: 0;
+			transition-duration: 0.3s;
+		}
+	}
+	i {
+		color: #ffffff;
+	}
+}
+
+/* Other classes */
+.navbar-yellow {
+    background-color: @color-yellow;
+    font-weight: bold;
+}
+
+.card {
+	border-radius: 15px;
+	background-color: @color-yellow;
+	top: percentage(.25);
+}
+
+.btn-primary {
+	background-color: @color-blue;
+}
+
+.btn-success {
+	background-color: @color-green;
+}
+
+.bg-blue {
+    background-color: @color-blue;
+}
+
+.bg-yellow {
+    background-color: @color-yellow
+}
+
+.row-images {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 650px;
+}
+
+.col-images {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100%;
+}
+
+.choice-circle {
+    border: @color-yellow solid 5px;
+    border-radius: 50%;
+    background-color: @color-blue;
+    color: @color-white;
+    display: inline-block;
+    font-family: @font-header;
+    font-size: 28px;
+    font-weight: bold;
+    height: 250px;
+	margin: 0;
+    padding: 70px 0 0 0;
+    width: 250px;
+}
+
+.hand {
+    height: 85px;
+    width: 50px;
+}
+
+.footer-text {
+    margin: 0;
+    padding: 10px 0 0 0;
+}
+
+/* IDs */
+#login-button {
+    border-style: solid;
+    border-width: 5px;
+    border-color: @color-yellow @color-yellow @color-yellow @color-blue;
+    .padding(3px)
+}
+
+#choice-row {
+    .padding(50px, 0);
+}
+
+#login-box {
+	height: 300px;
+	position: relative;
+  	margin: 0;
+  	top: 50%;
+  	-ms-transform: translateY(-50%);
+  	transform: translateY(-50%);
+}
+
+#logo {
+    height: 150px;
+    width: 150px;
+}
+
+/* Media conditions */
+@media screen and (max-width: 1200px) {
+	.row-images {
+		height: 500px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	h1 {
+		font-size: 28px !important;
+	}
+	.row-images {
+		height: 400px;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	h1 {
+		font-size: 24px !important;
+	}
+	footer {
+		height: 150px !important;
+		font-size: 14px;
+	}
+	.social-circle {
+		line-height: 25px !important;
+	}
+	.navbar {
+		min-height: 50px;
+		font-size: 16px;
+	}
+	.nav-text {
+		&:after {
+			height: 0;
+		}
+	}
+	.nav-item {
+		padding: 5px 0;
+	}
+	.row-images {
+		height: 200px;
+	}
+	.choice-circle {
+		height: 150px;
+		padding: 35px 0 0 0;
+		font-size: 18px;
+		width: 150px;
+	}
+	.footer-text {
+		padding: 0 0 5px 0;
+	}
+	#login-button {
+		border-width: 0;
+		padding: 5px 0;
+	}
+
+	.hand {
+		margin-top: 10px;
+		height: 45px !important;
+		width: 25px !important;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.choice-circle {
+		height: 125px;
+		padding: 25px 0 0 0;
+		font-size: 16px;
+		width: 125px;
+	}
+}

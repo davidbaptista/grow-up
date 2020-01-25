@@ -1,42 +1,45 @@
 from django import forms
-from django.contrib.auth import password_validation
+from django.contrib.auth import password_validation, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
-class LoginForm(AuthenticationForm):
-    username = UsernameField(
+class LoginForm(forms.Form):
+    username = forms.CharField(
         label=_('Nome de utilizador'),
-        widget=forms.TextInput(attrs={'autofocus': True}),
-        error_messages={'required': 'Este campo é obrigatório'},
+        widget=forms.TextInput(attrs={'autofocus': True,
+                                      'placeholder': 'Nome de utilizador',
+                                      'class': 'form-input-username form-control mb-2'}),
+        error_messages={'required': _('Campo obrigatório')},
     )
 
     password = forms.CharField(
         label=_("Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'}),
-        error_messages={'required': 'Este campo é obrigatório'},
+        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password',
+                                          'placeholder': 'Password',
+                                          'class': 'form-input-password form-control mb-2'}),
+        error_messages={'required': _('Campo obrigatório')},
     )
 
-    error_messages = {
-        'invalid_login': _(
-            'Por favor insira credenciais válidas'
-        ),
-        'inactive': _("Esta conta está inativa"),
-    }
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
 
-    def __init__(self, *args, **kwargs):
-        self.error_messages['invalid_login'] = 'Credenciais erradas'
-        super().__init__(*args, **kwargs)
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise forms.ValidationError('Credenciais erradas')
+            if not user.check_password(password):
+                raise forms.ValidationError('Credenciais erradas')
+            if not user.is_active:
+                raise forms.ValidationError('Credenciais erradas')
+        return super(LoginForm, self).clean()
 
-    class Meta:
-        model = User
-        fields = ['username', 'password']
 
-
-class RegisterForm(UserCreationForm):
+class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         label=_('Nome de utilizador'),
         error_messages={'required': 'Este campo é obrigatório',
@@ -46,7 +49,6 @@ class RegisterForm(UserCreationForm):
 
     email = forms.EmailField(
         label=_('Email'),
-
         error_messages={'required': 'Este campo é obrigatório',
                         'invalid': 'Email inválido',
                         'unique': 'Já existe um utilizador com esse email'},
@@ -77,6 +79,26 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+    def clean(self, *args, **kwargs):
+        email = self.cleaned_data.get('email')
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 != password2:
+            raise forms.ValidationError('As passwords devem ser iguais')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('Já existe um utilizador com esse email')
+
+        return super(RegisterForm, self).clean()
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+
+        if User.objects.filter(username=username).exists():
+            raise ValidationError('Já existe um utilizador com esse nome de utilizador')
+
+        return username
+
     def clean_email(self):
         email = self.cleaned_data['email']
 
@@ -84,3 +106,11 @@ class RegisterForm(UserCreationForm):
             raise ValidationError('Já existe um utilizador com esse email')
 
         return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.is_active = False
+        if commit:
+            user.save()
+        return user

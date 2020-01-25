@@ -1,19 +1,37 @@
-{% extends 'base/generic.html' %}
+{% extends 'registration/generic.html' %}
 
 {% load static %}
 {% block title %} Login {% endblock %}
-{% load crispy_forms_tags %}
 
 {% block content %}
-    <br>
-    <div class="container bg-white">
-        <form method="POST" class="form-group" novalidate>
-            {% csrf_token %}
-            {{ form|crispy }}
-            {{ form.username.errors.as_text|cut:"* " }}
+    <form method="POST" class="form-signin bg-yellow text-white" novalidate>
+        {% csrf_token %}
+        <a href="{% url 'index' %}">
+            <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+        </a>
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
-            <button type="submit" class="btn btn-success">Login</button>
-            <p>Não se registou? <a href="{% url 'register' %}">Crie uma conta</a></p>
-        </form>
-    </div>
+        {% for error in form.non_field_errors %}
+             <span class="text-danger float-left"> {{ error }}</span>
+        {% endfor %}
+
+        {% for error in form.username.errors %}
+            <span class="text-danger float-left">{{ error | escape }}</span>
+        {% endfor %}
+        {{ form.username }}
+
+        {% for error in form.password.errors %}
+            <span class="text-danger float-left">{{ error | escape }}</span>
+        {% endfor %}
+        {{ form.password }}
+
+
+        <div class="checkbox mb-2 float-left">
+            <label>
+                <input type="checkbox" value="remember-me"> Lembrar sessão
+            </label>
+        </div>
+        <a href="{% url 'register' %}" class="float-right text-primary">Criar conta</a>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    </form>
 {% endblock %}

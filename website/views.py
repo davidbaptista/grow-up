@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
@@ -26,10 +27,7 @@ def register(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
             user.save()
-
-            current_site = get_current_site(response)
 
             email_subject = 'Ative a sua conta'
 
@@ -43,7 +41,6 @@ def register(response):
                 return HttpResponse('Enviamos um email para confirmar o seu registo como voluntário')
             elif 'organization' in response.POST:
                 return HttpResponse('Enviamos um email para confirmar o registo como organização.')
-
     else:
         form = RegisterForm()
 
