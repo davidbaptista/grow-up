@@ -1,4 +1,4 @@
-{% extends 'registration/generic.html' %}
+{% extends 'generic/generic_dashboard.html' %}
 
 {% load static %}
 {% block title %} Criar uma conta {% endblock %}
@@ -9,7 +9,7 @@
         <a href="{% url 'index' %}">
             <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
         </a>
-        <h1 class="h3 mb-3 font-weight-normal">Criar uma conta</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Criar uma conta de {{ message }}</h1>
 
         {% for error in form.non_field_errors %}
             <span class="text-danger float-left"> {{ error }} </span>
@@ -23,14 +23,13 @@
             </div>
             {{ field }}
         {% endfor %}
-        <div class="row">
-            <div class="col-6">
-                <button type="submit" name="volunteer" class="btn btn-lg btn-blue text-white btn-block">Registar como voluntário</button>
-            </div>
-            <div class="col-6">
-                <button type="submit" name="organization" class="btn btn-lg btn-yellow text-white btn-block">Registar como organização</button>
-            </div>
-        </div>
+        <a href="{% url 'login' %}" class="float-right text-primary mb-2">Fazer login</a>
 
+        {% if type == 'organisation' %}
+            <button class="btn btn-lg btn-blue text-white btn-block" type="submit">Registar como {{ message }}</button>
+        {% elif type == 'volunteer' %}
+
+            <button class="btn btn-lg btn-yellow text-white btn-block" type="submit">Registar como {{ message }}</button>
+        {% endif %}
     </form>
 {% endblock %}

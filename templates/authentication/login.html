@@ -1,4 +1,4 @@
-{% extends 'registration/generic.html' %}
+{% extends 'generic/generic_dashboard.html' %}
 
 {% load static %}
 {% block title %} Login {% endblock %}
@@ -33,7 +33,16 @@
                 <input type="checkbox" value="remember-me"> Lembrar sessão
             </label>
         </div>
-        <a href="{% url 'register' %}" class="float-right text-primary">Criar conta</a>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+
+        <button class="btn btn-lg btn-primary text-white btn-block mb-3" type="submit">Login</button>
+        <div class="row">
+            <div class="col-6">
+                <a href="{% url 'register-organisation' %}" class="float-left btn btn-blue text-white">Criar conta de organização</a>
+            </div>
+             <div class="col-6">
+                <a href="{% url 'register-volunteer' %}" class="float-right btn btn-yellow text-white">Criar conta de voluntário</a>
+            </div>
+        </div>
+
     </form>
 {% endblock %}

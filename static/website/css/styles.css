@@ -8,6 +8,10 @@
 }
 /* Functions */
 /* Mixin variables */
+#logo {
+  height: 150px !important;
+  width: 150px !important;
+}
 /* HTML Tags */
 html,
 body {
@@ -122,17 +126,6 @@ ul.social li {
   background-color: #F3AE3A;
   font-weight: bold;
 }
-.card {
-  border-radius: 15px;
-  background-color: #F3AE3A;
-  top: 25%;
-}
-.btn-primary {
-  background-color: #3A67B9;
-}
-.btn-success {
-  background-color: #009933;
-}
 .bg-blue {
   background-color: #3A67B9;
 }
@@ -160,7 +153,7 @@ ul.social li {
   font-weight: bold;
   height: 250px;
   margin: 0;
-  padding: 70px 0 0 0;
+  padding: 40px 0 0 0;
   width: 250px;
 }
 .hand {
@@ -188,10 +181,6 @@ ul.social li {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-#logo {
-  height: 150px;
-  width: 150px;
 }
 /* Media conditions */
 @media screen and (max-width: 1200px) {
@@ -233,7 +222,7 @@ ul.social li {
   }
   .choice-circle {
     height: 150px;
-    padding: 35px 0 0 0;
+    padding: 20px 0 0 0;
     font-size: 18px;
     width: 150px;
   }
@@ -253,8 +242,8 @@ ul.social li {
 @media screen and (max-width: 400px) {
   .choice-circle {
     height: 125px;
-    padding: 25px 0 0 0;
-    font-size: 16px;
+    padding: 13px 0 0 0;
+    font-size: 14px;
     width: 125px;
   }
 }

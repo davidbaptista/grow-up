@@ -39,12 +39,12 @@ class LoginForm(forms.Form):
         return super(LoginForm, self).clean()
 
 
-class RegisterForm(forms.ModelForm):
+class RegisterFormVolunteer(forms.ModelForm):
     username = forms.CharField(
         label=_('Nome de utilizador'),
         widget=forms.TextInput(attrs={
             'placeholder': 'Nome de utilizador',
-            'class': 'form-input-password form-control mb-2'
+            'class': 'form-control mb-2'
         }),
         error_messages={'required': 'Este campo é obrigatório',
                         'unique': 'Já existe um utilizador com esse nome',
@@ -103,7 +103,7 @@ class RegisterForm(forms.ModelForm):
         if User.objects.filter(email=email).exists():
             raise ValidationError('Já existe um utilizador com esse email')
 
-        return super(RegisterForm, self).clean()
+        return super(RegisterFormVolunteer, self).clean()
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -128,3 +128,16 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class RegisterFormOrganisation(RegisterFormVolunteer):
+    email = forms.EmailField(
+        label=_('Email'),
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Email do responsável ou organização',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório',
+                        'invalid': 'Email inválido',
+                        'unique': 'Já existe um utilizador com esse email'},
+    )

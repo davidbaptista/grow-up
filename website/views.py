@@ -1,61 +1,70 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as logon
 from django.contrib.auth.decorators import login_required
-from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from website.forms import RegisterForm, LoginForm
+from website.forms import RegisterFormVolunteer, LoginForm, RegisterFormOrganisation
 
-
+'''Intro page views'''
 def index(request):
-    return render(request, 'base/index.html')
+    return render(request, 'intro/index.html')
 
 
+def organisation(request):
+    return render(request, 'intro/organisation.html')
+
+
+def volunteer(request):
+    return render(request, 'intro/volunteer.html')
+
+
+'''Dashboard views '''
 @login_required(redirect_field_name='index')
 def dashboard(request):
-    return render(request, 'base/dashboard.html')
+    return render(request, 'dashboard/dashboard.html')
 
+'''Authentication views'''
+def login(response):
+    form = LoginForm(response.POST or None)
+    if response.method == 'POST' and form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
 
-def login_request(response):
-    if response.method == 'POST':
-        form = LoginForm(response.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(response, user)
-                return redirect('dashboard')
+        if user is not None:
+            logon(response, user)
+            return redirect('dashboard')
     else:
-        form = LoginForm()
-
-    return render(response, 'registration/login.html', {'form': form})
+        return render(response, 'authentication/login.html', {'form': form})
 
 
-def register(response):
-    if response.method == 'POST':
-        form = RegisterForm(response.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
+def register_organisation(response):
+    form = RegisterFormOrganisation(response.POST or None)
+    if response.method == 'POST' and form.is_valid():
+        user = form.save(commit=False)
+        user.save()
 
-            email_subject = 'Ative a sua conta'
+        return HttpResponse('Enviamos um email para confirmar o seu registo como organização')
 
-            message = 'ola'
-
-            to_email = form.cleaned_data.get('email')
-            email = EmailMessage(email_subject, message, to=[to_email])
-            #email.send()
-
-            if 'volunteer' in response.POST:
-                return HttpResponse('Enviamos um email para confirmar o seu registo como voluntário')
-            elif 'organization' in response.POST:
-                return HttpResponse('Enviamos um email para confirmar o registo como organização.')
-    else:
-        form = RegisterForm()
-
-    return render(response, 'registration/register.html', {'form': form})
+    return render(response, 'authentication/register.html', {'form': form,
+                                                             'type': 'organisation',
+                                                             'message': 'organização'})
 
 
-def activate(request):
-    pass
+def register_volunteer(response):
+    form = RegisterFormVolunteer(response.POST or None)
+    if response.method == 'POST' and form.is_valid():
+        user = form.save(commit=False)
+        user.save()
+
+        '''email_subject = 'Ative a sua conta de voluntário'
+        message = 'Change later'
+        to_email = form.cleaned_data.get('email')
+        email = EmailMessage(email_subject, message, to=[to_email])
+        email.send() '''
+
+        return HttpResponse('Enviamos um email para confirmar o seu registo como voluntário')
+
+    return render(response, 'authentication/register.html', {'form': form,
+                                                             'type': 'volunteer',
+                                                             'message': 'voluntário'})

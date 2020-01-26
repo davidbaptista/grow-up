@@ -1,8 +1,18 @@
+/* Functions */
+/* Mixin variables */
+#logo {
+  height: 150px !important;
+  width: 150px !important;
+}
 html,
 body {
   height: 100%;
 }
 body {
+  height: 100%;
+  overflow: hidden;
+}
+.container-center {
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -12,9 +22,9 @@ body {
   align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
+  padding: 0;
+  height: 100%;
+  background-color: transparent;
 }
 .bg-gray {
   background-color: #eaeaea;
@@ -31,10 +41,13 @@ body {
 .btn-yellow:hover {
   background-color: #ffb73d;
 }
+.bg-yellow {
+  background-color: #F3AE3A;
+}
 .form-signin {
   width: 100%;
   max-width: 400px;
-  padding: 15px;
+  padding: 10px;
   margin: 0 auto;
   border-radius: 25px;
 }
@@ -61,11 +74,18 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-.bg-yellow {
+.navbar {
+  color: #FFFFFF;
+  font-family: paralucent-stencil, sans-serif;
+  text-transform: uppercase;
+  font-size: 28px;
+}
+.navbar-yellow {
   background-color: #F3AE3A;
+  font-weight: bold;
 }
 #body-login {
   background-image: url("/static/website/media/website/login-background.png");
   background-size: cover;
 }
-/*# sourceMappingURL=registration.css.map */
+/*# sourceMappingURL=authentication.css.map */

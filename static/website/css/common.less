@@ -1,0 +1,77 @@
+@empty: "";
+@color-blue: #3A67B9;
+@color-yellow: #F3AE3A;
+@color-white: #FFFFFF;
+@color-green: #009933;
+@font-base: 'Lato', sans-serif;
+@font-header: paralucent-stencil, sans-serif;
+
+/* Functions */
+.font-size(@size) {
+    font-size: @size;
+}
+
+.margin(@size) {
+    margin: @size;
+}
+
+.margin(@size1, @size2) {
+    margin: @size1 @size2;
+}
+
+.margin(@size1, @size2, @size3) {
+    margin: @size1 @size2, @size3;
+}
+
+.margin(@size1, @size2, @size3, @size4) {
+    margin: @size1 @size2, @size3, @size4;
+}
+
+.padding(@size) {
+    padding: @size;
+}
+
+.padding(@size1, @size2) {
+    padding: @size1 @size2;
+}
+
+.padding(@size1, @size2, @size3) {
+    padding: @size1 @size2, @size3;
+}
+
+.padding(@size1, @size2, @size3, @size4) {
+    padding: @size1 @size2, @size3, @size4;
+}
+
+/* Mixin variables */
+.color-white() {
+    color: @color-white;
+}
+
+.color-blue() {
+    color: @color-blue;
+}
+
+.color-yellow() {
+    color: @color-yellow;
+}
+
+.font-base() {
+    font-family: @font-base;
+}
+
+.font-header() {
+    font-family: @font-header;
+    text-transform: uppercase;
+}
+
+.fill() {
+    width: 100%;
+    height: 100%;
+}
+
+
+#logo {
+    height: 150px !important;
+    width: 150px !important;
+}
