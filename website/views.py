@@ -1,20 +1,27 @@
-from django.contrib.auth import authenticate, login as logon
+from django.contrib.auth import authenticate, login as logon, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from website.forms import RegisterFormVolunteer, LoginForm, RegisterFormOrganisation
+from website.forms import RegisterFormVolunteer, LoginForm, RegisterFormOrganisation, PasswordChangeForm, \
+    PasswordResetForm
 
 '''Intro page views'''
 def index(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     return render(request, 'intro/index.html')
 
 
 def organisation(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     return render(request, 'intro/organisation.html')
 
 
 def volunteer(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     return render(request, 'intro/volunteer.html')
 
 
@@ -25,7 +32,9 @@ def dashboard(request):
 
 '''Authentication views'''
 def login(response):
-    form = LoginForm(response.POST or None)
+    if response.user.is_authenticated:
+        return redirect('dashboard')
+    form = LoginForm(data=response.POST or None)
     if response.method == 'POST' and form.is_valid():
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
@@ -39,7 +48,9 @@ def login(response):
 
 
 def register_organisation(response):
-    form = RegisterFormOrganisation(response.POST or None)
+    if response.user.is_authenticated:
+        return redirect('dashboard')
+    form = RegisterFormOrganisation(data=response.POST or None)
     if response.method == 'POST' and form.is_valid():
         user = form.save(commit=False)
         user.save()
@@ -52,7 +63,9 @@ def register_organisation(response):
 
 
 def register_volunteer(response):
-    form = RegisterFormVolunteer(response.POST or None)
+    if response.user.is_authenticated:
+        return redirect('dashboard')
+    form = RegisterFormVolunteer(data=response.POST or None)
     if response.method == 'POST' and form.is_valid():
         user = form.save(commit=False)
         user.save()
@@ -68,3 +81,15 @@ def register_volunteer(response):
     return render(response, 'authentication/register.html', {'form': form,
                                                              'type': 'volunteer',
                                                              'message': 'voluntário'})
+
+@login_required(redirect_field_name='index')
+def change_password(response):
+    form = PasswordChangeForm(data=response.POST or None, user=response.user)
+
+    if response.method == 'POST' and form.is_valid():
+        form.save()
+        update_session_auth_hash(response, form.user)
+        return redirect('dashboard')
+
+    return render(response, 'authentication/change_password.html', {'form': form})
+

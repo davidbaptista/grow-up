@@ -122,10 +122,6 @@ ul.social li {
   color: #ffffff;
 }
 /* Other classes */
-.navbar-yellow {
-  background-color: #F3AE3A;
-  font-weight: bold;
-}
 .bg-blue {
   background-color: #3A67B9;
 }
@@ -163,6 +159,10 @@ ul.social li {
 .footer-text {
   margin: 0;
   padding: 10px 0 0 0;
+}
+.navbar-yellow {
+  background-color: #F3AE3A;
+  font-weight: bold;
 }
 /* IDs */
 #login-button {
@@ -247,4 +247,4 @@ ul.social li {
     width: 125px;
   }
 }
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=intro.css.map */

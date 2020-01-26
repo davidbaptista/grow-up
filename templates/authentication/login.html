@@ -1,6 +1,6 @@
-{% extends 'generic/generic_dashboard.html' %}
-
+{% extends 'generic/generic_authentication.html' %}
 {% load static %}
+
 {% block title %} Login {% endblock %}
 
 {% block content %}
@@ -29,9 +29,7 @@
 
 
         <div class="checkbox mb-2 float-left">
-            <label>
-                <input type="checkbox" value="remember-me"> Lembrar sessão
-            </label>
+            <a href="{% url 'reset-password' %}">Esqueci me da password</a>
         </div>
 
         <button class="btn btn-lg btn-primary text-white btn-block mb-3" type="submit">Login</button>
@@ -43,6 +41,5 @@
                 <a href="{% url 'register-volunteer' %}" class="float-right btn btn-yellow text-white">Criar conta de voluntário</a>
             </div>
         </div>
-
     </form>
 {% endblock %}
