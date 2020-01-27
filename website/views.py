@@ -3,9 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from website.forms import RegisterFormVolunteer, LoginForm, RegisterFormOrganisation, PasswordChangeForm, \
-    PasswordResetForm
-
+from website.forms import RegisterFormVolunteer, LoginForm, RegisterFormOrganisation, PasswordChangeForm
 '''Intro page views'''
 def index(request):
     if request.user.is_authenticated:
@@ -83,7 +81,7 @@ def register_volunteer(response):
                                                              'message': 'voluntário'})
 
 @login_required(redirect_field_name='index')
-def change_password(response):
+def password_change(response):
     form = PasswordChangeForm(data=response.POST or None, user=response.user)
 
     if response.method == 'POST' and form.is_valid():
@@ -91,5 +89,4 @@ def change_password(response):
         update_session_auth_hash(response, form.user)
         return redirect('dashboard')
 
-    return render(response, 'authentication/change_password.html', {'form': form})
-
+    return render(response, 'authentication/password_change.html', {'form': form})

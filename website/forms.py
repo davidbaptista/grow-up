@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import password_validation, authenticate
-from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -189,3 +189,27 @@ class PasswordResetForm(PasswordResetForm):
                         'invalid': 'Email inválido'}
     )
 
+class SetPasswordForm(SetPasswordForm):
+    error_messages = {
+        'password_mismatch': _('As passwords não são iguais'),
+    }
+    new_password1 = forms.CharField(
+        label='',
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password',
+                                          'placeholder': 'Password nova',
+                                          'class': 'form-control mb-2'}),
+        error_messages={'required': 'Este campo é obrigatório',
+                        'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+
+    new_password2 = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password',
+                                          'placeholder': 'Confirmação da password',
+                                          'class': 'form-control mb-2'}),
+        error_messages={'required': 'Este campo é obrigatório',
+                        'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+    )
