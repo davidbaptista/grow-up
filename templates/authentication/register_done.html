@@ -1,0 +1,20 @@
+{% extends 'generic/generic_authentication.html' %}
+{% load static %}
+
+{% block title %} Sucesso {% endblock %}
+
+{% block content %}
+    <div class="form-signin bg-gray">
+        {% csrf_token %}
+
+        <a href="{% url 'index' %}" >
+            <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+        </a>
+
+        <h5 class="h5 mb-5 font-weight-normal">Foi lhe enviado um email para confirmar o seu registo</h5>
+
+        <a href="{% url 'login' %}" class="btn btn-primary">
+            Voltar ao login
+        </a>
+    </div>
+{% endblock %}

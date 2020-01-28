@@ -1,0 +1,10 @@
+{% autoescape off %}
+Para ativar a sua conta Grow Up, clique no link abaixo
+
+{{ protocol }}://{{ domain }}{% url 'register_complete' uidb64=uid token=token %}
+
+Se carregar no link não funciona, por favor copie e cole o URL no browser
+
+Atenciosamente,
+A equipa do Grow Up
+{% endautoescape %}

@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class OrganizationType(models.Model):
+class OrganisationType(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -16,21 +16,19 @@ class Profile:
 
 class VolunteerProfile(models.Model, Profile):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=127)
-    middle_names = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=127)
-    gender = models.BooleanField()
-    age = models.SmallIntegerField()
-    image = models.FileField(upload_to='static/media/users/')
-    occupation = models.CharField(max_length=127)
-    location = models.CharField(max_length=255)
-    phone_number = models.IntegerField()
+    middle_names = models.CharField(max_length=255, blank=True)
+    gender = models.BooleanField(default=False, blank=True)
+    age = models.SmallIntegerField(blank=True, null=True, default=0)
+    image = models.FileField(upload_to='static/media/users/', blank=True)
+    occupation = models.CharField(max_length=127, blank=True)
+    location = models.CharField(max_length=255, blank=True)
+    phone_number = models.IntegerField(blank=True, null=True, default=0)
 
 
-class OrganizationProfile(models.Model, Profile):
+class OrganisationProfile(models.Model, Profile):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    organization_name = models.CharField(max_length=255)
-    representative_name = models.CharField(max_length=255)
+    organisation_name = models.CharField(max_length=255, blank=True)
+    representative_name = models.CharField(max_length=255, blank=True)
 
     class AgeGroup(models.TextChoices):
         CHILDREN = 'CR', _('Crianças')
@@ -41,7 +39,8 @@ class OrganizationProfile(models.Model, Profile):
     age_group = models.CharField(
         max_length=2,
         choices=AgeGroup.choices,
-        default=AgeGroup.ADULTS
+        default=AgeGroup.ADULTS,
+        blank=True
     )
 
-    organization_types = models.ManyToManyField(OrganizationType)
+    organisation_types = models.ManyToManyField(OrganisationType, blank=True)
