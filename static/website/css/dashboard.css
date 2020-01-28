@@ -4,6 +4,12 @@
   height: 150px !important;
   width: 150px !important;
 }
+#login-button {
+  border-style: solid;
+  border-width: 5px;
+  border-color: #F3AE3A #F3AE3A #F3AE3A #3A67B9;
+  padding: 3px;
+}
 html,
 body {
   height: 100%;
@@ -20,5 +26,9 @@ body {
 .navbar-yellow {
   background-color: #F3AE3A;
   font-weight: bold;
+}
+#logo {
+  height: 100px !important;
+  width: 100px !important;
 }
 /*# sourceMappingURL=dashboard.css.map */

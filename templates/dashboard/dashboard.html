@@ -2,8 +2,5 @@
 {% load static %}
 
 {% block content %}
-    {% if user.is_authenticated %}
-    <p>Hello friend :)</p>
-    <a href="{% url 'logout' %}">Log out</a>
-    {% endif%}
+    <h1>Hello {{ user.username }} :)</h1>
 {% endblock %}

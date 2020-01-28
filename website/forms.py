@@ -3,6 +3,7 @@ from django.contrib.auth import password_validation, authenticate
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
 
@@ -39,7 +40,7 @@ class LoginForm(forms.Form):
         return super(LoginForm, self).clean()
 
 
-class RegisterFormVolunteer(forms.ModelForm):
+class RegisterFormOrganisation(forms.ModelForm):
     username = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={
@@ -53,18 +54,12 @@ class RegisterFormVolunteer(forms.ModelForm):
 
     email = forms.EmailField(
         label='',
-        widget=forms.EmailInput(attrs={
-            'placeholder': 'Email',
-            'class': 'form-control mb-2'
-        }),
+        widget=forms.EmailInput(attrs={'placeholder': 'Email do responsável ou organização',
+                                       'class': 'form-control mb-2'}),
         error_messages={'required': 'Este campo é obrigatório',
                         'invalid': 'Email inválido',
                         'unique': 'Já existe um utilizador com esse email'},
     )
-
-    error_messages = {
-        'password_mismatch': _('As duas palavras passe não são iguais'),
-    }
 
     password1 = forms.CharField(
         label='',
@@ -89,6 +84,10 @@ class RegisterFormVolunteer(forms.ModelForm):
                         'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
     )
 
+    error_messages = {
+        'password_mismatch': _('As duas palavras passe não são iguais'),
+    }
+
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
@@ -103,7 +102,7 @@ class RegisterFormVolunteer(forms.ModelForm):
         if User.objects.filter(email=email).exists():
             raise ValidationError('Já existe um utilizador com esse email')
 
-        return super(RegisterFormVolunteer, self).clean()
+        return super(RegisterFormOrganisation, self).clean()
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -130,15 +129,42 @@ class RegisterFormVolunteer(forms.ModelForm):
         return user
 
 
-class RegisterFormOrganisation(RegisterFormVolunteer):
+class RegisterFormVolunteer(RegisterFormOrganisation):
+    first_name = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Primeiro nome',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório'},
+        validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O nome deve apenas conter letras')]
+    )
+
+    last_name = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Apelido',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório'},
+        validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O nome deve apenas conter letras')]
+    )
+
     email = forms.EmailField(
         label='',
-        widget=forms.EmailInput(attrs={'placeholder': 'Email do responsável ou organização',
-                                       'class': 'form-control mb-2'}),
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Email',
+            'class': 'form-control mb-2'
+        }),
         error_messages={'required': 'Este campo é obrigatório',
                         'invalid': 'Email inválido',
                         'unique': 'Já existe um utilizador com esse email'},
     )
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+
 
 class PasswordChangeForm(PasswordChangeForm):
     error_messages = {'password_mismatch': _('As duas passwords não são iguais'),
@@ -178,6 +204,7 @@ class PasswordChangeForm(PasswordChangeForm):
                         'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
     )
 
+
 class PasswordResetForm(PasswordResetForm):
     email = forms.EmailField(
         label='',
@@ -188,6 +215,7 @@ class PasswordResetForm(PasswordResetForm):
         error_messages={'required': 'Este campo é obrigatório',
                         'invalid': 'Email inválido'}
     )
+
 
 class SetPasswordForm(SetPasswordForm):
     error_messages = {
