@@ -52,6 +52,7 @@ def register_organisation(response):
 	if response.user.is_authenticated:
 		return redirect('index')
 	form = RegisterFormOrganisation(data=response.POST or None)
+
 	if response.method == 'POST' and form.is_valid():
 		user = form.save(commit=False)
 		user.is_active = False
@@ -118,6 +119,9 @@ def register_done(response):
 
 
 def register_complete(response, uidb64, token):
+	if response.user.is_authenticated:
+		return redirect('index')
+
 	try:
 		uid = force_text(urlsafe_base64_decode(uidb64))
 		user = User.objects.get(pk=uid)
@@ -125,9 +129,15 @@ def register_complete(response, uidb64, token):
 		user = None
 
 	if user is not None and authentication_token.check_token(user, token):
-		user.is_active = True
-		user.save()
-		logon(response, user)
+		profile = OrganisationProfile.objects.filter(user=user).first()
+
+		if profile:
+			profile.is_active = True
+			profile.save()
+		else:
+			user.is_active = True
+			user.save()
+			logon(response, user)
 
 		return redirect('dashboard')
 	else:

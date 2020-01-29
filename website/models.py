@@ -29,6 +29,7 @@ class OrganisationProfile(models.Model, Profile):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     organisation_name = models.CharField(max_length=255, blank=True)
     representative_name = models.CharField(max_length=255, blank=True)
+    is_active = models.BooleanField(default=False)
 
     class AgeGroup(models.TextChoices):
         CHILDREN = 'CR', _('Crianças')
