@@ -4,42 +4,44 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
-    <form method="POST" class="form-signin bg-gray" novalidate>
-        {% csrf_token %}
+    <div class="text-center container-center">
+        <form method="POST" class="form-signin bg-gray" novalidate>
+            {% csrf_token %}
 
-        <a href="{% url 'index' %}" >
-            <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
-        </a>
+            <a href="{% url 'index' %}" >
+                <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+            </a>
 
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
-        {% for error in form.non_field_errors %}
-             <span class="text-danger float-left"> {{ error }}</span>
-        {% endfor %}
+            {% for error in form.non_field_errors %}
+                 <span class="text-danger float-left"> {{ error }}</span>
+            {% endfor %}
 
-        {% for error in form.username.errors %}
-            <span class="text-danger float-left">{{ error | escape }}</span>
-        {% endfor %}
-        {{ form.username }}
+            {% for error in form.username.errors %}
+                <span class="text-danger float-left">{{ error | escape }}</span>
+            {% endfor %}
+            {{ form.username }}
 
-        {% for error in form.password.errors %}
-            <span class="text-danger float-left">{{ error | escape }}</span>
-        {% endfor %}
-        {{ form.password }}
+            {% for error in form.password.errors %}
+                <span class="text-danger float-left">{{ error | escape }}</span>
+            {% endfor %}
+            {{ form.password }}
 
 
-        <div class="checkbox mb-2 float-left">
-            <a href="{% url 'password_reset' %}">Esqueci me da password</a>
-        </div>
-
-        <button class="btn btn-lg btn-primary text-white btn-block mb-3" type="submit">Login</button>
-        <div class="row">
-            <div class="col-6">
-                <a href="{% url 'register_organisation' %}" class="float-left btn btn-blue text-white">Criar conta de organização</a>
+            <div class="checkbox mb-2 float-left">
+                <a href="{% url 'password_reset' %}">Esqueci me da password</a>
             </div>
-             <div class="col-6">
-                <a href="{% url 'register_volunteer' %}" class="float-right btn btn-yellow text-white">Criar conta de voluntário</a>
+
+            <button class="btn btn-lg btn-primary text-white btn-block mb-3" type="submit">Login</button>
+            <div class="row">
+                <div class="col-6">
+                    <a href="{% url 'register_organisation' %}" class="float-left btn btn-blue text-white">Criar conta de organização</a>
+                </div>
+                 <div class="col-6">
+                    <a href="{% url 'register_volunteer' %}" class="float-right btn btn-yellow text-white">Criar conta de voluntário</a>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}

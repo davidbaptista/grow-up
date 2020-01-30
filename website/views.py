@@ -154,3 +154,19 @@ def password_change(response):
 		return redirect('dashboard')
 
 	return render(response, 'authentication/password_change.html', {'form': form})
+
+
+@login_required(redirect_field_name='index')
+def staff(request):
+	if request.user.is_staff:
+		return render(request, 'staff/staff.html')
+	else:
+		return redirect('index')
+
+
+@login_required(redirect_field_name='index')
+def manage_organisations(request):
+	if request.user.is_staff:
+		return render(request, 'staff/manage_organisations.html')
+	else:
+		return redirect('index')

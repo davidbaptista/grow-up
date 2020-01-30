@@ -38,5 +38,7 @@ urlpatterns = [
     path('register-organisation/', views.register_organisation, name='register_organisation'),
     path('register-volunteer/', views.register_volunteer, name='register_volunteer'),
     path('register-done/',  views.register_done, name='register_done'),
-    path('register-complete/<uidb64>/<token>/', views.register_complete, name='register_complete')
+    path('register-complete/<uidb64>/<token>/', views.register_complete, name='register_complete'),
+    path('staff/', views.staff, name='staff'),
+    path('manage-organisations/', views.manage_organisations, name='manage_organisations'),
 ]

@@ -40,7 +40,6 @@ class OrganisationProfile(models.Model, Profile):
     age_group = models.CharField(
         max_length=2,
         choices=AgeGroup.choices,
-        default=AgeGroup.ADULTS,
         blank=True
     )
 
