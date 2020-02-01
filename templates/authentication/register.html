@@ -12,13 +12,22 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-center text-center">
+    <div class="container-center">
         <form method="POST" class="form-signin bg-gray" novalidate>
             {% csrf_token %}
-            <a href="{% url 'index' %}">
-                <img class="mb-4" src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
-            </a>
-            <h1 class="h3 mb-3 font-weight-normal">Criar uma conta de {{ message }}</h1>
+            <div class="text-center">
+                <a class="" href="{% url 'index' %}">
+                    <img class="mb-4 " src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+                </a>
+            </div>
+            <h3 class="h3 mb-3 font-weight-normal text-center">Criar uma conta de {{ message }}</h3>
+
+            <hr>
+            {% if type == 'organisation' %}
+                <p>Insira um email associado à organização, e escolha um nome de utilizador e password</p>
+            {% elif type == 'volunteer' %}
+                <p>Insira um email para associar à conta, e escolha um nome de utilizador e password</p>
+            {% endif %}
 
             {% for error in form.non_field_errors %}
                 <span class="text-danger float-left"> {{ error }} </span>
@@ -34,10 +43,9 @@
             {% endfor %}
 
             {% if type == 'organisation' %}
-                <button class="btn btn-lg btn-blue text-white btn-block" type="submit">Registar como {{ message }}</button>
+                <button class="btn btn-lg btn-blue text-white btn-block" type="submit">Próximo passo</button>
             {% elif type == 'volunteer' %}
-
-                <button class="btn btn-lg btn-yellow text-white btn-block" type="submit">Registar como {{ message }}</button>
+                <button class="btn btn-lg btn-yellow text-white btn-block" type="submit">Próximo passo</button>
             {% endif %}
         </form>
     </div>

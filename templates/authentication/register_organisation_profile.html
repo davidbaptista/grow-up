@@ -1,0 +1,41 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static '/css/authentication.css' %}">
+{% endblock %}
+
+{% block bodyid %}body-login{% endblock %}
+
+{% block navbar %}
+    {% include 'generic/navbar_authentication.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container-center">
+        <div class="text-center">
+            <a class="" href="{% url 'index' %}">
+                <img class="mb-4 " src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+            </a>
+        </div>
+
+        <form method="POST" class="form-signin bg-gray" novalidate>
+            {% csrf_token %}
+            <h3 class="h3 mb-3 font-weight-normal text-center">Criar uma conta de organização</h3>
+            <hr>
+            <p>Insira as seguintes informaçãos relativas à organização</p>
+            {% for error in form.non_field_errors %}
+                <span class="text-danger float-left"> {{ error }} </span>
+            {% endfor %}
+
+            {% for field in form %}
+                <div class="text-danger">
+                    {% for error in field.errors %}
+                        <span class="float-left">{{ error | escape }}</span>
+                    {% endfor %}
+                </div>
+                {{ field }}
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}

@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm
+from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationProfileForm
 from dashboard.models import OrganisationProfile, VolunteerProfile
 
 
@@ -21,6 +21,7 @@ def login(response):
 	if response.user.is_authenticated:
 		return redirect('index')
 	form = LoginForm(data=response.POST or None)
+
 	if response.method == 'POST' and form.is_valid():
 		username = form.cleaned_data['username']
 		password = form.cleaned_data['password']
@@ -36,12 +37,28 @@ def login(response):
 def register_organisation(response):
 	if response.user.is_authenticated:
 		return redirect('index')
+
 	form = RegisterForm(data=response.POST or None)
 
 	if response.method == 'POST' and form.is_valid():
 		user = form.save(commit=False)
 		user.is_active = False
-		profile = OrganisationProfile()
+
+		return redirect('register_organisation_profile', user=user)
+
+	return render(response, 'authentication/register.html', {'form': form,
+															 'type': 'organisation',
+															 'message': 'organização'})
+
+
+def register_organisation_profile(response, user):
+	if response.user.is_authenticated:
+		return redirect('index')
+
+	form = RegisterOrganisationProfileForm()
+
+	if response.method == 'POST' and form.is_valid():
+		profile = form.save(commit=False)
 		profile.user = user
 		user.save()
 		profile.save()
@@ -57,11 +74,10 @@ def register_organisation(response):
 		to_email = form.cleaned_data.get('email')
 		email = EmailMessage(email_subject, message, to=[to_email])
 		email.send()
+
 		return redirect('register_done')
 
-	return render(response, 'authentication/register.html', {'form': form,
-															 'type': 'organisation',
-															 'message': 'organização'})
+	return render(response, 'authentication/register_organisation_profile.html', {'form': form})
 
 
 def register_volunteer(response):
