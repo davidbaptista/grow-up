@@ -18,6 +18,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'website.apps.GrowUpWebsiteConfig',
+    'dashboard.apps.DashboardConfig',
+    'authentication.apps.AuthenticationConfig',
+    'administration.apps.AdministrationConfig'
 ]
 
 MIDDLEWARE = [
