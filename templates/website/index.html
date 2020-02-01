@@ -1,18 +1,26 @@
-{% extends 'generic/generic_intro.html' %}
+{% extends 'generic/base.html' %}
 {% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static '/css/website.css' %}">
+{% endblock %}
+
+{% block navbar %}
+   {% include 'generic/navbar_website.html' %}
+{% endblock %}
 
 {% block content %}
 	<!-- Images -->
 	<div class="container-fluid row-images">
 		<div class="row row-images">
 			<div class="col-4 col-images">
-				<img src="{% static 'website/media/website/index1.jpg' %}" class="img-fluid" alt="Imagem 1">
+				<img src="{% static '/media/website/index1.jpg' %}" class="img-fluid" alt="Imagem 1">
 			</div>
 			<div class="col-4 col-images">
-				<img src="{% static 'website/media/website/index2.jpg' %}" class="img-fluid" alt="Imagem 2">
+				<img src="{% static '/media/website/index1.jpg' %}" class="img-fluid" alt="Imagem 2">
 			</div>
 			<div class="col-4 col-images">
-				<img src="{% static 'website/media/website/index3.jpg' %}" class="img-fluid" alt="Imagem 3">
+				<img src="{% static '/media/website/index1.jpg' %}" class="img-fluid" alt="Imagem 3">
 			</div>
 		</div>
 	</div>
@@ -34,7 +42,7 @@
 				<a href="{% url 'register_organisation' %}">
 					<figure class="choice-circle">
 						<figcaption >Eu sou uma organização</figcaption>
-						<img src="{% static 'website/media/website/hand.png' %}" alt="Hand pointing up" class="hand">
+						<img src="{% static '/media/website/hand.png' %}" alt="Hand pointing up" class="hand">
 					</figure>
 				</a>
 			</div>
@@ -42,7 +50,7 @@
 				<a href="{% url 'register_volunteer' %}">
                     <figure class="choice-circle">
                         <figcaption >Eu sou um voluntário</figcaption>
-                        <img src="{% static 'website/media/website/hand.png' %}" alt="Hand pointing up" class="hand">
+                        <img src="{% static '/media/website/hand.png' %}" alt="Hand pointing up" class="hand">
                     </figure>
 				</a>
 			</div>

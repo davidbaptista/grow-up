@@ -1,5 +1,13 @@
-{% extends 'generic/generic_staff.html' %}
+{% extends 'generic/base.html' %}
 {% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/administration.css' %}">
+{% endblock %}
+
+{% block navbar %}
+    {% include 'generic/navbar_administration.html' %}
+{% endblock %}
 
 {% block content %}
     <br>

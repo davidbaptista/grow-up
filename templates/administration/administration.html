@@ -1,0 +1,14 @@
+{% extends 'generic/base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/administration.css' %}">
+{% endblock %}
+
+{% block navbar %}
+    {% include 'generic/navbar_administration.html' %}
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'manage_organisations' %}">Gerir pedidos de registo de organizações</a>
+{% endblock %}

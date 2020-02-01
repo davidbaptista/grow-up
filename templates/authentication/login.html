@@ -1,7 +1,15 @@
-{% extends 'generic/generic_authentication.html' %}
+{% extends 'generic/base.html' %}
 {% load static %}
 
-{% block title %} Login {% endblock %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static '/css/authentication.css' %}">
+{% endblock %}
+
+{% block bodyid %}body-login{% endblock %}
+
+{% block navbar %}
+    {% include 'generic/navbar_authentication.html' %}
+{% endblock %}
 
 {% block content %}
     <div class="text-center container-center">
@@ -9,7 +17,7 @@
             {% csrf_token %}
 
             <a href="{% url 'index' %}" >
-                <img class="mb-4" src="{% static 'website/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+                <img class="mb-4" src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
             </a>
 
             <h1 class="h3 mb-3 font-weight-normal">Login</h1>

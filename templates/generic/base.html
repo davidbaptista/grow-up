@@ -5,7 +5,8 @@
 	<!-- CSS Libraries -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/vum0npm.css">
-    <link rel="stylesheet/less" type="text/css" href="{% static 'website/css/staff.less' %}">
+	{% block stylesheet %}
+	{% endblock %}
 
     <!-- Metas -->
 	<meta charset="utf-8">
@@ -15,35 +16,12 @@
 
 	<title>Grow Up</title>
 </head>
-<body id="body-login">
-<!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-yellow text-white">
-        <a href="{% url 'dashboard' %}" class="text-white">
-            Grow Up
-        </a>
+<body id="{% block bodyid %} {% endblock %}">
+	{% block navbar %}
+	{% endblock %}
 
-        <!-- Collapse Button-->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-items"
-				aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="text-white">Menu &nbsp<i class="fas fa-bars"></i></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="collapse-items">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-text nav-link text-white" href="{% url 'dashboard' %}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-text nav-link text-white" href="{% url 'logout' %}">Logout</a>
-                </li>
-            </ul>
-        </div>
-	</nav>
-
-	<div class="container-fluid">
-    	{% block content %}
-    	{%  endblock %}
-	</div>
+	{% block content %}
+	{% endblock %}
 
 	<!-- Library Scripts-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>

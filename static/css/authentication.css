@@ -91,7 +91,7 @@ body {
   font-weight: bold;
 }
 #body-login {
-  background-image: url("/static/website/media/website/login-background.png");
+  background-image: url("/static/media/website/login-background.png");
   background-size: cover;
 }
 #logo {

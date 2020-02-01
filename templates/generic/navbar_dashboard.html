@@ -1,0 +1,25 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-yellow text-white">
+    <a href="{% url 'dashboard' %}" class="text-white">
+        Grow Up
+    </a>
+
+    <!-- Collapse Button-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-items"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="text-white">Menu &nbsp<i class="fas fa-bars"></i></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="collapse-items">
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-text nav-link text-white" href="{% url 'administration' %}">Administração</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-text nav-link text-white" href="{% url 'logout' %}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

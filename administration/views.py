@@ -5,9 +5,9 @@ from dashboard.models import OrganisationProfile
 
 
 @login_required(redirect_field_name='index')
-def staff(request):
+def administration(request):
 	if request.user.is_staff:
-		return render(request, 'staff/staff.html')
+		return render(request, 'administration/administration.html')
 	else:
 		return redirect('index')
 
@@ -16,7 +16,7 @@ def staff(request):
 def manage_organisations(request):
 	if request.user.is_staff:
 		organisations = OrganisationProfile.objects.filter(is_active=True, user__is_active=False)
-		return render(request, 'staff/manage_organisations.html', {'organisations': organisations})
+		return render(request, 'administration/manage_organisations.html', {'organisations': organisations})
 	else:
 		return redirect('index')
 

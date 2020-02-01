@@ -47,7 +47,7 @@ def register_organisation(response):
 		profile.save()
 
 		email_subject = 'Ative a sua conta de organização'
-		message = render_to_string('authentication/register_email.html', {
+		message = render_to_string('authentication/register_email_organisation.html', {
 			'user': user,
 			'domain': get_current_site(response),
 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -79,7 +79,7 @@ def register_volunteer(response):
 		profile.save()
 
 		email_subject = 'Ative a sua conta de voluntário'
-		message = render_to_string('authentication/register_email.html', {
+		message = render_to_string('authentication/register_email_volunteer.html', {
 			'user': user,
 			'domain': get_current_site(response),
 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
