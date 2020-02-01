@@ -12,31 +12,33 @@
 {% endblock %}
 
 {% block content %}
-    <form method="POST" class="form-signin bg-gray" novalidate>
-        {% csrf_token %}
-        <a href="{% url 'index' %}">
-            <img class="mb-4" src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
-        </a>
-        <h1 class="h3 mb-3 font-weight-normal">Criar uma conta de {{ message }}</h1>
+    <div class="container-center text-center">
+        <form method="POST" class="form-signin bg-gray" novalidate>
+            {% csrf_token %}
+            <a href="{% url 'index' %}">
+                <img class="mb-4" src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+            </a>
+            <h1 class="h3 mb-3 font-weight-normal">Criar uma conta de {{ message }}</h1>
 
-        {% for error in form.non_field_errors %}
-            <span class="text-danger float-left"> {{ error }} </span>
-        {% endfor %}
+            {% for error in form.non_field_errors %}
+                <span class="text-danger float-left"> {{ error }} </span>
+            {% endfor %}
 
-        {% for field in form %}
-            <div class="text-danger">
-                {% for error in field.errors %}
-                    <span class="float-left">{{ error | escape }}</span>
-                {% endfor %}
-            </div>
-            {{ field }}
-        {% endfor %}
+            {% for field in form %}
+                <div class="text-danger">
+                    {% for error in field.errors %}
+                        <span class="float-left">{{ error | escape }}</span>
+                    {% endfor %}
+                </div>
+                {{ field }}
+            {% endfor %}
 
-        {% if type == 'organisation' %}
-            <button class="btn btn-lg btn-blue text-white btn-block" type="submit">Registar como {{ message }}</button>
-        {% elif type == 'volunteer' %}
+            {% if type == 'organisation' %}
+                <button class="btn btn-lg btn-blue text-white btn-block" type="submit">Registar como {{ message }}</button>
+            {% elif type == 'volunteer' %}
 
-            <button class="btn btn-lg btn-yellow text-white btn-block" type="submit">Registar como {{ message }}</button>
-        {% endif %}
-    </form>
+                <button class="btn btn-lg btn-yellow text-white btn-block" type="submit">Registar como {{ message }}</button>
+            {% endif %}
+        </form>
+    </div>
 {% endblock %}

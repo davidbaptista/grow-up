@@ -40,7 +40,7 @@ class LoginForm(forms.Form):
         return super(LoginForm, self).clean()
 
 
-class RegisterFormOrganisation(forms.ModelForm):
+class RegisterForm(forms.ModelForm):
     username = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={
@@ -54,7 +54,7 @@ class RegisterFormOrganisation(forms.ModelForm):
 
     email = forms.EmailField(
         label='',
-        widget=forms.EmailInput(attrs={'placeholder': 'Email do responsável ou organização',
+        widget=forms.EmailInput(attrs={'placeholder': 'Email',
                                        'class': 'form-control mb-2'}),
         error_messages={'required': 'Este campo é obrigatório',
                         'invalid': 'Email inválido',
@@ -102,7 +102,7 @@ class RegisterFormOrganisation(forms.ModelForm):
         if User.objects.filter(email=email).exists():
             raise ValidationError('Já existe um utilizador com esse email')
 
-        return super(RegisterFormOrganisation, self).clean()
+        return super(RegisterForm, self).clean()
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -128,8 +128,7 @@ class RegisterFormOrganisation(forms.ModelForm):
             user.save()
         return user
 
-
-class RegisterFormVolunteer(RegisterFormOrganisation):
+'''class RegisterFormVolunteer(RegisterFormOrganisation):
     first_name = forms.CharField(
         label='',
         widget=forms.TextInput(attrs={
@@ -164,7 +163,7 @@ class RegisterFormVolunteer(RegisterFormOrganisation):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
-
+'''
 
 class PasswordChangeForm(PasswordChangeForm):
     error_messages = {'password_mismatch': _('As duas passwords não são iguais'),

@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-from authentication.forms import LoginForm, RegisterFormOrganisation, RegisterFormVolunteer, PasswordChangeForm
+from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm
 from dashboard.models import OrganisationProfile, VolunteerProfile
 
 
@@ -36,7 +36,7 @@ def login(response):
 def register_organisation(response):
 	if response.user.is_authenticated:
 		return redirect('index')
-	form = RegisterFormOrganisation(data=response.POST or None)
+	form = RegisterForm(data=response.POST or None)
 
 	if response.method == 'POST' and form.is_valid():
 		user = form.save(commit=False)
@@ -68,7 +68,7 @@ def register_volunteer(response):
 	if response.user.is_authenticated:
 		return redirect('index')
 
-	form = RegisterFormVolunteer(data=response.POST or None)
+	form = RegisterForm(data=response.POST or None)
 
 	if response.method == 'POST' and form.is_valid():
 		user = form.save(commit=False)
