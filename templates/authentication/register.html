@@ -1,5 +1,6 @@
 {% extends 'generic/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static '/css/authentication.css' %}">
@@ -20,27 +21,41 @@
                     <img class="mb-4 " src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
                 </a>
             </div>
-            <h3 class="h3 mb-3 font-weight-normal text-center">Criar uma conta de {{ message }}</h3>
+            <h3 class="h3 mb-3 font-weight-normal text-center">Criar uma conta de {{ msg }}</h3>
 
             <hr>
-            {% if type == 'organisation' %}
-                <p>Insira um email associado à organização, e escolha um nome de utilizador e password</p>
-            {% elif type == 'volunteer' %}
-                <p>Insira um email para associar à conta, e escolha um nome de utilizador e password</p>
-            {% endif %}
+            <p>{{ message }}</p>
 
-            {% for error in form.non_field_errors %}
-                <span class="text-danger float-left"> {{ error }} </span>
-            {% endfor %}
 
-            {% for field in form %}
-                <div class="text-danger">
-                    {% for error in field.errors %}
-                        <span class="float-left">{{ error | escape }}</span>
+            {{ wizard.management_form }}
+            {% if wizard.form.forms %}
+                {{ wizard.form.management_form }}
+                {% for form in wizard.form.forms %}
+                    {% for error in form.non_field_errors %}
+                        <span class="text-danger float-left"> {{ error }} </span>
                     {% endfor %}
-                </div>
-                {{ field }}
-            {% endfor %}
+                    {% for field in form %}
+                        <div class="text-danger">
+                            {% for error in field.errors %}
+                                <span class="float-left">{{ error | escape }}</span>
+                            {% endfor %}
+                        </div>
+                        {{ field }}
+                    {% endfor %}
+                {% endfor %}
+            {% else %}
+                {% for error in wizard.form.non_field_errors %}
+                    <span class="text-danger float-left"> {{ error }} </span>
+                {% endfor %}
+                {% for field in wizard.form %}
+                     <div class="text-danger">
+                            {% for error in field.errors %}
+                                <span class="float-left">{{ error | escape }}</span>
+                            {% endfor %}
+                        </div>
+                        {{ field }}
+                {% endfor %}
+            {% endif %}
 
             {% if type == 'organisation' %}
                 <button class="btn btn-lg btn-blue text-white btn-block" type="submit">Próximo passo</button>

@@ -6,13 +6,15 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from formtools.wizard.forms import ManagementForm
+from formtools.wizard.views import SessionWizardView
 
 from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationProfileForm
 from dashboard.models import OrganisationProfile, VolunteerProfile
-
 
 authentication_token = PasswordResetTokenGenerator()
 
@@ -34,50 +36,26 @@ def login(response):
 		return render(response, 'authentication/login.html', {'form': form})
 
 
-def register_organisation(response):
-	if response.user.is_authenticated:
-		return redirect('index')
+class RegisterOrganisationWizard(SessionWizardView):
+	template_name = 'authentication/register.html'
+	form_list = [RegisterForm, RegisterOrganisationProfileForm]
 
-	form = RegisterForm(data=response.POST or None)
+	def get_context_data(self, form, **kwargs):
+		context = super().get_context_data(form=form, **kwargs)
+		context.update({'type': 'organisation', 'msg': 'organização'})
 
-	if response.method == 'POST' and form.is_valid():
-		user = form.save(commit=False)
-		user.is_active = False
+		if self.steps.current == '0':
+			context.update({'message': 'Insira um email associado à organização, e escolha um nome de utilizador e password'})
+		elif self.steps.current == '1':
+			context.update({'message': 'Preencha as seguintes informações relativas à organização'})
 
-		return redirect('register_organisation_profile', user=user)
+		return context
 
-	return render(response, 'authentication/register.html', {'form': form,
-															 'type': 'organisation',
-															 'message': 'organização'})
-
-
-def register_organisation_profile(response, user):
-	if response.user.is_authenticated:
-		return redirect('index')
-
-	form = RegisterOrganisationProfileForm()
-
-	if response.method == 'POST' and form.is_valid():
-		profile = form.save(commit=False)
-		profile.user = user
-		user.save()
-		profile.save()
-
-		email_subject = 'Ative a sua conta de organização'
-		message = render_to_string('authentication/register_email_organisation.html', {
-			'user': user,
-			'domain': get_current_site(response),
-			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-			'token': authentication_token.make_token(user)
-		})
-
-		to_email = form.cleaned_data.get('email')
-		email = EmailMessage(email_subject, message, to=[to_email])
-		email.send()
+	def done(self, form_list, **kwargs):
+		form_list[0].save()
+		form_list[1].save()
 
 		return redirect('register_done')
-
-	return render(response, 'authentication/register_organisation_profile.html', {'form': form})
 
 
 def register_volunteer(response):
@@ -109,8 +87,8 @@ def register_volunteer(response):
 		return redirect('register_done')
 
 	return render(response, 'authentication/register.html', {'form': form,
-															 'type': 'volunteer',
-															 'message': 'voluntário'})
+	                                                         'type': 'volunteer',
+	                                                         'message': 'voluntário'})
 
 
 def register_done(response):

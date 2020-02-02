@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'formtools',
     'website.apps.GrowUpWebsiteConfig',
     'dashboard.apps.DashboardConfig',
     'authentication.apps.AuthenticationConfig',

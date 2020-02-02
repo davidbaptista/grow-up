@@ -13,17 +13,18 @@
 
 {% block content %}
     <div class="container-center">
-        <div class="text-center">
-            <a class="" href="{% url 'index' %}">
-                <img class="mb-4 " src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
-            </a>
-        </div>
-
         <form method="POST" class="form-signin bg-gray" novalidate>
             {% csrf_token %}
+            <div class="text-center">
+                <a class="" href="{% url 'index' %}">
+                    <img class="mb-4 " src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+                </a>
+            </div>
             <h3 class="h3 mb-3 font-weight-normal text-center">Criar uma conta de organização</h3>
             <hr>
             <p>Insira as seguintes informaçãos relativas à organização</p>
+
+            <input type="hidden" name="user_id" value="{{ uid }}">
             {% for error in form.non_field_errors %}
                 <span class="text-danger float-left"> {{ error }} </span>
             {% endfor %}
