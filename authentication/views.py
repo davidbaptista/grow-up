@@ -6,11 +6,9 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from formtools.wizard.forms import ManagementForm
 from formtools.wizard.views import SessionWizardView
 
 from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationProfileForm
@@ -45,16 +43,34 @@ class RegisterOrganisationWizard(SessionWizardView):
 		context.update({'type': 'organisation', 'msg': 'organização'})
 
 		if self.steps.current == '0':
-			context.update({'message': 'Insira um email associado à organização, e escolha um nome de utilizador e password'})
+			context.update(
+				{'message': 'Insira um email associado à organização, e escolha um nome de utilizador e password'})
 		elif self.steps.current == '1':
 			context.update({'message': 'Preencha as seguintes informações relativas à organização'})
 
 		return context
 
 	def done(self, form_list, **kwargs):
-		form_list[0].save()
-		form_list[1].save()
+		l = list(form_list)
+		user = l[0].save(commit=False)
+		profile = l[1].save(commit=False)
 
+		user.is_active = False
+		profile.user = user
+		user.save()
+		profile.save()
+
+		email_subject = 'Ative a sua conta de organização'
+		message = render_to_string('authentication/register_email_organisation.html', {
+			'user': user,
+			'domain': get_current_site(self.request),
+ 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+			'token': authentication_token.make_token(user)
+		})
+
+		to_email = user.email
+		email = EmailMessage(email_subject, message, to=[to_email])
+		email.send()
 		return redirect('register_done')
 
 
