@@ -1,0 +1,30 @@
+[
+	{
+		"model": "dashboard.agerange",
+		"pk": 1,
+		"fields": {
+			"name": "Crianças"
+		}
+	},
+	{
+		"model": "dashboard.agerange",
+		"pk": 2,
+		"fields": {
+			"name": "Jovens"
+		}
+	},
+	{
+		"model": "dashboard.agerange",
+		"pk": 3,
+		"fields": {
+			"name": "Adultos"
+		}
+	},
+	{
+		"model": "dashboard.agerange",
+		"pk": 4,
+		"fields": {
+			"name": "Idosos"
+		}
+	}
+]

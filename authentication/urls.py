@@ -3,9 +3,7 @@ from django.contrib.auth.views import LogoutView, PasswordResetView, PasswordRes
 from django.urls import path
 
 from authentication import views
-
-
-from authentication.forms import PasswordResetForm, SetPasswordForm, RegisterForm, RegisterOrganisationProfileForm
+from authentication.forms import PasswordResetForm, SetPasswordForm
 
 urlpatterns = [
 	path('login/', views.login, name='login'),

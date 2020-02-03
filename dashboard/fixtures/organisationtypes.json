@@ -1,0 +1,93 @@
+[
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 1,
+		"fields": {
+			"name": "Anti-racismo, Anti-fascismo"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 2,
+		"fields": {
+			"name": "Refugiados, imigrantes e minorias étnicas"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 3,
+		"fields": {
+			"name": "Solidariedade internacional"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 4,
+		"fields": {
+			"name": "Paz e desarmamento"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 5,
+		"fields": {
+			"name": "Injustiça social"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 6,
+		"fields": {
+			"name": "Igualdade de género e sociedade"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 7,
+		"fields": {
+			"name": "Crianças e juventude"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 8,
+		"fields": {
+			"name": "Idosos"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 9,
+		"fields": {
+			"name": "Pessoas com dificuldades"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 10,
+		"fields": {
+			"name": "Proteção do ambiente"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 11,
+		"fields": {
+			"name": "Clima e estilo vida sustentável"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 12,
+		"fields": {
+			"name": "Arte, cultura e história local"
+		}
+	},
+	{
+		"model": "dashboard.organisationtype",
+		"pk": 13,
+		"fields": {
+			"name": "Vida da comunidade"
+		}
+	}
+]

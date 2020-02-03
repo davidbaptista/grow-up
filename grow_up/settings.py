@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'formtools',
+    'multiselectfield',
     'website.apps.GrowUpWebsiteConfig',
     'dashboard.apps.DashboardConfig',
     'authentication.apps.AuthenticationConfig',

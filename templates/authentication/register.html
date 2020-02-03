@@ -48,11 +48,12 @@
                     <span class="text-danger float-left"> {{ error }} </span>
                 {% endfor %}
                 {% for field in wizard.form %}
-                     <div class="text-danger">
+                        <div class="text-danger">
                             {% for error in field.errors %}
                                 <span class="float-left">{{ error | escape }}</span>
                             {% endfor %}
                         </div>
+                        {{ field.label }}
                         {{ field }}
                 {% endfor %}
             {% endif %}

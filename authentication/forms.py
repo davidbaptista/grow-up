@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
-from dashboard.models import AGE_CHOICES, OrganisationProfile
+from dashboard.models import OrganisationProfile, AgeRange, OrganisationType
 
 
 class LoginForm(forms.Form):
@@ -151,14 +151,22 @@ class RegisterOrganisationProfileForm(forms.ModelForm):
 		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
 	)
 
-	age_group = forms.ChoiceField(
-		choices=AGE_CHOICES,
-		error_messages={'required': 'Este campo é obrigatório'},
-	)
+	class Meta:
+		model = OrganisationProfile
+		fields = ['organisation_name', 'representative_name', 'age_range']
+
+
+class RegisterOrganisationProfileTypesForm(forms.ModelForm):
+	organisation_type = forms.ModelMultipleChoiceField(
+		label='Escolha a(s) àrea(s) de atuação organização:',
+		queryset=OrganisationType.objects.all(),
+		widget=forms.CheckboxSelectMultiple(attrs={
+			'class': 'checkboxes mb-2'
+		}))
 
 	class Meta:
 		model = OrganisationProfile
-		fields = ['organisation_name', 'representative_name', 'age_group']
+		fields = ['organisation_type']
 
 
 class RegisterVolunteerProfileForm(forms.ModelForm):

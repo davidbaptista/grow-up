@@ -11,7 +11,8 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from formtools.wizard.views import SessionWizardView
 
-from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationProfileForm
+from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationProfileForm, \
+	RegisterOrganisationProfileTypesForm
 from dashboard.models import OrganisationProfile, VolunteerProfile
 
 authentication_token = PasswordResetTokenGenerator()
@@ -47,6 +48,8 @@ class RegisterOrganisationWizard(SessionWizardView):
 				{'message': 'Insira um email associado à organização, e escolha um nome de utilizador e password'})
 		elif self.steps.current == '1':
 			context.update({'message': 'Preencha as seguintes informações relativas à organização'})
+		elif self.steps.current == '2':
+			context.update({'message': 'Selecione as opções que se aplicam à sua organização'})
 
 		return context
 
@@ -57,6 +60,7 @@ class RegisterOrganisationWizard(SessionWizardView):
 
 		user.is_active = False
 		profile.user = user
+
 		user.save()
 		profile.save()
 

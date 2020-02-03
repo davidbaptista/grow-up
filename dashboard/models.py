@@ -1,13 +1,13 @@
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from multiselectfield import MultiSelectField
 
-AGE_CHOICES = (
-	('CR', 'Crianças'),
-	('JV', 'Jovens'),
-	('AD', 'Adultos'),
-	('ID', 'Idosos')
-)
+
+class AgeRange(models.Model):
+	name = models.CharField(max_length=16)
+
+	def __str__(self):
+		return self.name
 
 
 class OrganisationType(models.Model):
@@ -37,11 +37,5 @@ class OrganisationProfile(models.Model, Profile):
 	organisation_name = models.CharField(max_length=255, blank=True)
 	representative_name = models.CharField(max_length=255, blank=True)
 	is_active = models.BooleanField(default=False)
-
-	age_group = models.CharField(
-		max_length=2,
-		choices=AGE_CHOICES,
-		blank=True
-	)
-
-	organisation_types = models.ManyToManyField(OrganisationType, blank=True)
+	age_range = models.ManyToManyField(AgeRange, blank=True)
+	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
