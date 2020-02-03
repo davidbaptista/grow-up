@@ -31,6 +31,7 @@ urlpatterns = [
 			 template_name='authentication/password_reset_complete.html'),
 		 name='password_reset_complete'),
 	path('register-organisation', views.RegisterOrganisationWizard.as_view(), name='register_organisation'),
+	path('register-organisation-profile', views.register_organisation_profile, name='register_organisation_profile'),
 	path('register-volunteer/', views.register_volunteer, name='register_volunteer'),
 	path('register-done/', views.register_done, name='register_done'),
 	path('register-complete/<uidb64>/<token>/', views.register_complete, name='register_complete'),

@@ -130,7 +130,7 @@ class RegisterForm(forms.ModelForm):
 		return user
 
 
-class RegisterOrganisationProfileForm(forms.ModelForm):
+class RegisterOrganisationForm(forms.ModelForm):
 	organisation_name = forms.CharField(
 		label='',
 		widget=forms.TextInput(attrs={
@@ -153,10 +153,17 @@ class RegisterOrganisationProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = OrganisationProfile
-		fields = ['organisation_name', 'representative_name', 'age_range']
+		fields = ['organisation_name', 'representative_name']
 
 
-class RegisterOrganisationProfileTypesForm(forms.ModelForm):
+class RegisterOrganisationProfileForm(forms.ModelForm):
+	age_range = forms.ModelMultipleChoiceField(
+		label='Escolha o(s) alvo(s) da organização:',
+		queryset=AgeRange.objects.all(),
+		widget=forms.CheckboxSelectMultiple(attrs={
+			'class': 'checkboxes mb-2'
+		}))
+
 	organisation_type = forms.ModelMultipleChoiceField(
 		label='Escolha a(s) àrea(s) de atuação organização:',
 		queryset=OrganisationType.objects.all(),
@@ -166,7 +173,7 @@ class RegisterOrganisationProfileTypesForm(forms.ModelForm):
 
 	class Meta:
 		model = OrganisationProfile
-		fields = ['organisation_type']
+		fields = ['age_range', 'organisation_type']
 
 
 class RegisterVolunteerProfileForm(forms.ModelForm):

@@ -11,8 +11,8 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from formtools.wizard.views import SessionWizardView
 
-from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationProfileForm, \
-	RegisterOrganisationProfileTypesForm
+from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationForm, \
+	RegisterOrganisationProfileForm
 from dashboard.models import OrganisationProfile, VolunteerProfile
 
 authentication_token = PasswordResetTokenGenerator()
@@ -37,7 +37,7 @@ def login(response):
 
 class RegisterOrganisationWizard(SessionWizardView):
 	template_name = 'authentication/register.html'
-	form_list = [RegisterForm, RegisterOrganisationProfileForm]
+	form_list = [RegisterForm, RegisterOrganisationForm]
 
 	def get_context_data(self, form, **kwargs):
 		context = super().get_context_data(form=form, **kwargs)
@@ -48,8 +48,6 @@ class RegisterOrganisationWizard(SessionWizardView):
 				{'message': 'Insira um email associado à organização, e escolha um nome de utilizador e password'})
 		elif self.steps.current == '1':
 			context.update({'message': 'Preencha as seguintes informações relativas à organização'})
-		elif self.steps.current == '2':
-			context.update({'message': 'Selecione as opções que se aplicam à sua organização'})
 
 		return context
 
@@ -75,8 +73,26 @@ class RegisterOrganisationWizard(SessionWizardView):
 		to_email = user.email
 		email = EmailMessage(email_subject, message, to=[to_email])
 		email.send()
-		return redirect('register_done')
+		self.request.session['id'] = profile.pk
+		return redirect('register_organisation_profile')
 
+
+def register_organisation_profile(response):
+	if response.user.is_authenticated:
+		return redirect('index')
+
+	form = RegisterOrganisationProfileForm(data=response.POST or None)
+
+	if response.method == 'POST' and form.is_valid():
+		org_id = response.session['id']
+		profile = OrganisationProfile.objects.get(pk=org_id)
+
+		profile.age_range.set(form.cleaned_data['age_range'])
+		profile.organisation_type.set(form.cleaned_data['organisation_type'])
+		profile.save()
+		return redirect('register_done')
+	else:
+		return render(response, 'authentication/register_organisation_profile.html', {'form': form})
 
 def register_volunteer(response):
 	if response.user.is_authenticated:
