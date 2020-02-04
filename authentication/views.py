@@ -94,37 +94,45 @@ def register_organisation_profile(response):
 	else:
 		return render(response, 'authentication/register_organisation_profile.html', {'form': form})
 
-def register_volunteer(response):
-	if response.user.is_authenticated:
-		return redirect('index')
 
-	form = RegisterForm(data=response.POST or None)
+class RegisterVolunteerWizard(SessionWizardView):
+	template_name = 'authentication/register.html'
+	form_list = [RegisterForm]
 
-	if response.method == 'POST' and form.is_valid():
-		user = form.save(commit=False)
-		user.is_active = False
+	def get_context_data(self, form, **kwargs):
+		context = super().get_context_data(form=form, **kwargs)
+		context.update({'type': 'volunteer', 'msg': 'voluntário'})
+
+		if self.steps.current == '0':
+			context.update(
+				{'message': 'Insira um email para associar à conta e escolha um nome de utilizador e password'})
+
+		return context
+
+	def done(self, form_list, **kwargs):
+		l = list(form_list)
+		user = l[0].save(commit=False)
 		profile = VolunteerProfile()
+
 		profile.user = user
+		user.is_active = False
+
 		user.save()
 		profile.save()
 
 		email_subject = 'Ative a sua conta de voluntário'
 		message = render_to_string('authentication/register_email_volunteer.html', {
 			'user': user,
-			'domain': get_current_site(response),
+			'domain': get_current_site(self.request),
 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
 			'token': authentication_token.make_token(user)
 		})
 
-		to_email = form.cleaned_data.get('email')
+		to_email = user.email
 		email = EmailMessage(email_subject, message, to=[to_email])
 		email.send()
-
+		self.request.session['id'] = profile.pk
 		return redirect('register_done')
-
-	return render(response, 'authentication/register.html', {'form': form,
-	                                                         'type': 'volunteer',
-	                                                         'message': 'voluntário'})
 
 
 def register_done(response):

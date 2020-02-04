@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block bodyid %}body-login{% endblock %}
+{% block bodyclass %}body-login{% endblock %}
 
 {% block navbar %}
     {% include 'generic/navbar_authentication.html' %}
@@ -17,6 +18,7 @@
         <div class="row">
             <form method="POST" class="offset-2 col-8 bg-gray" novalidate>
                 {% csrf_token %}
+                <br>
                 <div class="text-center">
                     <a class="" href="{% url 'index' %}">
                         <img class="mb-4 " src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
