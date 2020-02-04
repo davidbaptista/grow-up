@@ -35,4 +35,5 @@ urlpatterns = [
 	path('register-volunteer/', views.RegisterVolunteerWizard.as_view(), name='register_volunteer'),
 	path('register-done/', views.register_done, name='register_done'),
 	path('register-complete/<uidb64>/<token>/', views.register_complete, name='register_complete'),
+	path('resend-email/', views.resend_email, name='resend_email'),
 ]

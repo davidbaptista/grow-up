@@ -161,15 +161,21 @@ class RegisterOrganisationProfileForm(forms.ModelForm):
 		label='Escolha o(s) alvo(s) da organização:',
 		queryset=AgeRange.objects.all(),
 		widget=forms.CheckboxSelectMultiple(attrs={
-			'class': 'checkboxes mb-2'
-		}))
+			'class': 'checkboxes'
+		}),
+		error_messages={
+			'required': 'Selecione pelo menos uma opção'
+		})
 
 	organisation_type = forms.ModelMultipleChoiceField(
 		label='Escolha a(s) àrea(s) de atuação organização:',
 		queryset=OrganisationType.objects.all(),
 		widget=forms.CheckboxSelectMultiple(attrs={
-			'class': 'checkboxes mb-2'
-		}))
+			'class': 'checkboxes'
+		}),
+		error_messages={
+			'required': 'Selecione pelo menos uma opção'
+		})
 
 	class Meta:
 		model = OrganisationProfile

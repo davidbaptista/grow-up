@@ -62,17 +62,6 @@ class RegisterOrganisationWizard(SessionWizardView):
 		user.save()
 		profile.save()
 
-		email_subject = 'Ative a sua conta de organização'
-		message = render_to_string('authentication/register_email_organisation.html', {
-			'user': user,
-			'domain': get_current_site(self.request),
- 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-			'token': authentication_token.make_token(user)
-		})
-
-		to_email = user.email
-		email = EmailMessage(email_subject, message, to=[to_email])
-		email.send()
 		self.request.session['id'] = profile.pk
 		return redirect('register_organisation_profile')
 
@@ -90,6 +79,11 @@ def register_organisation_profile(response):
 		profile.age_range.set(form.cleaned_data['age_range'])
 		profile.organisation_type.set(form.cleaned_data['organisation_type'])
 		profile.save()
+
+		send_email(response, profile.user.pk, True)
+		response.session['id'] = profile.user.pk
+		response.session['org'] = True
+
 		return redirect('register_done')
 	else:
 		return render(response, 'authentication/register_organisation_profile.html', {'form': form})
@@ -120,18 +114,10 @@ class RegisterVolunteerWizard(SessionWizardView):
 		user.save()
 		profile.save()
 
-		email_subject = 'Ative a sua conta de voluntário'
-		message = render_to_string('authentication/register_email_volunteer.html', {
-			'user': user,
-			'domain': get_current_site(self.request),
-			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-			'token': authentication_token.make_token(user)
-		})
+		send_email(self.request, user.pk, False)
 
-		to_email = user.email
-		email = EmailMessage(email_subject, message, to=[to_email])
-		email.send()
-		self.request.session['id'] = profile.pk
+		self.request.session['id'] = profile.user.pk
+		self.request.session['org'] = False
 		return redirect('register_done')
 
 
@@ -178,3 +164,34 @@ def password_change(response):
 		return redirect('dashboard')
 
 	return render(response, 'authentication/password_change.html', {'form': form})
+
+
+def resend_email(request):
+	if request.user.is_authenticated:
+		return redirect('index')
+
+	send_email(request, request.session['id'], request.session['org'])
+
+	return redirect('register_done')
+
+
+def send_email(request, user_id, is_organisation):
+	if is_organisation:
+		email_subject = 'Ative a sua conta de organização'
+		template = 'authentication/register_email_organisation.html'
+	else:
+		email_subject = 'Ativa a sua conta de voluntário'
+		template = 'authentication/register_email_volunteer.html'
+
+	user = User.objects.get(pk=user_id)
+
+	message = render_to_string(template, {
+		'user': user,
+		'domain': get_current_site(request),
+		'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+		'token': authentication_token.make_token(user)
+	})
+
+	to_email = user.email
+	email = EmailMessage(email_subject, message, to=[to_email])
+	email.send()
