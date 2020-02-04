@@ -16,7 +16,7 @@
     <br>
     <div class="container">
         <div class="row">
-            <form method="POST" class="offset-2 col-8 bg-gray" style="border-radius: 25px !important;" novalidate>
+            <form method="POST" class="offset-3 col-6 bg-gray" style="border-radius: 25px !important;" novalidate>
                 {% csrf_token %}
                 <br>
                 <div class="text-center">
@@ -26,22 +26,22 @@
                 </div>
                 <h3 class="h3 mb-3 font-weight-normal text-center">Criar perfil da organização</h3>
                 <hr>
-                <h6>Insira as seguintes informações relativas à organização</h6>
+                <h5>Insira as seguintes informações relativas à organização</h5>
+                <hr>
                 <input type="hidden" name="user_id" value="{{ uid }}">
                 {% for error in form.non_field_errors %}
                     <span class="text-danger float-left"> {{ error }} </span>
                 {% endfor %}
 
                 {% for field in form %}
-                    <label>{{ field.label }}</label>
-                    {{ field }}
-                    <div class="text-danger">
+                    <div class="profile-box">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
                         {% for error in field.errors %}
-                            <span class="float-left">{{ error | escape }}</span>
+                            <span class="text-danger"><b>{{ error }}</b></span>
                         {% endfor %}
                     </div>
                     <br>
-                    <hr>
                 {% endfor %}
                 <button class="btn btn-lg btn-blue text-white btn-block mb-2" type="submit">Submeter</button>
             </form>
