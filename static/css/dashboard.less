@@ -23,6 +23,31 @@ a {
     font-weight: bold;
 }
 
+.nav-text {
+	.color-white() !important;
+	.font-header();
+	letter-spacing: 0.1em;
+	position: relative;
+	font-size: 24px;
+	&:after {
+		background: @color-white;
+		bottom: 0;
+		content: @empty;
+		display: block;
+		left: percentage(0.5);
+		height: 2px;
+		position: absolute;
+		transition: width 0.3s ease 0s, left 0.3s ease 0s;
+		width: 0;
+	}
+	&:hover {
+		&:after {
+			width: percentage(1);
+			left: 0;
+		}
+	}
+}
+
 
 #logo {
     height: 100px !important;

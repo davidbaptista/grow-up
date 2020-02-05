@@ -2,6 +2,11 @@ from django.shortcuts import render
 
 
 def index(request):
+	if 'id' in request.session:
+		del request.session['id']
+	if 'org' in request.session:
+		del request.session['org']
+
 	return render(request, 'website/index.html')
 
 

@@ -21,6 +21,12 @@ authentication_token = PasswordResetTokenGenerator()
 def login(response):
 	if response.user.is_authenticated:
 		return redirect('index')
+
+	if 'id' in response.session:
+		del response.session['id']
+	if 'org' in response.session:
+		del response.session['org']
+
 	form = LoginForm(data=response.POST or None)
 
 	if response.method == 'POST' and form.is_valid():
@@ -97,9 +103,7 @@ class RegisterVolunteerWizard(SessionWizardView):
 		context = super().get_context_data(form=form, **kwargs)
 		context.update({'type': 'volunteer', 'msg': 'voluntário'})
 
-		if self.steps.current == '0':
-			context.update(
-				{'message': 'Insira um email para associar à conta e escolha um nome de utilizador e password'})
+		context.update({'message': 'Insira um email para associar à conta e escolha um nome de utilizador e password'})
 
 		return context
 
