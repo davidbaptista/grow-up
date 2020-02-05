@@ -14,11 +14,14 @@
         <ul class="navbar-nav ml-auto">
             {% if user.is_staff %}
                 <li class="nav-item">
-                    <a class="nav-text nav-link text-white" href="{% url 'administration' %}">Administração</a>
+                    <a class="nav-text nav-link" href="{% url 'administration' %}">Administração</a>
                 </li>
             {% endif %}
             <li class="nav-item">
-                <a class="nav-text nav-link text-white" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-text nav-link text-white" href="{% url 'profile' %}">Perfil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-text nav-link text-white" id="login-button" href="{% url 'logout' %}">Logout</a>
             </li>
         </ul>
     </div>

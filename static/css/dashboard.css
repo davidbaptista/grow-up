@@ -30,6 +30,29 @@ a {
   background-color: #F3AE3A;
   font-weight: bold;
 }
+.nav-text {
+  color: #FFFFFF !important;
+  font-family: paralucent-stencil, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  font-size: 24px;
+}
+.nav-text:after {
+  background: #FFFFFF;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 50%;
+  height: 2px;
+  position: absolute;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+.nav-text:hover:after {
+  width: 100%;
+  left: 0;
+}
 #logo {
   height: 100px !important;
   width: 100px !important;
