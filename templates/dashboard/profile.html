@@ -5,10 +5,19 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 {% endblock %}
 
+{% block bodyclass %}wrapper{% endblock %}
+
 {% block navbar %}
     {% include 'generic/navbar_dashboard.html' %}
 {% endblock %}
 
 {% block content %}
+    <div id="content">
+        {% include 'dashboard/navbar.html' %}
+        <p>Conteudo do perfil</p>
+    </div>
+{% endblock %}
 
+{% block script %}
+    <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

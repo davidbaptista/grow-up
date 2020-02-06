@@ -21,12 +21,11 @@
                 <br>
                 <div class="text-center">
                     <a class="" href="{% url 'index' %}">
-                        <img class="mb-4 " src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+                        <img src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
                     </a>
                 </div>
-                <h3 class="h3 mb-3 font-weight-normal text-center">Criar perfil da organização</h3>
                 <hr>
-                <h5>Insira as seguintes informações relativas à organização</h5>
+                <h5>Preencha as seguintes informações relativas à organização</h5>
                 <hr>
                 <input type="hidden" name="user_id" value="{{ uid }}">
                 {% for error in form.non_field_errors %}
@@ -38,7 +37,7 @@
                         <label>{{ field.label }}</label>
                         {{ field }}
                         {% for error in field.errors %}
-                            <span class="text-danger"><b>{{ error }}</b></span>
+                            <span class="text-danger">{{ error }}</span>
                         {% endfor %}
                     </div>
                     <br>

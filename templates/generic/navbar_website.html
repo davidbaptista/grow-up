@@ -26,8 +26,13 @@
             </li>
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link nav-text" href="{% url 'dashboard' %}" id="login-button">Dashboard</a>
+                    <a class="nav-link nav-text" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
+                {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link nav-text" href="{% url 'administration' %}">Administração</a>
+                    </li>
+                {% endif %}
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link nav-text" href="{% url 'login' %}" id="login-button">Login</a>

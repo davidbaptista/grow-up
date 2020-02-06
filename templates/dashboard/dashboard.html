@@ -5,13 +5,21 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 {% endblock %}
 
+{% block bodyclass %}wrapper{% endblock %}
+
 {% block navbar %}
     {% include 'generic/navbar_dashboard.html' %}
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <br>
-        <h1>Hello {{ user.username }}</h1>
+    <div id="content">
+        {% include 'dashboard/navbar.html' %}
+        <div class="container-fluid">
+            <p>Conteúdo da dashboard</p>
+        </div>
     </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

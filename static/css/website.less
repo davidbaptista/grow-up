@@ -4,19 +4,19 @@
 
 /* HTML Tags */
 html, body {
-    .font-base();
+    font-family: @font-base;
   	margin: 0;
   	height: percentage(1);
 }
 
 h1 {
-    .color-white();
-    .font-header();
+    color: white;
+	font-family: @font-header;
     margin: 15px;
 }
 
 h2 {
-   .font-header()
+   font-family: @font-header;
 }
 
 footer {
@@ -36,13 +36,14 @@ footer {
 }
 
 .img-fluid {
-    .fill();
+	height: 100%;
+	width: 100%;
 }
 
 .navbar {
-    .color-white();
-    .font-header();
-    .font-size(28px);
+    color: white;
+    font-family: @font-header;
+    font-size: 28px;
 }
 
 .nav-item {
@@ -50,8 +51,8 @@ footer {
 }
 
 .nav-text {
-	.color-white() !important;
-	.font-header();
+	color: white !important;
+	font-family: @font-header;
 	letter-spacing: 0.1em;
 	position: relative;
 	&:after {
