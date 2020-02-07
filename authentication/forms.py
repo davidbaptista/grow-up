@@ -212,9 +212,16 @@ class RegisterVolunteerForm(forms.ModelForm):
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
 	)
 
+	gender = forms.CharField(label='', widget=forms.Select(
+		choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
+		attrs={'class': 'form-control mb-2',
+		       'placeholder': 'Selecione o seu sexo'}),
+	    error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},
+	    )
+
 	class Meta:
 		model = VolunteerProfile
-		fields = ['first_name', 'last_name', 'birth_date']
+		fields = ['first_name', 'last_name', 'birth_date', 'gender']
 
 
 class PasswordChangeForm(PasswordChangeForm):
