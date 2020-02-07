@@ -153,12 +153,14 @@ def register_complete(response, uidb64, token):
 		if profile:
 			profile.is_active = True
 			profile.save()
+			org = True
 		else:
 			user.is_active = True
 			user.save()
 			logon(response, user)
+			org = False
 
-		return redirect('dashboard')
+		return render(response, 'authentication/register_complete.html', {'org': org})
 	else:
 		return HttpResponse('Link inválido')
 
