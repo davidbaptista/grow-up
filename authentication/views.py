@@ -12,7 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from formtools.wizard.views import SessionWizardView
 
 from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationForm, \
-	RegisterOrganisationProfileForm
+	RegisterOrganisationProfileForm, RegisterVolunteerForm
 from dashboard.models import OrganisationProfile, VolunteerProfile
 
 authentication_token = PasswordResetTokenGenerator()
@@ -97,20 +97,25 @@ def register_organisation_profile(response):
 
 class RegisterVolunteerWizard(SessionWizardView):
 	template_name = 'authentication/register.html'
-	form_list = [RegisterForm]
+	form_list = [RegisterForm, RegisterVolunteerForm]
 
 	def get_context_data(self, form, **kwargs):
 		context = super().get_context_data(form=form, **kwargs)
 		context.update({'type': 'volunteer', 'msg': 'voluntário'})
 
-		context.update({'message': 'Insira um email para associar à conta e escolha um nome de utilizador e password'})
+		if self.steps.current == 0:
+			context.update(
+				{'message': 'Preencha com um email para associar à conta e escolha um nome de utilizador e password'})
+		elif self.steps.current == 1:
+			context.update(
+				{'message': 'Preencha com os seus dados pessoais'})
 
 		return context
 
 	def done(self, form_list, **kwargs):
 		l = list(form_list)
 		user = l[0].save(commit=False)
-		profile = VolunteerProfile()
+		profile = l[1].save(commit=False)
 
 		profile.user = user
 		user.is_active = False

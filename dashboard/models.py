@@ -22,9 +22,11 @@ class Profile:
 
 class VolunteerProfile(models.Model, Profile):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	last_name = models.CharField(max_length=255, blank=True)
+	first_name = models.CharField(max_length=255, blank=True)
 	middle_names = models.CharField(max_length=255, blank=True)
 	gender = models.BooleanField(default=False, blank=True)
-	age = models.SmallIntegerField(blank=True, null=True, default=0)
+	birth_date = models.DateField(blank=True, null=True)
 	image = models.FileField(upload_to='static/media/users/', blank=True)
 	occupation = models.CharField(max_length=127, blank=True)
 	location = models.CharField(max_length=255, blank=True)

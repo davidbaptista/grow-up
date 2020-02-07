@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
-from dashboard.models import OrganisationProfile, AgeRange, OrganisationType
+from dashboard.models import OrganisationProfile, AgeRange, OrganisationType, VolunteerProfile
 
 
 class LoginForm(forms.Form):
@@ -182,8 +182,39 @@ class RegisterOrganisationProfileForm(forms.ModelForm):
 		fields = ['age_range', 'organisation_type']
 
 
-class RegisterVolunteerProfileForm(forms.ModelForm):
-	pass
+class RegisterVolunteerForm(forms.ModelForm):
+	first_name = forms.CharField(
+		label='',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Nome',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+	)
+
+	last_name = forms.CharField(
+		label='',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Apelido',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+	)
+
+	birth_date = forms.DateField(
+		label='',
+		widget=forms.DateInput(format='%d/%m/%Y', attrs={
+			'placeholder': 'Data de nascimento (dia/mês/ano)',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
+	)
+
+	class Meta:
+		model = VolunteerProfile
+		fields = ['first_name', 'last_name', 'birth_date']
 
 
 class PasswordChangeForm(PasswordChangeForm):
