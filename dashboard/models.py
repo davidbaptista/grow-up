@@ -27,7 +27,7 @@ class VolunteerProfile(models.Model, Profile):
 	middle_names = models.CharField(max_length=255, blank=True)
 	gender = models.BooleanField(default=False, blank=True)
 	birth_date = models.DateField(blank=True, null=True)
-	image = models.FileField(upload_to='static/media/users/', blank=True)
+	image = models.FileField(upload_to='static/media/volunteers/', blank=True)
 	occupation = models.CharField(max_length=127, blank=True)
 	location = models.CharField(max_length=255, blank=True)
 	phone_number = models.IntegerField(blank=True, null=True, default=0)
@@ -40,3 +40,4 @@ class OrganisationProfile(models.Model, Profile):
 	is_active = models.BooleanField(default=False)
 	age_range = models.ManyToManyField(AgeRange, blank=True)
 	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
+	image = models.FileField(upload_to='static/media/organisations', blank=True)

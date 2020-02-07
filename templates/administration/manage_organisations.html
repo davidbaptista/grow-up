@@ -1,15 +1,7 @@
-{% extends 'generic/base.html' %}
+{% extends 'generic/base_dashboard.html' %}
 {% load static %}
 
-{% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-{% endblock %}
-
-{% block navbar %}
-    {% include 'generic/navbar_dashboard.html' %}
-{% endblock %}
-
-{% block content %}
+{% block container %}
     <br>
     <div class="row">
         <div class="offset-3 col-6 bg-gray text-center">

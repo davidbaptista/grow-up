@@ -1,23 +1,32 @@
-{% extends 'generic/base.html' %}
+{% extends 'generic/base_dashboard.html' %}
 {% load static %}
 
-{% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-{% endblock %}
-
-{% block bodyclass %}wrapper{% endblock %}
-
-{% block navbar %}
-    {% include 'generic/navbar_dashboard.html' %}
-{% endblock %}
-
-{% block content %}
-    <div id="content">
-        {% include 'dashboard/navbar.html' %}
-        <p>Conteudo do perfil</p>
+{% block container %}
+    <div class="row">
+        <div class="col-2">
+            {% if profile.image == '' %}
+                <img src="{% static 'media/website/logo.png' %}" alt="Foto de perfil" style="height: 100%; width: 100%">
+            {% else %}
+                <img src="{{ profile.image }}" alt="Foto de perfil">
+            {% endif %}
+        </div>
+        <div class="col-2">
+            <p>Nome de utilizador: {{ user.username }}</p>
+            {% if volunteer %}
+                <p>Nome: {{ profile.first_name }} {{ profile.middle_names }} {{ profile.last_name }}</p>
+                <p>Sexo:{% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
+                <p>Região: {{ profile.location }}</p>
+                <p>Profissão: {{ profile.occupation }}</p>
+                <p>Número de telemovel: {{ profile.phone_number }}</p>
+            {% else %}
+                <p>Nome da organização: {{ profile.organisation_name }}</p>
+                <p>Nome do representante: {{ profile.representative_name }}</p>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            {% if volunteer %}
+                <p>Data de nascimento: {{ profile.birth_date }}</p>
+            {% endif %}
+        </div>
     </div>
-{% endblock %}
-
-{% block script %}
-    <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

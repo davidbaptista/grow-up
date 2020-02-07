@@ -64,7 +64,8 @@ a:focus {
   display: none;
 }
 #sidebar {
-  font-family: paralucent-stencil, sans-serif;
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
   min-width: 250px;
   max-width: 250px;
   background: #F3AE3A;
