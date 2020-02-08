@@ -4,15 +4,16 @@
 {% block container %}
     <br>
     <div class="row">
+        {% if organisations %}
         <div class="offset-3 col-6 bg-gray text-center">
-            <h1>Hello</h1>
+            <h1>Gerir organizações</h1>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Nome da organização</th>
-                            <th scope="col">Documento 1</th>
-                            <th scope="col">Documento 2</th>
+                            <th scope="col">Nome do representante</th>
+                            <th scope="col">Email</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -20,8 +21,8 @@
                         {% for organisation in organisations.all %}
                             <tr>
                                 <td>{{ organisation.organisation_name }}</td>
-                                <td><a href="#">Vazio</a></td>
-                                <td><a href="#">Vazio</a></td>
+                                <td>{{ organisation.representative_name }}</td>
+                                <td>{{ organisation.user.email }}</td>
                                 <td>
                                     <a href="{% url 'accept_organisation' organisation.id %}" class="btn btn-success">Aceitar</a>
                                     <a href="{% url 'decline_organisation' organisation.id %}" class="btn btn-danger">Recusar</a>
@@ -31,6 +32,11 @@
                     </tbody>
                 </table>
             </div>
+            {% else %}
+                <div class="col-12 text-center">
+                    <h2>Não há organizações por validar</h2>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
