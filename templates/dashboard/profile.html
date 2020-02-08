@@ -2,6 +2,15 @@
 {% load static %}
 
 {% block container %}
+    <div class="row" style="background-color: #EBECED">
+        <div class="col-2 text-center">
+            <h5>Fotografia</h5>
+        </div>
+        <div class="col-3">
+            <h5>Informações Pessoais</h5>
+        </div>
+    </div>
+    <br>
     <div class="row">
         <div class="col-2">
             {% if profile.image == '' %}
@@ -10,22 +19,9 @@
                 <img src="{{ profile.image }}" alt="Foto de perfil">
             {% endif %}
         </div>
-        <div class="col-2">
-            <p>Nome de utilizador: {{ user.username }}</p>
-            {% if volunteer %}
-                <p>Nome: {{ profile.first_name }} {{ profile.middle_names }} {{ profile.last_name }}</p>
-                <p>Sexo:{% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
-                <p>Região: {{ profile.location }}</p>
-                <p>Profissão: {{ profile.occupation }}</p>
-                <p>Número de telemovel: {{ profile.phone_number }}</p>
-            {% else %}
-                <p>Nome da organização: {{ profile.organisation_name }}</p>
-                <p>Nome do representante: {{ profile.representative_name }}</p>
-            {% endif %}
-        </div>
         <div class="col-3">
             {% if volunteer %}
-                <p>Data de nascimento: {{ profile.birth_date }}</p>
+            {% else %}
             {% endif %}
         </div>
     </div>
