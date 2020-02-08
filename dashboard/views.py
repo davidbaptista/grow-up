@@ -1,13 +1,24 @@
+import calendar
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
 
 from dashboard.models import VolunteerProfile, OrganisationProfile
+from dashboard.utils import Calendar, previous_month, next_month, get_date
 
 
 @login_required(redirect_field_name='index')
 def dashboard(request):
-	return render(request, 'dashboard/dashboard.html', {'dashboard': True})
+	today = get_date(request.GET.get('month', None))
+	calendar = Calendar()
+	cal = calendar.formatmonth(today.year, today.month)
+	return render(request, 'dashboard/dashboard.html', {'dashboard': True,
+														'calendar': mark_safe(cal),
+														'previous_month': previous_month(today),
+	                                                    'next_month': next_month(today)})
 
 
 @login_required(redirect_field_name='index')

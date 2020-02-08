@@ -7,6 +7,7 @@ from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
 from dashboard.models import OrganisationProfile, AgeRange, OrganisationType, VolunteerProfile
+from grow_up import settings
 
 
 class LoginForm(forms.Form):
@@ -209,6 +210,7 @@ class RegisterVolunteerForm(forms.ModelForm):
 			'placeholder': 'Data de nascimento (dia/mês/ano)',
 			'class': 'form-control mb-2'
 		}),
+		input_formats=settings.DATE_INPUT_FORMATS,
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
 	)
 

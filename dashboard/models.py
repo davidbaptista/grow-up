@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User, AbstractUser
+from django.core.exceptions import ValidationError
 from django.db import models
+
+from grow_up import settings
 
 
 class AgeRange(models.Model):
@@ -41,3 +44,16 @@ class OrganisationProfile(models.Model, Profile):
 	age_range = models.ManyToManyField(AgeRange, blank=True)
 	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
 	image = models.FileField(upload_to='static/media/organisations', blank=True)
+
+
+class Event(models.Model):
+	day = models.DateField(blank=True, null=True)
+	start_time = models.TimeField(blank=True, null=True)
+	end_time = models.TimeField(blank=True, null=True)
+	title = models.CharField(max_length=255, blank=False, null=False)
+	description = models.TextField(blank=True, null=True)
+	organisation = models.OneToOneField(OrganisationProfile, on_delete=models.CASCADE)
+
+	def clean(self):
+		if self.end_time <= self.start_time:
+			raise ValidationError('O fim do evento deve ser após o seu inicio')

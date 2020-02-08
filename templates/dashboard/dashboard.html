@@ -2,5 +2,7 @@
 {% load static %}
 
 {% block container %}
-    <p>Ola</p>
+    <a class="btn btn-info left" href="{% url 'dashboard' %}?{{ previous_month }}"> Previous Month </a>
+	<a class="btn btn-info right" href="{% url 'dashboard' %}?{{ next_month }}"> Next Month </a>
+    {{ calendar }}
 {% endblock %}

@@ -107,3 +107,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'grow.up.portugal@gmail.com'
 EMAIL_HOST_PASSWORD = 'vlylnaqnqpkzaefb'
 EMAIL_PORT = 587
+
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
