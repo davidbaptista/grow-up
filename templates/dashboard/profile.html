@@ -2,20 +2,28 @@
 {% load static %}
 
 {% block container %}
-    <div class="row bg-gray text-center">
-        <div class="col-3">
-            <h5>Informações Pessoais</h5>
+    <div class="row text-center">
+        <div class="col-3 bg-gray">
+            {% if volunteer %}
+                <h5>Informações pessoais</h5>
+            {% else %}
+                <h5>Dados da organização</h5>
+            {% endif %}
         </div>
     </div>
-    <br>
     <div class="row text-black-50">
-        <div class="col-3">
+        <div class="col-3 bg-grayer">
             {% if volunteer %}
                 <p>Nome: {{ profile.first_name }} {{ profile.middle_names }} {{ profile.last_name }}</p>
                 <p>Sexo: {% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
                 <p>Data de nascimento: {{ profile.birth_date }}</p>
             {% else %}
+                <p>Nome da organização: {{ profile.organisation_name }}</p>
+                <p>Nome do representante: {{ profile.representative_name }}</p>
             {% endif %}
         </div>
+    </div>
+    <div class="row">
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Editar perfil</a>
     </div>
 {% endblock %}

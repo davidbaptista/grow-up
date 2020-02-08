@@ -12,11 +12,23 @@
 #login-button {
   border-style: solid;
   border-width: 5px;
-  border-color: #F3AE3A #F3AE3A #F3AE3A #3A67B9;
+  border-color: #F3AE3A #F3AE3A #F3AE3A #3a67b9;
   padding: 3px;
 }
 .bg-yellow {
   background-color: #F3AE3A;
+}
+.bg-blue {
+  background-color: #3a67b9;
+}
+.btn-primary {
+  background-color: #3a67b9;
+}
+.btn-primary:hover {
+  background-color: #4b87eb;
+}
+.btn-primary:active {
+  background-color: #5193ff;
 }
 body {
   font-family: 'Lato', sans-serif;
@@ -38,6 +50,9 @@ a:focus {
 }
 .bg-gray {
   background-color: #EBECED;
+}
+.bg-grayer {
+  background-color: #dfe0e1;
 }
 .navbar {
   padding: 15px 10px;

@@ -2,7 +2,10 @@
 {% load static %}
 
 {% block container %}
-    <a class="btn btn-info left" href="{% url 'dashboard' %}?{{ previous_month }}"> Previous Month </a>
-	<a class="btn btn-info right" href="{% url 'dashboard' %}?{{ next_month }}"> Next Month </a>
+    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+        <a class="btn btn-primary col-2" href="{% url 'dashboard' %}?{{ previous_month }}"> Mês anterior </a>
+        <a class="btn btn-primary offset-8 col-2" href="{% url 'dashboard' %}?{{ next_month }}"> Mês seguinte </a>
+    </div>
+    <br>
     {{ calendar }}
 {% endblock %}

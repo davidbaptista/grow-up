@@ -5,11 +5,23 @@
 #login-button {
   border-style: solid;
   border-width: 5px;
-  border-color: #F3AE3A #F3AE3A #F3AE3A #3A67B9;
+  border-color: #F3AE3A #F3AE3A #F3AE3A #3a67b9;
   padding: 3px;
 }
 .bg-yellow {
   background-color: #F3AE3A;
+}
+.bg-blue {
+  background-color: #3a67b9;
+}
+.btn-primary {
+  background-color: #3a67b9;
+}
+.btn-primary:hover {
+  background-color: #4b87eb;
+}
+.btn-primary:active {
+  background-color: #5193ff;
 }
 html,
 body {
@@ -39,7 +51,7 @@ li {
   background-color: #f3f3f3;
 }
 .btn-blue {
-  background-color: #3A67B9;
+  background-color: #3a67b9;
 }
 .btn-blue:hover {
   background-color: #3b84d5;

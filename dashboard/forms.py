@@ -1,0 +1,75 @@
+from django import forms
+from django.core.validators import RegexValidator
+
+from dashboard.models import VolunteerProfile
+from grow_up import settings
+
+
+class EditVolunteerProfileForm(forms.ModelForm):
+	first_name = forms.CharField(
+		label='',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Nome',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+	)
+
+	last_name = forms.CharField(
+		label='',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Apelido',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+	)
+
+	birth_date = forms.DateField(
+		label='',
+		widget=forms.DateInput(format='%d/%m/%Y', attrs={
+			'placeholder': 'Data de nascimento (dia/mês/ano)',
+			'class': 'form-control mb-2'
+		}),
+		input_formats=settings.DATE_INPUT_FORMATS,
+		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
+	)
+
+	gender = forms.CharField(
+		label='',
+		widget=forms.Select(choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
+		                    attrs={'class': 'form-control mb-2', 'placeholder': 'Selecione o seu sexo'}),
+		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},
+	)
+
+	occupation = forms.CharField(
+		label='',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Ocupação',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+	)
+
+	location = forms.CharField(
+		label='',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Localização',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+	)
+
+	phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
+	                                error_message='Formato incorreto')
+
+	class Meta:
+		model = VolunteerProfile
+		fields = ['first_name', 'last_name', 'birth_date', 'gender', 'occupation', 'location', 'phone_number']
+
+
+class EditOrganisationProfileForm:
+	pass

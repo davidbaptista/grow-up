@@ -3,22 +3,24 @@ import datetime
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 
+from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm
 from dashboard.models import VolunteerProfile, OrganisationProfile
-from dashboard.utils import Calendar, previous_month, next_month, get_date
+from dashboard.utils import Calendar, previous_date, next_date, get_date
 
 
 @login_required(redirect_field_name='index')
 def dashboard(request):
-	today = get_date(request.GET.get('month', None))
+	date = get_date(request.GET.get('date', None))
 	calendar = Calendar()
-	cal = calendar.formatmonth(today.year, today.month)
+	cal = calendar.formatmonth(date.year, date.month)
 	return render(request, 'dashboard/dashboard.html', {'dashboard': True,
 														'calendar': mark_safe(cal),
-														'previous_month': previous_month(today),
-	                                                    'next_month': next_month(today)})
+														'previous_month': previous_date(date),
+	                                                    'next_month': next_date(date)})
 
 
 @login_required(redirect_field_name='index')
@@ -46,3 +48,13 @@ def profile(request):
 		volunteer = False
 
 	return render(request, 'dashboard/profile.html', {'profile': prof, 'dashboard': True, 'volunteer': volunteer})
+
+
+@login_required(redirect_field_name='index')
+def edit_profile(request):
+
+	profile = VolunteerProfile.objects.get(user=request.user or None)
+	if profile:
+		form = EditVolunteerProfileForm(request.POST or None, instance=profile)
+
+	return render(request, 'dashboard/edit_profile.html', {'form': form})
