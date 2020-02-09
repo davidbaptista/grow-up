@@ -3,26 +3,52 @@
 
 {% block container %}
     <div class="row text-center">
+    {% if is_volunteer %}
         <div class="col-3 bg-gray">
-            {% if volunteer %}
-                <h5>Informações pessoais</h5>
-            {% else %}
-                <h5>Dados da organização</h5>
-            {% endif %}
+            <h5>Informações pessoais</h5>
         </div>
+        <div class="col-3 bg-gray">
+            <h5>Contacto</h5>
+        </div>
+        <div class="col-3 bg-gray">
+            <h5>Outras informações</h5>
+        </div>
+    {% else %}
+        <div class="col-4 bg-gray">
+            <h5>Dados da organização</h5>
+        </div>
+        <div class="col-4 bg-gray">
+            <h5>Contacto</h5>
+        </div>
+    {% endif %}
     </div>
+
     <div class="row text-black-50">
+    {% if is_volunteer %}
         <div class="col-3 bg-grayer">
-            {% if volunteer %}
-                <p>Nome: {{ profile.first_name }} {{ profile.middle_names }} {{ profile.last_name }}</p>
-                <p>Sexo: {% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
-                <p>Data de nascimento: {{ profile.birth_date }}</p>
-            {% else %}
-                <p>Nome da organização: {{ profile.organisation_name }}</p>
-                <p>Nome do representante: {{ profile.representative_name }}</p>
-            {% endif %}
+            <p>Nome: {{ profile.first_name }} {{ profile.middle_names }} {{ profile.last_name }}</p>
+            <p>Sexo: {% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
+            <p>Data de nascimento: {{ profile.birth_date }}</p>
         </div>
+        <div class="col-3 bg-grayer">
+            <p>Número de telemovel: {% if profile.phone_number != 0 %} {{ profile.phone_number }} {% else %} indisponível {% endif %}</p>
+            <p>Email: {{ profile.user.email }}</p>
+        </div>
+        <div class="col-3 bg-grayer">
+            <p>Ocupação: {% if profile.occupation %} {{ profile.occupation }} {% else %} indisponível {% endif %}</p>
+            <p>Localidade: {% if profile.location %} {{ profile.location }} {% else %} indisponível {% endif %}</p>
+        </div>
+    {% else %}
+        <div class="col-4 bg-grayer">
+            <p>Nome da organização: {{ profile.organisation_name }}</p>
+            <p>Nome do representante: {{ profile.representative_name }}</p>
+        </div>
+        <div class="col-4 bg-grayer">
+            <p>Email: {{ profile.user.email }}</p>
+        </div>
+    {% endif %}
     </div>
+    <br>
     <div class="row">
         <a href="{% url 'edit_profile' %}" class="btn btn-primary">Editar perfil</a>
     </div>

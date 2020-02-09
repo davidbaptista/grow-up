@@ -7,7 +7,7 @@ from dashboard.models import OrganisationProfile
 @login_required(redirect_field_name='index')
 def administration(request):
 	if request.user.is_staff:
-		return render(request, 'administration/administration.html', {'dashboard': False})
+		return render(request, 'administration/administration.html',  {'is_administration': True})
 	else:
 		return redirect('index')
 
@@ -17,7 +17,7 @@ def manage_organisations(request):
 	if request.user.is_staff:
 		organisations = OrganisationProfile.objects.filter(is_active=True, user__is_active=False)
 		return render(request, 'administration/manage_organisations.html', {'organisations': organisations,
-		                                                                    'dashboard': False})
+		                                                                    'is_administration': True})
 	else:
 		return redirect('index')
 
@@ -29,7 +29,7 @@ def accept_organisation(request, organisation_id):
 		user.is_active = True
 		user.save()
 
-		return redirect('manage_organisations', {'dashboard': False})
+		return redirect('manage_organisations', {'is_administration': True})
 	else:
 		return redirect('index')
 
@@ -41,6 +41,6 @@ def decline_organisation(request, organisation_id):
 		profile.user.delete()
 		profile.delete()
 
-		return redirect('manage_organisations', {'dashboard': False})
+		return redirect('manage_organisations',  {'is_administration': True})
 	else:
 		return redirect('index')

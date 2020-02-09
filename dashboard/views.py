@@ -1,13 +1,10 @@
-import calendar
-import datetime
-
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 
-from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm
+from dashboard.forms import EditVolunteerProfileForm
 from dashboard.models import VolunteerProfile, OrganisationProfile
 from dashboard.utils import Calendar, previous_date, next_date, get_date
 
@@ -17,25 +14,24 @@ def dashboard(request):
 	date = get_date(request.GET.get('date', None))
 	calendar = Calendar()
 	cal = calendar.formatmonth(date.year, date.month)
-	return render(request, 'dashboard/dashboard.html', {'dashboard': True,
-														'calendar': mark_safe(cal),
+	return render(request, 'dashboard/dashboard.html', {'calendar': mark_safe(cal),
 														'previous_month': previous_date(date),
 	                                                    'next_month': next_date(date)})
 
 
 @login_required(redirect_field_name='index')
 def activities(request):
-	return render(request, 'dashboard/activities.html', {'dashboard': True})
+	return render(request, 'dashboard/activities.html')
 
 
 @login_required(redirect_field_name='index')
 def reservations(request):
-	return render(request, 'dashboard/reservations.html', {'dashboard': True})
+	return render(request, 'dashboard/reservations.html')
 
 
 @login_required(redirect_field_name='index')
 def about_us(request):
-	return render(request, 'dashboard/about_us.html', {'dashboard': True})
+	return render(request, 'dashboard/about_us.html')
 
 
 @login_required(redirect_field_name='index')
@@ -47,14 +43,20 @@ def profile(request):
 		prof = OrganisationProfile.objects.get(user = request.user)
 		volunteer = False
 
-	return render(request, 'dashboard/profile.html', {'profile': prof, 'dashboard': True, 'volunteer': volunteer})
+	return render(request, 'dashboard/profile.html', {'profile': prof, 'is_volunteer': volunteer})
 
 
 @login_required(redirect_field_name='index')
 def edit_profile(request):
+	prof = VolunteerProfile.objects.get(user=request.user or None)
+	if prof:
+		form = EditVolunteerProfileForm(request.POST or None, instance=prof)
 
-	profile = VolunteerProfile.objects.get(user=request.user or None)
-	if profile:
-		form = EditVolunteerProfileForm(request.POST or None, instance=profile)
+		if request.method == 'POST' and form.is_valid():
+			prof = form.save()
+
+			return redirect('profile')
+	else:
+		return HttpResponse('404')
 
 	return render(request, 'dashboard/edit_profile.html', {'form': form})

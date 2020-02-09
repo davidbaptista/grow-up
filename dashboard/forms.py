@@ -7,7 +7,7 @@ from grow_up import settings
 
 class EditVolunteerProfileForm(forms.ModelForm):
 	first_name = forms.CharField(
-		label='',
+		label='Primeiro nome',
 		widget=forms.TextInput(attrs={
 			'placeholder': 'Nome',
 			'class': 'form-control mb-2'
@@ -17,7 +17,7 @@ class EditVolunteerProfileForm(forms.ModelForm):
 	)
 
 	last_name = forms.CharField(
-		label='',
+		label='Último nome',
 		widget=forms.TextInput(attrs={
 			'placeholder': 'Apelido',
 			'class': 'form-control mb-2'
@@ -27,7 +27,7 @@ class EditVolunteerProfileForm(forms.ModelForm):
 	)
 
 	birth_date = forms.DateField(
-		label='',
+		label='Data de nascimento (Dia/Mês/Ano)',
 		widget=forms.DateInput(format='%d/%m/%Y', attrs={
 			'placeholder': 'Data de nascimento (dia/mês/ano)',
 			'class': 'form-control mb-2'
@@ -37,34 +37,40 @@ class EditVolunteerProfileForm(forms.ModelForm):
 	)
 
 	gender = forms.CharField(
-		label='',
+		label='Sexo',
 		widget=forms.Select(choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
 		                    attrs={'class': 'form-control mb-2', 'placeholder': 'Selecione o seu sexo'}),
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},
 	)
 
 	occupation = forms.CharField(
-		label='',
+		label='Ocupação',
 		widget=forms.TextInput(attrs={
 			'placeholder': 'Ocupação',
 			'class': 'form-control mb-2'
 		}),
-		error_messages={'required': 'Este campo é obrigatório'},
+		required=False,
+		error_messages={'invalid': 'Campo inválido'},
 		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
 	)
 
 	location = forms.CharField(
-		label='',
+		label='Localidade',
 		widget=forms.TextInput(attrs={
 			'placeholder': 'Localização',
 			'class': 'form-control mb-2'
 		}),
-		error_messages={'required': 'Este campo é obrigatório'},
+		required=False,
+		error_messages={'invalid': 'Campo inválido'},
 		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
 	)
 
 	phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
-	                                error_message='Formato incorreto')
+	                                label='Número de telemóvel',
+	                                widget=forms.TextInput(attrs={
+		                                'class': 'form-control mb-2',
+	                                }),
+	                                error_messages={'invalid': 'Formato incorreto'})
 
 	class Meta:
 		model = VolunteerProfile

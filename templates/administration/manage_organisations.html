@@ -1,37 +1,38 @@
 {% extends 'generic/base_dashboard.html' %}
 {% load static %}
 
+{% block container-classes %}bg-gray{% endblock %}
+
 {% block container %}
-    <br>
     <div class="row">
         {% if organisations %}
-        <div class="offset-3 col-6 bg-gray text-center">
+        <div class="col-12 text-center" style="align-content: center">
+            <br>
             <h1>Gerir organizações</h1>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
+            <br>
+            <table class="table" style="margin: 0 auto;">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome da organização</th>
+                        <th scope="col">Nome do representante</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for organisation in organisations.all %}
                         <tr>
-                            <th scope="col">Nome da organização</th>
-                            <th scope="col">Nome do representante</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Ações</th>
+                            <td>{{ organisation.organisation_name }}</td>
+                            <td>{{ organisation.representative_name }}</td>
+                            <td>{{ organisation.user.email }}</td>
+                            <td>
+                                <a href="{% url 'accept_organisation' organisation.id %}" class="btn btn-success">Aceitar</a>
+                                <a href="{% url 'decline_organisation' organisation.id %}" class="btn btn-danger">Recusar</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for organisation in organisations.all %}
-                            <tr>
-                                <td>{{ organisation.organisation_name }}</td>
-                                <td>{{ organisation.representative_name }}</td>
-                                <td>{{ organisation.user.email }}</td>
-                                <td>
-                                    <a href="{% url 'accept_organisation' organisation.id %}" class="btn btn-success">Aceitar</a>
-                                    <a href="{% url 'decline_organisation' organisation.id %}" class="btn btn-danger">Recusar</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                    {% endfor %}
+                </tbody>
+            </table>
             {% else %}
                 <div class="col-12 text-center">
                     <h2>Não há organizações por validar</h2>

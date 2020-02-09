@@ -16,7 +16,7 @@
             </a>
         </div>
         <ul class="list-unstyled components">
-            {% if dashboard %}
+            {% if not is_administration %}
                 <li>
                     <a href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
@@ -69,7 +69,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid bg-gray">
             {% block container %}
 
             {% endblock %}
