@@ -13,6 +13,9 @@
         <div class="col-3 bg-gray">
             <h5>Outras informações</h5>
         </div>
+        <div class="col-3 bg-gray">
+            <h5>Foto de perfil</h5>
+        </div>
     {% else %}
         <div class="col-4 bg-gray">
             <h5>Dados da organização</h5>
@@ -37,6 +40,11 @@
         <div class="col-3 bg-grayer">
             <p>Ocupação: {% if profile.occupation %} {{ profile.occupation }} {% else %} indisponível {% endif %}</p>
             <p>Localidade: {% if profile.location %} {{ profile.location }} {% else %} indisponível {% endif %}</p>
+        </div>
+        <div class="col-3 bg-grayer">
+            {% if profile.image %}
+                <img src="{{ profile.image.url }}" alt="Profile pic" style="height: 200px; width: 200px">
+            {% endif %}
         </div>
     {% else %}
         <div class="col-4 bg-grayer">

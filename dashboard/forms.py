@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
 from dashboard.models import VolunteerProfile
@@ -76,12 +77,21 @@ class EditVolunteerProfileForm(forms.ModelForm):
 
 	image = forms.ImageField(label='Selecionar foto de perfil',
 	                        required=False,
-	                        widget=forms.ClearableFileInput(attrs={
+	                        widget=forms.FileInput(attrs={
 		                        'id': 'image',
 		                        'class': 'hidden'
 	                        }),
-	                        error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png e com dimensões '
-	                                                   'máximas de 300x300px'})
+	                        error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo '
+	                                                   'de 4MB'})
+
+	def clean_image(self):
+		content = self.cleaned_data['image']
+		if content:
+			if content.size > 4 * 1024 * 1024:
+				raise ValidationError('O tamanho da imagem tem de ser inferior a 4MB')
+			return content
+		else:
+			raise ValidationError('Erro a ler a imagem')
 
 	class Meta:
 		model = VolunteerProfile

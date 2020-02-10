@@ -1,7 +1,10 @@
+import os
+
 from django.contrib.auth.models import User, AbstractUser
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.dispatch import receiver
 
 from grow_up import settings
 
@@ -35,7 +38,7 @@ class VolunteerProfile(models.Model, Profile):
 	location = models.CharField(max_length=255, blank=True, null=True)
 	phone_number = models.CharField(blank=True, null=True, default=0, max_length=12)
 	image = models.ImageField(upload_to='volunteers/', blank=True, null=True,
-	                         validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 
 class OrganisationProfile(models.Model, Profile):
@@ -46,7 +49,34 @@ class OrganisationProfile(models.Model, Profile):
 	age_range = models.ManyToManyField(AgeRange, blank=True)
 	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
 	image = models.ImageField(upload_to='organisations/', blank=True,
-	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+
+
+@receiver(models.signals.post_delete, sender=VolunteerProfile)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+	if instance.file:
+		if os.path.isfile(instance.file.path):
+			os.remove(instance.file.path)
+
+
+@receiver(models.signals.pre_save, sender=VolunteerProfile)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+	if not instance.pk:
+		return False
+
+	try:
+		volunteer = VolunteerProfile.objects.get(pk=instance.pk)
+		if volunteer.image:
+			old_file = volunteer.image
+		else:
+			return False
+	except VolunteerProfile.DoesNotExist:
+		return False
+
+	new_file = instance.image
+	if old_file.url and not old_file == new_file:
+		if os.path.isfile(old_file.path):
+			os.remove(old_file.path)
 
 
 class Event(models.Model):
