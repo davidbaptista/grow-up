@@ -5,19 +5,23 @@
     <br>
     <div class="col-4">
         <h3 class="text-center">Alterar perfil</h3>
-        <form method="POST" novalidate style="min-width:100%;">
+        <form method="POST" novalidate enctype="multipart/form-data" style="min-width:100%;">
             {% csrf_token %}
             {% for error in form.non_field_errors %}
                 <span class="text-danger float-left"> {{ error }} </span>
             {% endfor %}
             {% for field in form %}
+                {% if field.name == 'image' %}
+                    <label for="{{ field.name }}" class="btn btn-secondary" style="cursor: pointer">{{ field.label }}</label>
+                {% else %}
+                    <label for="{{ field.name }}">{{ field.label }}</label>
+                {% endif %}
+                {{ field }}
                 <div class="text-danger">
                     {% for error in field.errors %}
                         <span class="float-left">{{ error | escape }}</span>
                     {% endfor %}
                 </div>
-                {{ field.label }}
-                {{ field }}
             {% endfor %}
                 <button class="btn btn-primary text-white btn-block" type="submit">Alterar</button>
         </form>

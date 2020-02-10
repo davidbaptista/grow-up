@@ -59,6 +59,9 @@ a:focus {
 .bg-grayer {
   background-color: #dfe0e1;
 }
+.hidden {
+  visibility: hidden;
+}
 .dash-container {
   width: 100% !important;
   min-height: inherit;

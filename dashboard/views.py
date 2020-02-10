@@ -50,10 +50,10 @@ def profile(request):
 def edit_profile(request):
 	prof = VolunteerProfile.objects.get(user=request.user or None)
 	if prof:
-		form = EditVolunteerProfileForm(request.POST or None, instance=prof)
+		form = EditVolunteerProfileForm(request.POST or None, request.FILES or None, instance=prof)
 
 		if request.method == 'POST' and form.is_valid():
-			prof = form.save()
+			form.save()
 
 			return redirect('profile')
 	else:

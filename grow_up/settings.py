@@ -109,3 +109,7 @@ EMAIL_HOST_PASSWORD = 'vlylnaqnqpkzaefb'
 EMAIL_PORT = 587
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

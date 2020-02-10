@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, AbstractUser
 from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
 from django.db import models
 
 from grow_up import settings
@@ -27,13 +28,14 @@ class VolunteerProfile(models.Model, Profile):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	last_name = models.CharField(max_length=255, blank=True)
 	first_name = models.CharField(max_length=255, blank=True)
-	middle_names = models.CharField(max_length=255, blank=True)
+	middle_names = models.CharField(max_length=255, blank=True, null=True)
 	gender = models.BooleanField(default=False, blank=True)
 	birth_date = models.DateField(blank=True, null=True)
-	image = models.FileField(upload_to='static/media/volunteers/', blank=True)
-	occupation = models.CharField(max_length=127, blank=True)
-	location = models.CharField(max_length=255, blank=True)
-	phone_number = models.IntegerField(blank=True, null=True, default=0)
+	occupation = models.CharField(max_length=127, blank=True, null=True)
+	location = models.CharField(max_length=255, blank=True, null=True)
+	phone_number = models.CharField(blank=True, null=True, default=0, max_length=12)
+	image = models.ImageField(upload_to='volunteers/', blank=True, null=True,
+	                         validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 
 class OrganisationProfile(models.Model, Profile):
@@ -43,7 +45,8 @@ class OrganisationProfile(models.Model, Profile):
 	is_active = models.BooleanField(default=False)
 	age_range = models.ManyToManyField(AgeRange, blank=True)
 	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
-	image = models.FileField(upload_to='static/media/organisations', blank=True)
+	image = models.ImageField(upload_to='organisations/', blank=True,
+	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 
 class Event(models.Model):

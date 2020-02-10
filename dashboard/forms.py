@@ -32,6 +32,7 @@ class EditVolunteerProfileForm(forms.ModelForm):
 			'placeholder': 'Data de nascimento (dia/mês/ano)',
 			'class': 'form-control mb-2'
 		}),
+		required=False,
 		input_formats=settings.DATE_INPUT_FORMATS,
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
 	)
@@ -67,14 +68,24 @@ class EditVolunteerProfileForm(forms.ModelForm):
 
 	phone_number = forms.RegexField(regex=r'^\+?1?\d{9,15}$',
 	                                label='Número de telemóvel',
+	                                required=False,
 	                                widget=forms.TextInput(attrs={
 		                                'class': 'form-control mb-2',
 	                                }),
 	                                error_messages={'invalid': 'Formato incorreto'})
 
+	image = forms.ImageField(label='Selecionar foto de perfil',
+	                        required=False,
+	                        widget=forms.ClearableFileInput(attrs={
+		                        'id': 'image',
+		                        'class': 'hidden'
+	                        }),
+	                        error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png e com dimensões '
+	                                                   'máximas de 300x300px'})
+
 	class Meta:
 		model = VolunteerProfile
-		fields = ['first_name', 'last_name', 'birth_date', 'gender', 'occupation', 'location', 'phone_number']
+		fields = ['first_name', 'last_name', 'birth_date', 'gender', 'occupation', 'location', 'phone_number', 'image']
 
 
 class EditOrganisationProfileForm:
