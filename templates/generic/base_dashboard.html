@@ -6,77 +6,58 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 {% endblock %}
 
-{% block bodyclass %}wrapper{% endblock %}
-
-{% block navbar %}
-    <nav id="sidebar">
-        <div class="sidebar-header text-center">
-            <a href="{% url 'index' %}">
-                <img src="{% static 'media/website/logo.png' %}" alt="logo" id="logo">
-            </a>
-        </div>
-        <ul class="list-unstyled components">
-            {% if not is_administration %}
-                <li>
-                    <a href="{% url 'dashboard' %}">Dashboard</a>
-                </li>
-                 <li>
-                    <a href="{% url 'activities' %}">Atividades</a>
-                </li>
-                 <li>
-                    <a href="{% url 'reservations' %}">Reservas</a>
-                </li>
-                   <li>
-                    <a href="{% url 'about_us' %}">Sobre nós</a>
-                </li>
-                <li>
-                    <a href="{% url 'profile' %}">Perfil</a>
-                </li>
-            {% else %}
-                <li>
-                    <a href="{% url 'administration' %}">Administração</a>
-                </li>
-                 <li>
-                    <a href="{% url 'manage_organisations' %}">Gerir organizações</a>
-                </li>
-                 <li>
-                    <a href="#">Pagina 1</a>
-                </li>
-                   <li>
-                    <a href="#">Pagina 2</a>
-                </li>
-                <li>
-                    <a href="#">Pagina 3</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-{% endblock %}
-
 {% block content %}
-    <div id="content">
-        <nav class="navbar navbar-expand-lg bg-blue">
-            <div class="container-fluid">
-                <h5 id="title">Grow Up</h5>
-                <button type="button" id="sidebarCollapse" class="btn btn-dark">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'media/website/logo.png' %}" alt="logo" class="img-fluid mx-auto d-block">
+                </a>
+            </div>
+            <div class="list-group list-group-flush">
+                {% if not is_administration %}
+                    <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+                    <a href="{% url 'activities' %}" class="list-group-item list-group-item-action bg-light">Atividades</a>
+                    <a href="{% url 'reservations' %}" class="list-group-item list-group-item-action bg-light">Reservas</a>
+                    <a href="{% url 'about_us' %}" class="list-group-item list-group-item-action bg-light">Sobre nós</a>
+                    <a href="{% url 'profile' %}" class="list-group-item list-group-item-action bg-light">Perfil</a>
+                {% else %}
+                    <a href="{% url 'administration' %}" class="list-group-item list-group-item-action bg-light">Administração</a>
+                    <a href="{% url 'manage_organisations' %}" class="list-group-item list-group-item-action bg-light">Aprovar organizações</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary text-white" id="menu-toggle">
                     <i class="fas fa-align-justify"></i>
                 </button>
 
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
                         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="container-fluid bg-gray">
-            {% block container %}
 
-            {% endblock %}
+                </ul>
+            </nav>
+
+            <div class="container-fluid">
+                {% block container %}
+                {% endblock %}
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block script %}
-    <script src="{% static 'js/dashboard.js' %}"></script>
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
 {% endblock %}
