@@ -1,18 +1,6 @@
-#logo {
-  height: 150px !important;
-  width: 150px !important;
-}
-#login-button {
-  border-style: solid;
-  border-width: 5px;
-  border-color: #F3AE3A #F3AE3A #F3AE3A #3a67b9;
-  padding: 3px;
-}
-.bg-yellow {
-  background-color: #F3AE3A;
-}
-.bg-blue {
-  background-color: #3a67b9;
+.logo {
+  height: 150px;
+  width: 150px;
 }
 .btn-primary {
   background-color: #3a67b9;
@@ -22,6 +10,12 @@
 }
 .btn-primary:active {
   background-color: #5193ff;
+}
+#login-button {
+  border-style: solid;
+  border-width: 5px;
+  border-color: #F3AE3A #F3AE3A #F3AE3A #3a67b9;
+  padding: 3px;
 }
 html,
 body {
