@@ -4,19 +4,19 @@
 
 /* HTML Tags */
 html, body {
-    font-family: @font-base;
+    font-family: $font-base;
   	margin: 0;
   	height: percentage(1);
 }
 
 h1 {
     color: white;
-	font-family: @font-header;
+	font-family: $font-header;
     margin: 15px;
 }
 
 h2 {
-   font-family: @font-header;
+   font-family: $font-header;
 }
 
 footer {
@@ -42,7 +42,7 @@ footer {
 
 .navbar {
     color: white;
-    font-family: @font-header;
+    font-family: $font-header;
     font-size: 28px;
 }
 
@@ -52,11 +52,11 @@ footer {
 
 .nav-text {
 	color: white !important;
-	font-family: @font-header;
+	font-family: $font-header;
 	letter-spacing: 0.1em;
 	position: relative;
 	&:after {
-		background: @color-white;
+		background: $color-white;
 		bottom: 0;
 		content: "";
 		display: block;
@@ -141,11 +141,11 @@ ul.social {
 
 /* Other classes */
 .bg-blue {
-    background-color: @color-blue;
+    background-color: $color-blue;
 }
 
 .bg-yellow {
-    background-color: @color-yellow
+    background-color: $color-yellow
 }
 
 .row-images {
@@ -161,12 +161,12 @@ ul.social {
 }
 
 .choice-circle {
-    border: @color-yellow solid 5px;
+    border: $color-yellow solid 5px;
     border-radius: 50%;
-    background-color: @color-blue;
-    color: @color-white;
+    background-color: $color-blue;
+    color: $color-white;
     display: inline-block;
-    font-family: @font-header;
+    font-family: $font-header;
     font-size: 28px;
     font-weight: bold;
     height: 250px;
@@ -186,10 +186,14 @@ ul.social {
 }
 
 .navbar-yellow {
-    background-color: @color-yellow;
+    background-color: $color-yellow;
     font-weight: bold;
 }
 
+.logo {
+    height: 150px;
+    width: 150px;
+}
 
 /* IDs */
 
@@ -204,6 +208,13 @@ ul.social {
   	top: 50%;
   	-ms-transform: translateY(-50%);
   	transform: translateY(-50%);
+}
+
+#login-button {
+    border-style: solid;
+    border-width: 5px;
+    border-color: $color-yellow $color-yellow $color-yellow $color-blue;
+    padding: 3px;
 }
 
 /* Media conditions */

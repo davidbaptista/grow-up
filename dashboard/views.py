@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.utils import translation
 from django.utils.safestring import mark_safe
 
 from dashboard.forms import EditVolunteerProfileForm
@@ -12,7 +13,7 @@ from dashboard.utils import Calendar, previous_date, next_date, get_date
 @login_required(redirect_field_name='index')
 def dashboard(request):
 	date = get_date(request.GET.get('date', None))
-	calendar = Calendar()
+	calendar = Calendar(locale='pt_PT.utf8')
 	cal = calendar.formatmonth(date.year, date.month)
 	return render(request, 'dashboard/dashboard.html', {'calendar': mark_safe(cal),
 														'previous_month': previous_date(date),

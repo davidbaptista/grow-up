@@ -1,70 +1,85 @@
 /* Imports */
-@font-face {
-  font-family: 'Lato';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v16/S6uyw4BMUTPHjx4wWw.ttf) format('truetype');
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+.bg-light {
+  background-color: #f5f5f5 !important;
 }
-.logo {
-  height: 150px;
-  width: 150px;
+
+.bg-primary {
+  background-color: #3a67b9 !important;
 }
+
+.bg-warning {
+  background-color: #F3AE3A !important;
+}
+
+.list-group-item-warning {
+  background-color: #F3AE3A !important;
+}
+.list-group-item-warning:hover {
+  background-color: #dd9c36 !important;
+}
+.list-group-item-warning:active {
+  background-color: #d39335 !important;
+}
+
 .btn-primary {
-  background-color: #3a67b9;
+  background-color: #3a67b9 !important;
 }
 .btn-primary:hover {
-  background-color: #4b87eb;
+  background-color: #4b87eb !important;
 }
 .btn-primary:active {
-  background-color: #5193ff;
+  background-color: #5193ff !important;
 }
-#login-button {
-  border-style: solid;
-  border-width: 5px;
-  border-color: #F3AE3A #F3AE3A #F3AE3A #3a67b9;
-  padding: 3px;
-}
+
 /* HTML Tags */
-html,
-body {
-  font-family: 'Lato', sans-serif;
+html, body {
+  font-family: "Lato", sans-serif;
   margin: 0;
   height: 100%;
 }
+
 h1 {
   color: white;
   font-family: paralucent-stencil, sans-serif;
   margin: 15px;
 }
+
 h2 {
   font-family: paralucent-stencil, sans-serif;
 }
+
 footer {
   padding: 15px 0;
 }
+
 /* Bootstrap classes */
 .container-fluid {
   margin: 0 !important;
   padding: 0 !important;
 }
+
 .row {
   margin: 0 !important;
   padding: 0 !important;
   width: 100%;
 }
+
 .img-fluid {
   height: 100%;
   width: 100%;
 }
+
 .navbar {
   color: white;
   font-family: paralucent-stencil, sans-serif;
   font-size: 28px;
 }
+
 .nav-item {
   padding: 15px;
 }
+
 .nav-text {
   color: white !important;
   font-family: paralucent-stencil, sans-serif;
@@ -86,6 +101,7 @@ footer {
   width: 100%;
   left: 0;
 }
+
 ul.social {
   display: inline;
   list-style: none;
@@ -96,18 +112,22 @@ ul.social li {
   display: inline;
   margin: 0 6px;
 }
+
 .facebook:hover {
   background-color: #3B5998;
 }
+
 .instagram:hover {
   background-color: #bd3799;
 }
+
 .social .facebook:hover i {
   color: #afafaf;
 }
 .social .instagram:hover i {
   color: #afafaf;
 }
+
 .social-circle li a i {
   background-color: #afafaf;
   border-radius: 50%;
@@ -130,23 +150,28 @@ ul.social li {
 .social-circle i {
   color: #ffffff;
 }
+
 /* Other classes */
 .bg-blue {
   background-color: #3a67b9;
 }
+
 .bg-yellow {
   background-color: #F3AE3A;
 }
+
 .row-images {
   padding: 0 !important;
   margin: 0 !important;
   height: 650px;
 }
+
 .col-images {
   padding: 0 !important;
   margin: 0 !important;
   height: 100%;
 }
+
 .choice-circle {
   border: #F3AE3A solid 5px;
   border-radius: 50%;
@@ -161,22 +186,32 @@ ul.social li {
   padding: 40px 0 0 0;
   width: 250px;
 }
+
 .hand {
   height: 85px;
   width: 50px;
 }
+
 .footer-text {
   margin: 0;
   padding: 10px 0 0 0;
 }
+
 .navbar-yellow {
   background-color: #F3AE3A;
   font-weight: bold;
 }
+
+.logo {
+  height: 150px;
+  width: 150px;
+}
+
 /* IDs */
 #choice-row {
   padding: 50px 0;
 }
+
 #login-box {
   height: 300px;
   position: relative;
@@ -185,6 +220,14 @@ ul.social li {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+#login-button {
+  border-style: solid;
+  border-width: 5px;
+  border-color: #F3AE3A #F3AE3A #F3AE3A #3a67b9;
+  padding: 3px;
+}
+
 /* Media conditions */
 @media screen and (max-width: 1200px) {
   .row-images {
@@ -195,6 +238,7 @@ ul.social li {
   h1 {
     font-size: 28px !important;
   }
+
   .row-images {
     height: 400px;
   }
@@ -203,39 +247,49 @@ ul.social li {
   h1 {
     font-size: 24px !important;
   }
+
   footer {
     height: 150px !important;
     font-size: 14px;
   }
+
   .social-circle {
     line-height: 25px !important;
   }
+
   .navbar {
     min-height: 50px;
     font-size: 16px;
   }
+
   .nav-text:after {
     height: 0;
   }
+
   .nav-item {
     padding: 5px 0;
   }
+
   .row-images {
     height: 200px;
   }
+
   .choice-circle {
     height: 150px;
     padding: 20px 0 0 0;
     font-size: 18px;
     width: 150px;
   }
+
   .footer-text {
     padding: 0 0 5px 0;
   }
+
   #login-button {
     border-width: 0;
     padding: 5px 0;
   }
+
   .hand {
     margin-top: 10px;
     height: 45px !important;
@@ -250,4 +304,5 @@ ul.social li {
     width: 125px;
   }
 }
+
 /*# sourceMappingURL=website.css.map */

@@ -1,4 +1,4 @@
-@import "stylesheet";
+@import "stylesheet.scss";
 
 html, body {
   height: 100%;
@@ -33,7 +33,7 @@ li {
 }
 
 .btn-blue {
-	background-color: @color-blue;
+	background-color: $color-blue;
 
 	&:hover {
 		background-color: #3b84d5;
@@ -41,7 +41,7 @@ li {
 }
 
 .btn-yellow {
-	background-color: @color-yellow;
+	background-color: $color-yellow;
 
 	&:hover {
 		background-color: #ffb73d;
@@ -49,7 +49,7 @@ li {
 }
 
 .bg-yellow {
-    background-color: @color-yellow
+    background-color: $color-yellow
 }
 
 .checkboxes {
@@ -116,12 +116,12 @@ li {
 
 .navbar {
     color: white;
-	font-family: @font-header;
+	font-family: $font-header;
     font-size: 28px;
 }
 
 .navbar-yellow {
-    background-color: @color-yellow;
+    background-color: $color-yellow;
     font-weight: bold;
 }
 
@@ -147,4 +147,3 @@ li {
 		font-size: 13px !important;
 	}
 }
-
