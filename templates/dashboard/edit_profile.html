@@ -12,15 +12,30 @@
             {% if field.name == 'image' %}
                 <label>{{ field.label }}</label>
                 <div class="custom-file mb-2">
-                    <label for="{{ field.name }}" class="custom-file-label">Selecione a foto</label>
+                    <label for="{{ field.name }}" class="custom-file-label" id="file-label">Selecione a foto</label>
                     {{ field }}
                 </div>
             {% else %}
                 {{ field.label }}
                 {{ field }}
             {% endif %}
-
+            <div class="text-danger">
+                {% for error in field.errors %}
+                    <span class="float-left">{{ error | escape }}</span>
+                    <br>
+                {% endfor %}
+            </div>
+            <hr>
         {% endfor %}
         <button class="btn btn-primary text-white btn-block" type="submit">Alterar</button>
     </form>
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+            let fileName = document.getElementById("image_input").files[0].name;
+            let nextSibling = document.getElementById("file-label");
+            nextSibling.innerText = fileName;
+        });</script>
 {% endblock %}

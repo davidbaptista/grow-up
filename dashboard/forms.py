@@ -71,6 +71,7 @@ class EditVolunteerProfileForm(forms.ModelForm):
 	                         widget=forms.FileInput(attrs={
 		                         'class': 'custom-file-input',
 		                         'lang': 'pt',
+		                         'id': 'image_input',
 	                         }),
 	                         error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo '
 	                                                    'de 4MB'})
