@@ -7,24 +7,15 @@ from grow_up import settings
 
 
 class EditVolunteerProfileForm(forms.ModelForm):
-	first_name = forms.CharField(
-		label='Primeiro nome',
+	name = forms.CharField(
+		label='Nome completo',
 		widget=forms.TextInput(attrs={
 			'placeholder': 'Nome',
 			'class': 'form-control mb-2'
 		}),
 		error_messages={'required': 'Este campo é obrigatório'},
-		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
-	)
-
-	last_name = forms.CharField(
-		label='Último nome',
-		widget=forms.TextInput(attrs={
-			'placeholder': 'Apelido',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório'},
-		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+		validators=[RegexValidator('^[a-zA-ZÀ-ÖØ-öø-ÿ]+(([\',. -][a-zA-ZÀ-ÖØ-öø-ÿ ])?[a-zA-ZÀ-ÖØ-öø-ÿ]*)*$',
+		                           message='O campo deve apenas conter letras')]
 	)
 
 	birth_date = forms.DateField(
@@ -71,18 +62,18 @@ class EditVolunteerProfileForm(forms.ModelForm):
 	                                label='Número de telemóvel',
 	                                required=False,
 	                                widget=forms.TextInput(attrs={
+		                                'placeholder': 'Número de telemóvel',
 		                                'class': 'form-control mb-2',
 	                                }),
 	                                error_messages={'invalid': 'Formato incorreto'})
 
-	image = forms.ImageField(label='Selecionar foto de perfil',
-	                        required=False,
-	                        widget=forms.FileInput(attrs={
-		                        'id': 'image',
-		                        'class': 'hidden'
-	                        }),
-	                        error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo '
-	                                                   'de 4MB'})
+	image = forms.ImageField(label='Foto de perfil', required=False,
+	                         widget=forms.FileInput(attrs={
+		                         'class': 'custom-file-input',
+		                         'lang': 'pt',
+	                         }),
+	                         error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo '
+	                                                    'de 4MB'})
 
 	def clean_image(self):
 		content = self.cleaned_data['image']
@@ -95,7 +86,7 @@ class EditVolunteerProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = VolunteerProfile
-		fields = ['first_name', 'last_name', 'birth_date', 'gender', 'occupation', 'location', 'phone_number', 'image']
+		fields = ['name', 'birth_date', 'gender', 'occupation', 'location', 'phone_number', 'image']
 
 
 class EditOrganisationProfileForm:

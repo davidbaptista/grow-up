@@ -41,7 +41,7 @@ def profile(request):
 		prof = VolunteerProfile.objects.get(user=request.user)
 		volunteer = True
 	except ObjectDoesNotExist:
-		prof = OrganisationProfile.objects.get(user = request.user)
+		prof = OrganisationProfile.objects.get(user=request.user)
 		volunteer = False
 
 	return render(request, 'dashboard/profile.html', {'profile': prof, 'is_volunteer': volunteer})

@@ -184,24 +184,15 @@ class RegisterOrganisationProfileForm(forms.ModelForm):
 
 
 class RegisterVolunteerForm(forms.ModelForm):
-	first_name = forms.CharField(
+	name = forms.CharField(
 		label='',
 		widget=forms.TextInput(attrs={
-			'placeholder': 'Nome',
+			'placeholder': 'Nome completo',
 			'class': 'form-control mb-2'
 		}),
 		error_messages={'required': 'Este campo é obrigatório'},
-		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
-	)
-
-	last_name = forms.CharField(
-		label='',
-		widget=forms.TextInput(attrs={
-			'placeholder': 'Apelido',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório'},
-		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+		validators=[RegexValidator('^[a-zA-ZÀ-ÖØ-öø-ÿ]+(([\',. -][a-zA-ZÀ-ÖØ-öø-ÿ ])?[a-zA-ZÀ-ÖØ-öø-ÿ]*)*$',
+		                           message='O campo deve apenas conter letras e espaços')]
 	)
 
 	birth_date = forms.DateField(
@@ -223,7 +214,7 @@ class RegisterVolunteerForm(forms.ModelForm):
 
 	class Meta:
 		model = VolunteerProfile
-		fields = ['first_name', 'last_name', 'birth_date', 'gender']
+		fields = ['name', 'birth_date', 'gender']
 
 
 class PasswordChangeForm(PasswordChangeForm):

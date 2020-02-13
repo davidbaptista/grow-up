@@ -35,16 +35,14 @@
                 <button class="btn btn-light text-black" id="menu-toggle">
                     <i class="fas fa-align-justify"></i>
                 </button>
-
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
                     </li>
-
                 </ul>
             </nav>
 
-            <div class="container-fluid">
+            <div class="container-fluid p-3">
                 {% block container %}
                 {% endblock %}
             </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-12 14:47+0000\n"
+"POT-Creation-Date: 2020-02-13 12:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,18 +39,8 @@ msgid "As passwords não são iguais"
 msgstr ""
 
 #: grow_up/settings.py:85
-msgid "English"
-msgstr ""
-
-#: grow_up/settings.py:86
 msgid "Portuguese"
 msgstr ""
-
-#: templates/dashboard/dashboard.html:12
-#, fuzzy
-#| msgid "Hello worldo"
-msgid "Ola world"
-msgstr "Olaaaa"
 
 #: venv/lib/python3.8/site-packages/django/contrib/messages/apps.py:7
 msgid "Messages"
@@ -1251,3 +1241,8 @@ msgstr ""
 #: website/validators.py:75
 msgid "A password não pode ser unicamente numérica"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Hello worldo"
+#~ msgid "Ola world"
+#~ msgstr "Olaaaa"

@@ -29,14 +29,12 @@ class Profile:
 
 class VolunteerProfile(models.Model, Profile):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	last_name = models.CharField(max_length=255, blank=True)
-	first_name = models.CharField(max_length=255, blank=True)
-	middle_names = models.CharField(max_length=255, blank=True, null=True)
+	name = models.CharField(max_length=512, blank=True, null=True)
 	gender = models.BooleanField(default=False, blank=True)
 	birth_date = models.DateField(blank=True, null=True)
 	occupation = models.CharField(max_length=127, blank=True, null=True)
 	location = models.CharField(max_length=255, blank=True, null=True)
-	phone_number = models.CharField(blank=True, null=True, default=0, max_length=12)
+	phone_number = models.CharField(blank=True, null=True, max_length=12)
 	image = models.ImageField(upload_to='volunteers/', blank=True, null=True,
 							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
