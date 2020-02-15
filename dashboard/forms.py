@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from dashboard.models import VolunteerProfile
+from dashboard.models import VolunteerProfile, OrganisationProfile, OrganisationType, AgeRange
 from grow_up import settings
 
 
@@ -82,13 +82,63 @@ class EditVolunteerProfileForm(forms.ModelForm):
 			if content.size > 4 * 1024 * 1024:
 				raise ValidationError('O tamanho da imagem tem de ser inferior a 4MB')
 			return content
-		else:
-			raise ValidationError('Erro a ler a imagem')
 
 	class Meta:
 		model = VolunteerProfile
 		fields = ['name', 'birth_date', 'gender', 'occupation', 'location', 'phone_number', 'image']
 
 
-class EditOrganisationProfileForm:
-	pass
+class EditOrganisationProfileForm(forms.ModelForm):
+	organisation_name = forms.CharField(
+		label='Nome da organização',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Nome',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('^[a-zA-ZÀ-ÖØ-öø-ÿ]+(([\',. -][a-zA-ZÀ-ÖØ-öø-ÿ ])?[a-zA-ZÀ-ÖØ-öø-ÿ]*)*$',
+		                           message='O campo deve apenas conter letras')]
+	)
+
+	representative_name = forms.CharField(
+		label='Nome do representante',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Nome',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={'required': 'Este campo é obrigatório'},
+		validators=[RegexValidator('^[a-zA-ZÀ-ÖØ-öø-ÿ]+(([\',. -][a-zA-ZÀ-ÖØ-öø-ÿ ])?[a-zA-ZÀ-ÖØ-öø-ÿ]*)*$',
+		                           message='O campo deve apenas conter letras')]
+	)
+
+	image = forms.ImageField(label='Foto da organização', required=False,
+	                         widget=forms.FileInput(attrs={
+		                         'class': 'custom-file-input',
+		                         'lang': 'pt',
+		                         'id': 'image_input',
+	                         }),
+	                         error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo '
+	                                                    'de 4MB'})
+
+	age_range = forms.ModelMultipleChoiceField(
+		label='Alvo(s) da organização',
+		queryset=AgeRange.objects.all(),
+		widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkboxes'}),
+		error_messages={'required': 'Selecione pelo menos uma opção'})
+
+	organisation_type = forms.ModelMultipleChoiceField(
+		label='Área(s) de atuação da organização',
+		queryset=OrganisationType.objects.all(),
+		widget=forms.CheckboxSelectMultiple(attrs={	'class': 'checkboxes'}),
+		error_messages={'required': 'Selecione pelo menos uma opção'})
+
+	def clean_image(self):
+		content = self.cleaned_data['image']
+		if content:
+			if content.size > 4 * 1024 * 1024:
+				raise ValidationError('O tamanho da imagem tem de ser inferior a 4MB')
+			return content
+
+	class Meta:
+		model = OrganisationProfile
+		fields = ['organisation_name', 'representative_name', 'age_range', 'organisation_type', 'image']

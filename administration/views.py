@@ -29,7 +29,7 @@ def accept_organisation(request, organisation_id):
 		user.is_active = True
 		user.save()
 
-		return redirect('manage_organisations', {'is_administration': True})
+		return redirect('manage_organisations')
 	else:
 		return redirect('index')
 
@@ -41,6 +41,6 @@ def decline_organisation(request, organisation_id):
 		profile.user.delete()
 		profile.delete()
 
-		return redirect('manage_organisations',  {'is_administration': True})
+		return redirect('manage_organisations')
 	else:
 		return redirect('index')

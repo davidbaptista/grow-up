@@ -2,62 +2,89 @@
 {% load static %}
 
 {% block container %}
-    <div class="row text-center">
-    {% if is_volunteer %}
-        <div class="col-3 bg-gray">
-            <h5>Informações pessoais</h5>
-        </div>
-        <div class="col-3 bg-gray">
-            <h5>Contacto</h5>
-        </div>
-        <div class="col-3 bg-gray">
-            <h5>Outras informações</h5>
-        </div>
-        <div class="col-3 bg-gray">
-            <h5>Foto de perfil</h5>
-        </div>
-    {% else %}
-        <div class="col-4 bg-gray">
-            <h5>Dados da organização</h5>
-        </div>
-        <div class="col-4 bg-gray">
-            <h5>Contacto</h5>
-        </div>
-    {% endif %}
-    </div>
-
-    <div class="row text-black-50">
-    {% if is_volunteer %}
-        <div class="col-3 bg-grayer">
-            <p>Nome: {{ profile.first_name }} {{ profile.middle_names }} {{ profile.last_name }}</p>
-            <p>Sexo: {% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
-            <p>Data de nascimento: {{ profile.birth_date }}</p>
-        </div>
-        <div class="col-3 bg-grayer">
-            <p>Número de telemovel: {% if profile.phone_number != 0 %} {{ profile.phone_number }} {% else %} indisponível {% endif %}</p>
-            <p>Email: {{ profile.user.email }}</p>
-        </div>
-        <div class="col-3 bg-grayer">
-            <p>Ocupação: {% if profile.occupation %} {{ profile.occupation }} {% else %} indisponível {% endif %}</p>
-            <p>Localidade: {% if profile.location %} {{ profile.location }} {% else %} indisponível {% endif %}</p>
-        </div>
-        <div class="col-3 bg-grayer">
+    <div class="d-flex w-50 mb-2">
+        <div class="d-flex mr-4">
             {% if profile.image %}
-                <img src="{{ profile.image.url }}" alt="Profile pic" style="height: 200px; width: 200px">
+                <img src="{{ profile.image.url }}" alt="Profile pic" width="250" height="250">
+            {% else %}
+                <img src="{% static 'media/website/logo.png' %}" alt="placeholder" width="250" height="250">
             {% endif %}
         </div>
-    {% else %}
-        <div class="col-4 bg-grayer">
-            <p>Nome da organização: {{ profile.organisation_name }}</p>
-            <p>Nome do representante: {{ profile.representative_name }}</p>
+        <div class="d-flex flex-column">
+            {% if is_volunteer %}
+                <div>
+                    <h5>Dados pessoais</h5>
+                    <hr>
+                    <p><b>Nome:</b> {{ profile.name }}</p>
+                    <p><b>Sexo:</b> {% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
+                    <p><b>Data de nascimento:</b> {{ profile.birth_date }}</p>
+                </div>
+                <div>
+                    <h5>Contacto</h5>
+                    <hr>
+                    <p>
+                        <b>Número de telemóvel:</b>
+                        {% if profile.phone_number %}
+                            {{ profile.phone_number }}
+                        {% else %}
+                            indisponível
+                        {% endif %}
+                    </p>
+                    <p><b>Email:</b> {{ profile.user.email }}</p>
+                </div>
+                <div>
+                    <h5>Outras informações</h5>
+                    <hr>
+                    <p>
+                        <b>Ocupação: </b>
+                        {% if profile.occupation %}
+                            {{ profile.occupation }}
+                        {% else %}
+                            indisponível
+                        {% endif %}
+                    </p>
+                    <p>
+                        <b>Localidade:</b>
+                        {% if profile.location %}
+                            {{ profile.location }}
+                        {% else %}
+                            indisponível
+                        {% endif %}
+                    </p>
+                </div>
+            {% else %}
+                <div>
+                    <h5>Dados da organização</h5>
+                    <hr>
+                    <p><b>Nome:</b> {{ profile.organisation_name }}</p>
+                    <p><b>Representante:</b> {{ profile.representative_name }}</p>
+                </div>
+                <div>
+                    <h5>Contacto</h5>
+                    <hr>
+                    <p><b>Email:</b> {{ profile.user.email }}</p>
+                </div>
+                <div>
+                    <h5>Público alvo</h5>
+                    <hr>
+                    <ul class="pl-3">
+                        {% for agerange in profile.age_range.values %}
+                            <li>{{ agerange.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div>
+                    <h5>Áreas de atuação</h5>
+                    <hr>
+                    <ul class="pl-3">
+                        {% for type in profile.organisation_type.values %}
+                            <li>{{ type.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
-        <div class="col-4 bg-grayer">
-            <p>Email: {{ profile.user.email }}</p>
-        </div>
-    {% endif %}
     </div>
-    <br>
-    <div class="row">
-        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Editar perfil</a>
-    </div>
+
+    <a href="{% url 'edit_profile' %}" class="btn btn-lg btn-primary">Editar perfil</a>
 {% endblock %}

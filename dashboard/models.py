@@ -46,7 +46,7 @@ class OrganisationProfile(models.Model, Profile):
 	is_active = models.BooleanField(default=False)
 	age_range = models.ManyToManyField(AgeRange, blank=True)
 	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
-	image = models.ImageField(upload_to='organisations/', blank=True,
+	image = models.ImageField(upload_to='organisations/', blank=True, null=True,
 							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 
@@ -69,6 +69,32 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 		else:
 			return False
 	except VolunteerProfile.DoesNotExist:
+		return False
+
+	new_file = instance.image
+	if old_file.url and not old_file == new_file:
+		if os.path.isfile(old_file.path):
+			os.remove(old_file.path)
+
+@receiver(models.signals.post_delete, sender=OrganisationProfile)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+	if instance.file:
+		if os.path.isfile(instance.file.path):
+			os.remove(instance.file.path)
+
+
+@receiver(models.signals.pre_save, sender=OrganisationProfile)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+	if not instance.pk:
+		return False
+
+	try:
+		organisation = OrganisationProfile.objects.get(pk=instance.pk)
+		if organisation.image:
+			old_file = organisation.image
+		else:
+			return False
+	except OrganisationProfile.DoesNotExist:
 		return False
 
 	new_file = instance.image

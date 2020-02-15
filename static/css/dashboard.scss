@@ -30,6 +30,15 @@ body {
   margin-left: 0;
 }
 
+#alter-form li {
+  list-style: none;
+}
+
+#alter-form ul {
+  margin-top: 10px;
+  padding-left: 0;
+}
+
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;
