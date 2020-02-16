@@ -7,28 +7,22 @@
 
 {% block bodyid %}body-login{% endblock %}
 
-{% block navbar %}
-    {% include 'generic/navbar_authentication.html' %}
-{% endblock %}
-
 {% block content %}
-    <div class="text-center container-center">
-        <div class="row">
-            <div class="bg-gray form-done">
-                {% csrf_token %}
-                <a href="{% url 'index' %}" >
-                    <img class="mb-4" src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
-                </a>
+    <div id="auth-container">
+        <div class="text-center bg-light rounded-lg" id="form-signin">
+            {% csrf_token %}
+            <a href="{% url 'index' %}">
+                <img class="mb-4" src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+            </a>
 
-                <h5 class="h5 mb-3 font-weight-normal">Foi lhe enviado um email para confirmar o seu registo</h5>
-                <br>
-                <a href="{% url 'resend_email' %}" class="btn btn-success">Reenviar email</a>
-                <br>
-                <br>
-                <a href="{% url 'login' %}" class="btn btn-primary">
-                    Voltar ao login
-                </a>
-            </div>
+            <h5 class="h5 mb-3 font-weight-normal">Foi lhe enviado um email para confirmar o seu registo</h5>
+            <br>
+            <a href="{% url 'resend_email' %}" class="btn btn-success">Reenviar email</a>
+            <br>
+            <br>
+            <a href="{% url 'login' %}" class="btn btn-primary">
+                Voltar ao login
+            </a>
         </div>
     </div>
 {% endblock %}

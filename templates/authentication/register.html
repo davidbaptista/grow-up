@@ -8,13 +8,9 @@
 
 {% block bodyid %}body-login{% endblock %}
 
-{% block navbar %}
-    {% include 'generic/navbar_authentication.html' %}
-{% endblock %}
-
 {% block content %}
-    <div class="container-center">
-        <form method="POST" class="form-signin bg-gray" novalidate>
+    <div id="auth-container">
+        <form method="POST" class="bg-light rounded-lg" id="form-signin" novalidate>
             {% csrf_token %}
             <div class="text-center">
                 <a class="" href="{% url 'index' %}">
@@ -26,7 +22,6 @@
             <hr>
             <p>{{ message }}</p>
 
-
             {{ wizard.management_form }}
             {% if wizard.form.forms %}
                 {{ wizard.form.management_form }}
@@ -35,9 +30,9 @@
                         <span class="text-danger float-left"> {{ error }} </span>
                     {% endfor %}
                     {% for field in form %}
-                        <div class="text-danger">
+                        <div class="text-danger float-left">
                             {% for error in field.errors %}
-                                <span class="float-left">{{ error | escape }}</span>
+                                <span>{{ error | escape }}</span>
                             {% endfor %}
                         </div>
                         {{ field }}
@@ -48,9 +43,9 @@
                     <span class="text-danger float-left"> {{ error }} </span>
                 {% endfor %}
                 {% for field in wizard.form %}
-                        <div class="text-danger">
+                        <div class="text-danger float-left">
                             {% for error in field.errors %}
-                                <span class="float-left">{{ error | escape }}</span>
+                                <span>{{ error | escape }}</span>
                             {% endfor %}
                         </div>
                         {{ field.label }}
@@ -59,9 +54,9 @@
             {% endif %}
 
             {% if type == 'organisation' %}
-                <button class="btn btn-lg btn-blue text-white btn-block" type="submit">Próximo passo</button>
+                <button class="btn btn-lg btn-primary text-white btn-block" type="submit">Próximo passo</button>
             {% elif type == 'volunteer' %}
-                <button class="btn btn-lg btn-yellow text-white btn-block" type="submit">Próximo passo</button>
+                <button class="btn btn-lg btn-warning text-white btn-block" type="submit">Próximo passo</button>
             {% endif %}
         </form>
     </div>

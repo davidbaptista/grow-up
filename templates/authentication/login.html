@@ -7,13 +7,9 @@
 
 {% block bodyid %}body-login{% endblock %}
 
-{% block navbar %}
-    {% include 'generic/navbar_authentication.html' %}
-{% endblock %}
-
 {% block content %}
-    <div class="d-flex flex-column align-items-center w-100 h-75">
-        <form method="POST" class="bg-light mx-auto text-center rounded-lg p-2" novalidate>
+    <div id="auth-container">
+        <form method="POST" class="text-center bg-light rounded-lg" id="form-signin" novalidate>
             {% csrf_token %}
 
             <a href="{% url 'index' %}">
@@ -41,10 +37,14 @@
             </div>
 
             <button class="btn btn-lg btn-primary text-white btn-block mb-3" type="submit">Login</button>
-            <a href="{% url 'register_organisation' %}" class="float-left btn btn-primary text-white">Criar conta
-                (organização)</a>
-            <a href="{% url 'register_volunteer' %}" class="float-right btn btn-warning text-white">Criar conta
-                (voluntário)</a>
+            <div class="row mx-auto">
+                 <a href="{% url 'register_organisation' %}" class="col-5 btn btn-primary text-white">Criar conta
+                como organização</a>
+                  <a href="{% url 'register_volunteer' %}" class="offset-2 col-5 btn btn-warning text-white">Criar conta
+                como voluntário</a>
         </form>
+            </div>
+
+
     </div>
 {% endblock %}

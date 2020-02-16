@@ -8,43 +8,33 @@
 {% block bodyid %}body-login{% endblock %}
 {% block bodyclass %}body-login{% endblock %}
 
-{% block navbar %}
-    {% include 'generic/navbar_authentication.html' %}
-{% endblock %}
-
 {% block content %}
-    <br>
-    <div class="container">
-        <div class="row">
-            <form method="POST" class="offset-3 col-6 bg-gray" style="border-radius: 25px !important;" novalidate>
-                {% csrf_token %}
-                <br>
-                <div class="text-center">
-                    <a class="" href="{% url 'index' %}">
-                        <img src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
-                    </a>
-                </div>
-                <hr>
-                <h5>Preencha as seguintes informações relativas à organização</h5>
-                <hr>
-                <input type="hidden" name="user_id" value="{{ uid }}">
-                {% for error in form.non_field_errors %}
-                    <span class="text-danger float-left"> {{ error }} </span>
-                {% endfor %}
-
-                {% for field in form %}
-                    <div class="profile-box">
-                        <label>{{ field.label }}</label>
-                        {{ field }}
-                        {% for error in field.errors %}
-                            <span class="text-danger">{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                    <br>
-                {% endfor %}
-                <button class="btn btn-lg btn-blue text-white btn-block mb-2" type="submit">Submeter</button>
-            </form>
+    <form method="POST" class="bg-light my-3 p-2 rounded-lg mx-auto" novalidate id="organisation-form">
+        {% csrf_token %}
+        <br>
+        <div class="text-center">
+            <a class="" href="{% url 'index' %}">
+                <img src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
+            </a>
         </div>
-    </div>
-    <br>
+        <hr>
+        <h5 class="text-center h5">Preencha as seguintes informações relativas à organização</h5>
+        <hr>
+        <input type="hidden" name="user_id" value="{{ uid }}">
+        {% for error in form.non_field_errors %}
+            <span class="text-danger float-left"> {{ error }} </span>
+        {% endfor %}
+
+        {% for field in form %}
+            <label>{{ field.label }}</label>
+            <div class="profile-box">
+                {{ field }}
+                {% for error in field.errors %}
+                    <span class="text-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <br>
+        {% endfor %}
+        <button class="btn btn-lg btn-primary text-white btn-block mb-2" type="submit">Submeter</button>
+    </form>
 {% endblock %}
