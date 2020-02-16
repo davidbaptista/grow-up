@@ -1,55 +1,18 @@
 @import "stylesheet.scss";
 
-html, body {
-  height: 100%;
+html {
+	height: 100%;
 }
 
 body {
-	height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	margin: 0;
+	min-height: 100%;
 }
 
 li {
 	list-style: none;
-}
-
-.container-center {
-	display: -ms-flexbox;
-  	display: -webkit-box;
-  	display: flex;
-  	-ms-flex-align: center;
-  	-ms-flex-pack: center;
-  	-webkit-box-align: center;
-  	align-items: center;
-  	-webkit-box-pack: center;
-  	justify-content: center;
-  	padding: 0;
-	height: 85%;
-  	background-color: transparent;
-}
-
-.bg-gray {
-	background-color: #f3f3f3;
-
-}
-
-.btn-blue {
-	background-color: $color-blue;
-
-	&:hover {
-		background-color: #3b84d5;
-	}
-}
-
-.btn-yellow {
-	background-color: $color-yellow;
-
-	&:hover {
-		background-color: #ffb73d;
-	}
-}
-
-.bg-yellow {
-    background-color: $color-yellow
 }
 
 .checkboxes {
@@ -68,74 +31,24 @@ li {
 	color: #ff0006 !important;
 }
 
-.form-signin {
-  	width: 100%;
-  	max-width: 400px;
-  	padding: 10px;
-  	margin: 0 auto;
-	border-radius: 25px;
-}
-
-
 .form-done {
-  	width: 100%;
-  	max-width: 500px;
-  	padding: 10px;
-  	margin: 0 auto;
+	width: 100%;
+	max-width: 500px;
+	padding: 10px;
+	margin: 0 auto;
 	border-radius: 25px;
 }
-
-.form-signin .checkbox {
-  font-weight: 400;
-}
-
-.form-signin .form-control {
-  	position: relative;
-  	box-sizing: border-box;
-  	height: auto;
-  	padding: 10px;
-  	font-size: 16px;
-}
-
-.form-signin .form-control:focus {
-  	z-index: 2;
-}
-
-.form-input-username {
-  	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.form-input-password {
-  	margin-bottom: 10px;
-  	border-top-left-radius: 0;
-  	border-top-right-radius: 0;
-}
-
-
-.navbar {
-    color: white;
-	font-family: $font-header;
-    font-size: 28px;
-}
-
-.navbar-yellow {
-    background-color: $color-yellow;
-    font-weight: bold;
-}
-
 
 #body-login {
-  	background-image: url("/static/media/website/login-background.png");
+	background-image: url("/static/media/website/login-background.png");
 	background-size: cover;
 	overflow: auto;
 }
 
 
 #logo {
-    height: 100px !important;
-    width: 100px !important;
+	height: 100px !important;
+	width: 100px !important;
 }
 
 @media screen and (max-width: 600px) {

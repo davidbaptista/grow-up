@@ -12,18 +12,18 @@
 {% endblock %}
 
 {% block content %}
-    <div class="text-center container-center">
-        <form method="POST" class="form-signin bg-gray" novalidate>
+    <div class="d-flex flex-column align-items-center w-100 h-75">
+        <form method="POST" class="bg-light mx-auto text-center rounded-lg p-2" novalidate>
             {% csrf_token %}
 
-            <a href="{% url 'index' %}" >
+            <a href="{% url 'index' %}">
                 <img class="mb-4" src="{% static '/media/website/logo.png' %}" alt="Logo" width="72" height="72">
             </a>
 
             <h1 class="h3 mb-3 font-weight-normal">Login</h1>
 
             {% for error in form.non_field_errors %}
-                 <span class="text-danger float-left"> {{ error }}</span>
+                <span class="text-danger float-left"> {{ error }}</span>
             {% endfor %}
 
             {% for error in form.username.errors %}
@@ -36,20 +36,15 @@
             {% endfor %}
             {{ form.password }}
 
-
             <div class="checkbox mb-2 float-left">
                 <a href="{% url 'password_reset' %}">Esqueci me da password</a>
             </div>
 
             <button class="btn btn-lg btn-primary text-white btn-block mb-3" type="submit">Login</button>
-            <div class="row">
-                <div class="col-6">
-                    <a href="{% url 'register_organisation' %}" class="float-left btn btn-blue text-white">Criar conta de organização</a>
-                </div>
-                 <div class="col-6">
-                    <a href="{% url 'register_volunteer' %}" class="float-right btn btn-yellow text-white">Criar conta de voluntário</a>
-                </div>
-            </div>
+            <a href="{% url 'register_organisation' %}" class="float-left btn btn-primary text-white">Criar conta
+                (organização)</a>
+            <a href="{% url 'register_volunteer' %}" class="float-right btn btn-warning text-white">Criar conta
+                (voluntário)</a>
         </form>
     </div>
 {% endblock %}
