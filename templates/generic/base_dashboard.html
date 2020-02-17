@@ -4,6 +4,7 @@
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'calendar/css/foopicker.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -17,14 +18,20 @@
             </div>
             <div class="list-group list-group-flush">
                 {% if not is_administration %}
-                    <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-warning list-group-item-action text-white">Dashboard</a>
-                    <a href="{% url 'activities' %}" class="list-group-item list-group-item-warning list-group-item-action text-white">Atividades</a>
-                    <a href="{% url 'reservations' %}" class="list-group-item list-group-item-warning list-group-item-action text-white">Reservas</a>
-                    <a href="{% url 'about_us' %}" class="list-group-item list-group-item-warning list-group-item-action text-white">Sobre nós</a>
-                    <a href="{% url 'profile' %}" class="list-group-item list-group-item-warning list-group-item-action text-white">Perfil</a>
+                    <a href="{% url 'dashboard' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Dashboard</a>
+                    <a href="{% url 'activities' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Atividades</a>
+                    <a href="{% url 'reservations' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Reservas</a>
+                    <a href="{% url 'about_us' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Sobre nós</a>
+                    <a href="{% url 'profile' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Perfil</a>
                 {% else %}
                     <a href="{% url 'administration' %}" class="list-group-item list-group-item-action bg-light">Administração</a>
-                    <a href="{% url 'manage_organisations' %}" class="list-group-item list-group-item-action bg-light">Aprovar organizações</a>
+                    <a href="{% url 'manage_organisations' %}" class="list-group-item list-group-item-action bg-light">Aprovar
+                        organizações</a>
                 {% endif %}
             </div>
         </div>
@@ -53,4 +60,14 @@
 {% block script %}
     <!-- Menu Toggle Script -->
     <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'calendar/foopicker.js' %}"></script>
+    <script>
+        var weeks = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
+        var months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+        let foopicker = new FooPicker({
+            id: 'datepicker'
+        });
+
+
+    </script>
 {% endblock %}

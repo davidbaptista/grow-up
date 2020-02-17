@@ -64,3 +64,8 @@ def edit_profile(request):
 		return redirect('profile')
 
 	return render(request, 'dashboard/edit_profile.html', {'form': form})
+
+
+@login_required
+def plan_event(request):
+	return render(request, 'dashboard/plan_event.html')

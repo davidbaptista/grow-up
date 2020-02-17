@@ -31,7 +31,7 @@ class EditVolunteerProfileForm(forms.ModelForm):
 
 	gender = forms.CharField(
 		label='Sexo',
-		widget=forms.Select(choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
+		widget=forms.Select(choices=[(True, 'Feminino'), (False, 'Masculino')],
 		                    attrs={'class': 'form-control mb-2', 'placeholder': 'Selecione o seu sexo'}),
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},
 	)

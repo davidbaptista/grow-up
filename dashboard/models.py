@@ -6,8 +6,6 @@ from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.dispatch import receiver
 
-from grow_up import settings
-
 
 class AgeRange(models.Model):
 	name = models.CharField(max_length=16)
@@ -110,6 +108,8 @@ class Event(models.Model):
 	title = models.CharField(max_length=255, blank=False, null=False)
 	description = models.TextField(blank=True, null=True)
 	organisation = models.OneToOneField(OrganisationProfile, on_delete=models.CASCADE)
+	image = models.ImageField(upload_to='events/', blank=True, null=True,
+							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 	def clean(self):
 		if self.end_time <= self.start_time:
