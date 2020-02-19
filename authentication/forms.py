@@ -1,3 +1,5 @@
+import datetime
+
 from django import forms
 from django.contrib.auth import password_validation, authenticate
 from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
@@ -7,7 +9,6 @@ from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
 from dashboard.models import OrganisationProfile, AgeRange, OrganisationType, VolunteerProfile
-from grow_up import settings
 
 
 class LoginForm(forms.Form):
@@ -167,7 +168,7 @@ class RegisterOrganisationProfileForm(forms.ModelForm):
 	organisation_type = forms.ModelMultipleChoiceField(
 		label='Escolha a(s) àrea(s) de atuação organização:',
 		queryset=OrganisationType.objects.all(),
-		widget=forms.CheckboxSelectMultiple(attrs={	'class': 'checkboxes'}),
+		widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkboxes'}),
 		error_messages={'required': 'Selecione pelo menos uma opção'})
 
 	class Meta:
@@ -189,11 +190,11 @@ class RegisterVolunteerForm(forms.ModelForm):
 
 	birth_date = forms.DateField(
 		label='',
-		widget=forms.DateInput(format='%d/%m/%Y', attrs={
-			'placeholder': 'Data de nascimento (dia/mês/ano)',
-			'class': 'form-control mb-2'
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Data de nascimento',
+			'class': 'form-control mb-2',
+			'id': 'datepicker',
 		}),
-		input_formats=settings.DATE_INPUT_FORMATS,
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
 	)
 
@@ -201,8 +202,12 @@ class RegisterVolunteerForm(forms.ModelForm):
 		choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
 		attrs={'class': 'form-control mb-2',
 		       'placeholder': 'Selecione o seu sexo'}),
-	    error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},
-	    )
+	    error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},)
+
+	def clean_birth_date(self):
+		date = self.cleaned_data['birth_date']
+		if date >= datetime.date.today():
+			raise ValidationError('Data inválida')
 
 	class Meta:
 		model = VolunteerProfile

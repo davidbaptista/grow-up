@@ -2,9 +2,7 @@
 {% load static %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'calendar/css/foopicker.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -60,14 +58,4 @@
 {% block script %}
     <!-- Menu Toggle Script -->
     <script src="{% static 'js/dashboard.js' %}"></script>
-    <script src="{% static 'calendar/foopicker.js' %}"></script>
-    <script>
-        var weeks = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
-        var months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-        let foopicker = new FooPicker({
-            id: 'datepicker'
-        });
-
-
-    </script>
 {% endblock %}

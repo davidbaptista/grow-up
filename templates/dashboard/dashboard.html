@@ -8,5 +8,7 @@
     </div>
     <br>
     {{ calendar }}
-    <a href="{% url 'plan_event' %}" class="btn btn-lg btn-warning">Marcar evento</a>
+    {% if is_organisation %}
+        <a href="{% url 'plan_event' %}" class="btn btn-lg btn-warning">Marcar evento</a>
+    {% endif %}
 {% endblock %}

@@ -14,9 +14,15 @@ def dashboard(request):
 	date = get_date(request.GET.get('date', None))
 	calendar = Calendar(locale='pt_PT.utf8')
 	cal = calendar.formatmonth(date.year, date.month)
+	try:
+		OrganisationProfile.objects.get(user=request.user)
+		is_organisation = True
+	except ObjectDoesNotExist:
+		is_organisation = False
 	return render(request, 'dashboard/dashboard.html', {'calendar': mark_safe(cal),
 	                                                    'previous_month': previous_date(date),
-	                                                    'next_month': next_date(date)})
+	                                                    'next_month': next_date(date),
+	                                                    'is_organisation': is_organisation},)
 
 
 @login_required(redirect_field_name='index')
