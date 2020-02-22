@@ -27,8 +27,10 @@
                     <a href="{% url 'profile' %}"
                        class="list-group-item list-group-item-warning list-group-item-action text-white">Perfil</a>
                 {% else %}
-                    <a href="{% url 'administration' %}" class="list-group-item list-group-item-action bg-light">Administração</a>
-                    <a href="{% url 'manage_organisations' %}" class="list-group-item list-group-item-action bg-light">Aprovar
+                    <a href="{% url 'administration' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Administração</a>
+                    <a href="{% url 'manage_organisations' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Aprovar
                         organizações</a>
                 {% endif %}
             </div>

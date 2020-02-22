@@ -8,7 +8,7 @@
     </div>
     <br>
     {{ calendar }}
-    {% if is_organisation %}
-        <a href="{% url 'plan_event' %}" class="btn btn-lg btn-warning">Marcar evento</a>
+    {% if request.session.profile_type == 'organisation' %}
+        <a href="{% url 'plan_event' %}" class="btn btn-warning">Marcar evento</a>
     {% endif %}
 {% endblock %}

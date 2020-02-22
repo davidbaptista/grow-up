@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from dashboard.models import VolunteerProfile, OrganisationProfile, OrganisationType, AgeRange
+from dashboard.models import VolunteerProfile, OrganisationProfile, OrganisationType, AgeRange, Event
 from grow_up import settings
 
 
@@ -19,13 +19,12 @@ class EditVolunteerProfileForm(forms.ModelForm):
 	)
 
 	birth_date = forms.DateField(
-		label='Data de nascimento (Dia/Mês/Ano)',
-		widget=forms.DateInput(format='%d/%m/%Y', attrs={
-			'placeholder': 'Data de nascimento (dia/mês/ano)',
-			'class': 'form-control mb-2'
+		label='',
+		widget=forms.TextInput(attrs={
+			'placeholder': 'Data de nascimento',
+			'class': 'form-control mb-2',
+			'id': 'datepicker',
 		}),
-		required=False,
-		input_formats=settings.DATE_INPUT_FORMATS,
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
 	)
 
@@ -142,3 +141,56 @@ class EditOrganisationProfileForm(forms.ModelForm):
 	class Meta:
 		model = OrganisationProfile
 		fields = ['organisation_name', 'representative_name', 'age_range', 'organisation_type', 'image']
+
+
+class PlanEventForm(forms.ModelForm):
+	day = forms.DateField(
+		label='Data de realização do evento',
+		widget=forms.TextInput(attrs={
+			'class': 'form-control mb-2',
+			'id': 'datepicker',
+		}),
+		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
+	)
+
+	start_time = forms.TimeField(
+		label='Hora de início',
+		widget=forms.TextInput(attrs={
+			'class': 'form-control mb-2'
+		}),
+	)
+
+	end_time = forms.TimeField(
+		label='Hora de fim',
+		widget=forms.TextInput(attrs={
+			'class': 'form-control mb-2'
+		}),
+	)
+
+	title = forms.CharField(
+		label='Nome do evento',
+		widget=forms.TextInput(attrs={
+			'class': 'form-control mb-2'
+		}),
+	)
+
+	description = forms.CharField(
+		label='Descrição do evento',
+		widget=forms.Textarea(attrs={
+			'class': 'form-control mb-2'
+		}),
+	)
+
+	image = forms.ImageField(label='Foto descritiva do evento',
+	                         required=False,
+	                         widget=forms.FileInput(attrs={
+		                         'class': 'custom-file-input',
+		                         'lang': 'pt',
+		                         'id': 'image_input',
+	                         }),
+	                         error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo '
+	                                                    'de 4MB'})
+
+	class Meta:
+		model = Event
+		fields = ['day', 'start_time', 'end_time', 'title', 'description', 'image']
