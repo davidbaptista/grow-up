@@ -3,6 +3,7 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'datetimepicker/build/jquery.datetimepicker.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -58,6 +59,8 @@
 {% endblock %}
 
 {% block script %}
+    <!-- Date picker -->
+    <script src="{% static 'datetimepicker/build/jquery.datetimepicker.full.min.js' %}"></script>
     <!-- Menu Toggle Script -->
     <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

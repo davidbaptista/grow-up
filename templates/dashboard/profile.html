@@ -11,13 +11,14 @@
             {% endif %}
         </div>
         <div class="d-flex flex-column">
-            {% if is_volunteer %}
+            {% if request.session.profile_type == 'volunteer' %}
                 <div>
                     <h5>Dados pessoais</h5>
                     <hr>
                     <p><b>Nome:</b> {{ profile.name }}</p>
                     <p><b>Sexo:</b> {% if profile.gender %} feminino {% else %} masculino {% endif %}</p>
-                    <p><b>Data de nascimento:</b> {{ profile.birth_date }}</p>
+                    <p><b>Data de nascimento:</b> {% if profile.birth_date %} {{ profile.birth_date }} {% else %}
+                        <span class="text-danger">Indisponível</span>{% endif %}</p>
                 </div>
                 <div>
                     <h5>Contacto</h5>
@@ -27,7 +28,7 @@
                         {% if profile.phone_number %}
                             {{ profile.phone_number }}
                         {% else %}
-                            indisponível
+                            <span class="text-danger">Indisponível</span>
                         {% endif %}
                     </p>
                     <p><b>Email:</b> {{ profile.user.email }}</p>
@@ -40,7 +41,7 @@
                         {% if profile.occupation %}
                             {{ profile.occupation }}
                         {% else %}
-                            indisponível
+                            <span class="text-danger">Indisponível</span>
                         {% endif %}
                     </p>
                     <p>
@@ -48,7 +49,7 @@
                         {% if profile.location %}
                             {{ profile.location }}
                         {% else %}
-                            indisponível
+                            <span class="text-danger">Indisponível</span>
                         {% endif %}
                     </p>
                 </div>

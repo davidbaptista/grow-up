@@ -13,7 +13,7 @@ from formtools.wizard.views import SessionWizardView
 
 from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationForm, \
 	RegisterOrganisationProfileForm, RegisterVolunteerForm
-from dashboard.models import OrganisationProfile, VolunteerProfile
+from dashboard.models import OrganisationProfile
 
 authentication_token = PasswordResetTokenGenerator()
 
@@ -22,6 +22,10 @@ def login(response):
 	if response.user.is_authenticated:
 		return redirect('index')
 
+	if 'profile_type' in response.session:
+		del response.session['profile_type']
+	if 'profile_id' in response.session:
+		del response.session['profile_id']
 	if 'id' in response.session:
 		del response.session['id']
 	if 'org' in response.session:

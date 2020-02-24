@@ -7,7 +7,6 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.typekit.net/vum0npm.css">
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
-    <link rel="stylesheet" href="{% static 'calendar/css/foopicker.css' %}">
     {% block stylesheet %}
     {% endblock %}
 
@@ -37,13 +36,6 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/ea7cdfcecd.js" crossorigin="anonymous"></script>
-<script src="{% static 'calendar/foopicker.js' %}"></script>
-<script type="text/javascript">
-    let foopicker = new FooPicker({
-        id: 'datepicker'
-    });
-</script>
-
 {% block script %}
 {% endblock %}
 </body>

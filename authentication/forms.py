@@ -14,18 +14,21 @@ from dashboard.models import OrganisationProfile, AgeRange, OrganisationType, Vo
 class LoginForm(forms.Form):
 	username = forms.CharField(
 		label='',
-		widget=forms.TextInput(attrs={'autofocus': True,
-		                              'placeholder': 'Nome de utilizador',
-		                              'class': 'form-input-username form-control mb-2'}),
+		widget=forms.TextInput(attrs={
+			'autofocus': True,
+			'placeholder': 'Nome de utilizador',
+			'class': 'form-input-username form-control mb-2'}),
 		error_messages={'required': _('Campo obrigatório')},
 	)
 
 	password = forms.CharField(
 		label='',
 		strip=False,
-		widget=forms.PasswordInput(attrs={'autocomplete': 'current-password',
-		                                  'placeholder': 'Password',
-		                                  'class': 'form-input-password form-control mb-2'}),
+		widget=forms.PasswordInput(attrs={
+			'autocomplete': 'current-password',
+			'placeholder': 'Password',
+			'class': 'form-input-password form-control mb-2'
+		}),
 		error_messages={'required': _('Campo obrigatório')},
 	)
 
@@ -185,7 +188,7 @@ class RegisterVolunteerForm(forms.ModelForm):
 		}),
 		error_messages={'required': 'Este campo é obrigatório'},
 		validators=[RegexValidator('^[a-zA-ZÀ-ÖØ-öø-ÿ]+(([\',. -][a-zA-ZÀ-ÖØ-öø-ÿ ])?[a-zA-ZÀ-ÖØ-öø-ÿ]*)*$',
-		                           message='O campo deve apenas conter letras e espaços')]
+			message='O campo deve apenas conter letras e espaços')]
 	)
 
 	birth_date = forms.DateField(
@@ -193,21 +196,21 @@ class RegisterVolunteerForm(forms.ModelForm):
 		widget=forms.TextInput(attrs={
 			'placeholder': 'Data de nascimento',
 			'class': 'form-control mb-2',
-			'id': 'datepicker',
+			'id': 'picker',
 		}),
 		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
 	)
 
 	gender = forms.CharField(label='', widget=forms.Select(
 		choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
-		attrs={'class': 'form-control mb-2',
-		       'placeholder': 'Selecione o seu sexo'}),
+		attrs={'class': 'form-control mb-2', 'placeholder': 'Selecione o seu sexo'}),
 	    error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},)
 
 	def clean_birth_date(self):
 		date = self.cleaned_data['birth_date']
 		if date >= datetime.date.today():
 			raise ValidationError('Data inválida')
+		return date
 
 	class Meta:
 		model = VolunteerProfile
@@ -215,8 +218,10 @@ class RegisterVolunteerForm(forms.ModelForm):
 
 
 class PasswordChangeForm(PasswordChangeForm):
-	error_messages = {'password_mismatch': _('As duas passwords não são iguais'),
-	                  'password_incorrect': _('Password antiga incorreta')}
+	error_messages = {
+		'password_mismatch': _('As duas passwords não são iguais'),
+		'password_incorrect': _('Password antiga incorreta')
+	}
 
 	old_password = forms.CharField(
 		label='',
@@ -227,17 +232,23 @@ class PasswordChangeForm(PasswordChangeForm):
 			'placeholder': 'Password antiga',
 			'class': 'form-control mb-2'
 		}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+		error_messages={
+			'required': 'Este campo é obrigatório',
+			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+		},
 	)
 
 	new_password1 = forms.CharField(
 		label='',
-		widget=forms.PasswordInput(attrs={'autocomplete': 'new-password',
-		                                  'placeholder': 'Password nova',
-		                                  'class': 'form-control mb-2'}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+		widget=forms.PasswordInput(attrs={
+			'autocomplete': 'new-password',
+			'placeholder': 'Password nova',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={
+			'required': 'Este campo é obrigatório',
+			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+		},
 		strip=False,
 		help_text=password_validation.password_validators_help_text_html(),
 	)
@@ -245,11 +256,15 @@ class PasswordChangeForm(PasswordChangeForm):
 	new_password2 = forms.CharField(
 		label='',
 		strip=False,
-		widget=forms.PasswordInput(attrs={'autocomplete': 'new-password',
-		                                  'placeholder': 'Confirmação da password',
-		                                  'class': 'form-control mb-2'}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+		widget=forms.PasswordInput(attrs={
+			'autocomplete': 'new-password',
+			'placeholder': 'Confirmação da password',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={
+			'required': 'Este campo é obrigatório',
+			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+		},
 	)
 
 
@@ -257,25 +272,28 @@ class PasswordResetForm(PasswordResetForm):
 	email = forms.EmailField(
 		label='',
 		max_length=254,
-		widget=forms.EmailInput(attrs={'autocomplete': 'email',
-		                               'placeholder': 'Email associado à conta',
-		                               'class': 'form-control mb-3'}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'invalid': 'Email inválido'}
+		widget=forms.EmailInput(attrs={
+			'autocomplete': 'email',
+			'placeholder': 'Email associado à conta',
+			'class': 'form-control mb-3'}),
+		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Email inválido'}
 	)
 
 
 class SetPasswordForm(SetPasswordForm):
-	error_messages = {
-		'password_mismatch': _('As passwords não são iguais'),
-	}
+	error_messages = {'password_mismatch': _('As passwords não são iguais'), }
+
 	new_password1 = forms.CharField(
 		label='',
-		widget=forms.PasswordInput(attrs={'autocomplete': 'new-password',
-		                                  'placeholder': 'Password nova',
-		                                  'class': 'form-control mb-2'}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+		widget=forms.PasswordInput(attrs={
+			'autocomplete': 'new-password',
+			'placeholder': 'Password nova',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={
+			'required': 'Este campo é obrigatório',
+		    'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+		},
 		strip=False,
 		help_text=password_validation.password_validators_help_text_html(),
 	)
@@ -283,9 +301,13 @@ class SetPasswordForm(SetPasswordForm):
 	new_password2 = forms.CharField(
 		label='',
 		strip=False,
-		widget=forms.PasswordInput(attrs={'autocomplete': 'new-password',
-		                                  'placeholder': 'Confirmação da password',
-		                                  'class': 'form-control mb-2'}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+		widget=forms.PasswordInput(attrs={
+			'autocomplete': 'new-password',
+			'placeholder': 'Confirmação da password',
+			'class': 'form-control mb-2'
+		}),
+		error_messages={
+			'required': 'Este campo é obrigatório',
+			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+		},
 	)

@@ -19,7 +19,7 @@ def dashboard(request):
 		try:
 			organisation = OrganisationProfile.objects.get(user=request.user)
 			request.session['profile_type'] = 'organisation'
-			request.session['profile_id'] = organisation
+			request.session['profile_id'] = organisation.pk
 		except OrganisationProfile.DoesNotExist:
 			try:
 				volunteer = VolunteerProfile.objects.get(user=request.user)

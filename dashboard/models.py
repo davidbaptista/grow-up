@@ -7,6 +7,10 @@ from django.db import models
 from django.dispatch import receiver
 
 
+class Profile:
+	pass
+
+
 class AgeRange(models.Model):
 	name = models.CharField(max_length=16)
 
@@ -21,10 +25,6 @@ class OrganisationType(models.Model):
 		return self.name
 
 
-class Profile:
-	pass
-
-
 class VolunteerProfile(models.Model, Profile):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	name = models.CharField(max_length=512, blank=True, null=True)
@@ -34,18 +34,7 @@ class VolunteerProfile(models.Model, Profile):
 	location = models.CharField(max_length=255, blank=True, null=True)
 	phone_number = models.CharField(blank=True, null=True, max_length=12)
 	image = models.ImageField(upload_to='volunteers/', blank=True, null=True,
-							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
-
-
-class OrganisationProfile(models.Model, Profile):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	organisation_name = models.CharField(max_length=255, blank=True)
-	representative_name = models.CharField(max_length=255, blank=True)
-	is_active = models.BooleanField(default=False)
-	age_range = models.ManyToManyField(AgeRange, blank=True)
-	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
-	image = models.ImageField(upload_to='organisations/', blank=True, null=True,
-							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 
 @receiver(models.signals.post_delete, sender=VolunteerProfile)
@@ -73,6 +62,18 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 	if old_file.url and not old_file == new_file:
 		if os.path.isfile(old_file.path):
 			os.remove(old_file.path)
+
+
+class OrganisationProfile(models.Model, Profile):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	organisation_name = models.CharField(max_length=255, blank=True)
+	representative_name = models.CharField(max_length=255, blank=True)
+	is_active = models.BooleanField(default=False)
+	age_range = models.ManyToManyField(AgeRange, blank=True)
+	organisation_type = models.ManyToManyField(OrganisationType, blank=True)
+	image = models.ImageField(upload_to='organisations/', blank=True, null=True,
+	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+
 
 @receiver(models.signals.post_delete, sender=OrganisationProfile)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
@@ -102,15 +103,14 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 
 
 class Event(models.Model):
-	day = models.DateField(blank=True, null=True)
-	start_time = models.TimeField(blank=True, null=True)
-	end_time = models.TimeField(blank=True, null=True)
+	start = models.DateTimeField(blank=True, null=True)
+	end = models.DateTimeField(blank=True, null=True)
 	title = models.CharField(max_length=255, blank=False, null=False)
 	description = models.TextField(blank=True, null=True)
 	organisation = models.OneToOneField(OrganisationProfile, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='events/', blank=True, null=True,
-							  validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 	def clean(self):
-		if self.end_time <= self.start_time:
+		if self.end <= self.start:
 			raise ValidationError('O fim do evento deve ser após o seu inicio')

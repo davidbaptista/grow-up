@@ -32,13 +32,3 @@
         </form>
     </div>
 {% endblock %}
-
-{% block script %}
-    <script src="{% static 'js/dashboard.js' %}"></script>
-    <script>
-        document.querySelector('.custom-file-input').addEventListener('change', function (e) {
-            let fileName = document.getElementById("image_input").files[0].name;
-            let nextSibling = document.getElementById("file-label");
-            nextSibling.innerText = fileName;
-        });</script>
-{% endblock %}
