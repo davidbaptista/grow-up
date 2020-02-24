@@ -88,7 +88,7 @@ footer {
 .navbar {
   color: white;
   font-family: paralucent-stencil, sans-serif;
-  font-size: 28px;
+  font-size: 23px;
 }
 
 .nav-item {
@@ -194,7 +194,7 @@ ul.social li {
   color: #FFFFFF;
   display: inline-block;
   font-family: paralucent-stencil, sans-serif;
-  font-size: 28px;
+  font-size: 25px;
   font-weight: bold;
   height: 250px;
   margin: 0;
@@ -218,8 +218,8 @@ ul.social li {
 }
 
 .logo {
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
 }
 
 /* IDs */
@@ -251,16 +251,20 @@ ul.social li {
 }
 @media screen and (max-width: 900px) {
   h1 {
-    font-size: 28px !important;
+    font-size: 16px !important;
   }
 
   .row-images {
     height: 400px;
   }
+
+  .navbar {
+    font-size: 16px;
+  }
 }
 @media screen and (max-width: 600px) {
   h1 {
-    font-size: 24px !important;
+    font-size: 16px !important;
   }
 
   footer {
