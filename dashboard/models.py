@@ -107,6 +107,7 @@ class Event(models.Model):
 	end = models.DateTimeField(blank=True, null=True)
 	title = models.CharField(max_length=255, blank=False, null=False)
 	description = models.TextField(blank=True, null=True)
+	location = models.TextField(blank=True, null=True)
 	organisation = models.OneToOneField(OrganisationProfile, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='events/', blank=True, null=True,
 	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])

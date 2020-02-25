@@ -63,7 +63,7 @@ class EditVolunteerProfileForm(forms.ModelForm):
 	image = forms.ImageField(
 		label='Foto de perfil',
 		required=False,
-		widget=forms.FileInput(attrs={'class': 'custom-file-input',	'lang': 'pt', 'id': 'image_input',}),
+		widget=forms.FileInput(attrs={'class': 'custom-file-input',	'lang': 'pt', 'id': 'image_input', }),
 		error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo de 4MB'})
 
 	def clean_birth_date(self):
@@ -104,7 +104,7 @@ class EditOrganisationProfileForm(forms.ModelForm):
 	image = forms.ImageField(
 		label='Foto da organização',
 		required=False,
-        widget=forms.FileInput(attrs={'class': 'custom-file-input', 'lang': 'pt', 'id': 'image_input',}),
+        widget=forms.FileInput(attrs={'class': 'custom-file-input', 'lang': 'pt', 'id': 'image_input', }),
 	    error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo de 4MB'})
 
 	age_range = forms.ModelMultipleChoiceField(
@@ -156,11 +156,17 @@ class PlanEventForm(forms.ModelForm):
 		error_messages={'required': 'Por favor dê uma descrição ao evento'}
 	)
 
+	location = forms.CharField(
+		label='Localização do evento',
+		widget=forms.TextInput(attrs={'class': 'form-control mb-2'}),
+		error_messages={'required': 'Por favor escolha a localização do evento'}
+	)
+
 	image = forms.ImageField(label='Foto descritiva do evento',
         required=False,
-        widget=forms.FileInput(attrs={'class': 'custom-file-input', 'lang': 'pt', 'id': 'image_input',}),
+        widget=forms.FileInput(attrs={'class': 'custom-file-input', 'lang': 'pt', 'id': 'image_input', }),
         error_messages={'invalid': 'A imagem deve ser do tipo jpg/jpeg ou png com tamanho maximo de 4MB'})
 
 	class Meta:
 		model = Event
-		fields = ['start', 'end', 'title', 'description', 'image']
+		fields = ['start', 'end', 'title', 'description', 'location', 'image']
