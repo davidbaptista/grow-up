@@ -8,7 +8,12 @@
     </div>
     <br>
     {{ calendar }}
-    {% if request.session.profile_type == 'organisation' %}
-        <a href="{% url 'plan_event' %}" class="btn btn-warning">Marcar evento</a>
-    {% endif %}
+    <div id="mapid" class="col-4" style="height: 500px;">
+
+    </div>
+    <div class="d-flex mt-2">
+        {% if request.session.profile_type == 'organisation' %}
+            <a href="{% url 'plan_event' %}" class="btn btn-warning">Marcar evento</a>
+        {% endif %}
+    </div>
 {% endblock %}

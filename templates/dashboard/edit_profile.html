@@ -3,7 +3,8 @@
 
 {% block container %}
     <div class="d-flex justify-content-center mt-2">
-        <form method="POST" novalidate enctype="multipart/form-data" class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-10" id="alter-form">
+        <form method="POST" novalidate enctype="multipart/form-data" class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-10"
+              id="alter-form">
             {% csrf_token %}
             <h3 class="text-center">Alterar perfil</h3>
             {% for error in form.non_field_errors %}
@@ -31,4 +32,12 @@
             <button class="btn btn-primary text-white btn-block" type="submit">Alterar</button>
         </form>
     </div>
+
+    <script>
+		document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+			let fileName = document.getElementById("image_input").files[0].name;
+			let nextSibling = document.getElementById("file-label");
+			nextSibling.innerText = fileName;
+		});
+    </script>
 {% endblock %}

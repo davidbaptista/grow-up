@@ -4,6 +4,7 @@
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'datetimepicker/build/jquery.datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
 {% endblock %}
 
 {% block content %}
@@ -61,6 +62,8 @@
 {% block script %}
     <!-- Date picker -->
     <script src="{% static 'datetimepicker/build/jquery.datetimepicker.full.min.js' %}"></script>
+    <!-- Leaflet map-->
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <!-- Menu Toggle Script -->
     <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
