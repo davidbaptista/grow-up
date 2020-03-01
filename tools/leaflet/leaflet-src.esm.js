@@ -8782,7 +8782,7 @@ var GeoJSON = FeatureGroup.extend({
 
 // @function geometryToLayer(featureData: Object, options?: GeoJSON options): Layer
 // Creates a `Layer` from a given GeoJSON feature. Can use a custom
-// [`pointToLayer`](#geojson-pointtolayer) and/or [`coordsToLatLng`](#geojson-coordstolatlng)
+// [`pointToLayer`](#geojson.json-pointtolayer) and/or [`coordsToLatLng`](#geojson.json-coordstolatlng)
 // functions if provided as options.
 function geometryToLayer(geojson, options) {
 
@@ -8854,7 +8854,7 @@ function coordsToLatLng(coords) {
 // @function coordsToLatLngs(coords: Array, levelsDeep?: Number, coordsToLatLng?: Function): Array
 // Creates a multidimensional array of `LatLng`s from a GeoJSON coordinates array.
 // `levelsDeep` specifies the nesting level (0 is for an array of points, 1 for an array of arrays of points, etc., 0 by default).
-// Can use a custom [`coordsToLatLng`](#geojson-coordstolatlng) function.
+// Can use a custom [`coordsToLatLng`](#geojson.json-coordstolatlng) function.
 function coordsToLatLngs(coords, levelsDeep, _coordsToLatLng) {
 	var latlngs = [];
 
@@ -8870,7 +8870,7 @@ function coordsToLatLngs(coords, levelsDeep, _coordsToLatLng) {
 }
 
 // @function latLngToCoords(latlng: LatLng, precision?: Number): Array
-// Reverse of [`coordsToLatLng`](#geojson-coordstolatlng)
+// Reverse of [`coordsToLatLng`](#geojson.json-coordstolatlng)
 function latLngToCoords(latlng, precision) {
 	precision = typeof precision === 'number' ? precision : 6;
 	return latlng.alt !== undefined ?
@@ -8879,7 +8879,7 @@ function latLngToCoords(latlng, precision) {
 }
 
 // @function latLngsToCoords(latlngs: Array, levelsDeep?: Number, closed?: Boolean): Array
-// Reverse of [`coordsToLatLngs`](#geojson-coordstolatlngs)
+// Reverse of [`coordsToLatLngs`](#geojson.json-coordstolatlngs)
 // `closed` determines whether the first point should be appended to the end of the array to close the feature, only used when `levelsDeep` is 0. False by default.
 function latLngsToCoords(latlngs, levelsDeep, closed, precision) {
 	var coords = [];
@@ -8903,7 +8903,7 @@ function getFeature(layer, newGeometry) {
 		asFeature(newGeometry);
 }
 
-// @function asFeature(geojson: Object): Object
+// @function asFeature(geojson.json: Object): Object
 // Normalize GeoJSON geometries/features into GeoJSON features.
 function asFeature(geojson) {
 	if (geojson.type === 'Feature' || geojson.type === 'FeatureCollection') {
@@ -9047,7 +9047,7 @@ LayerGroup.include({
 });
 
 // @namespace GeoJSON
-// @factory L.geoJSON(geojson?: Object, options?: GeoJSON options)
+// @factory L.geoJSON(geojson.json?: Object, options?: GeoJSON options)
 // Creates a GeoJSON layer. Optionally accepts an object in
 // [GeoJSON format](https://tools.ietf.org/html/rfc7946) to display on the map
 // (you can alternatively add it later with `addData` method) and an `options` object.

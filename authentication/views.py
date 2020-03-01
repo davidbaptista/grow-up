@@ -61,6 +61,12 @@ class RegisterOrganisationWizard(SessionWizardView):
 
 		return context
 
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect('index')
+		else:
+			return super(RegisterOrganisationWizard, self).dispatch(request, *args, **kwargs)
+
 	def done(self, form_list, **kwargs):
 		l = list(form_list)
 		user = l[0].save(commit=False)
@@ -115,6 +121,12 @@ class RegisterVolunteerWizard(SessionWizardView):
 				{'message': 'Preencha com os seus dados pessoais'})
 
 		return context
+
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect('index')
+		else:
+			return super(RegisterVolunteerWizard, self).dispatch(request, *args, **kwargs)
 
 	def done(self, form_list, **kwargs):
 		l = list(form_list)
