@@ -8,7 +8,8 @@ let someFeatures = [{
 		{
 			"type": "Feature",
 			"properties": {
-				"region": "west"
+				"region": "west",
+				"url": ""
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -93,7 +94,8 @@ let someFeatures = [{
 		{
 			"type": "Feature",
 			"properties": {
-				"region": "north"
+				"region": "north",
+				"url": ""
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -358,7 +360,8 @@ let someFeatures = [{
 		{
 			"type": "Feature",
 			"properties": {
-				"region": "east"
+				"region": "east",
+				"url": ""
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -619,7 +622,8 @@ let someFeatures = [{
 		{
 			"type": "Feature",
 			"properties": {
-				"region": "center"
+				"region": "center",
+				"url": ""
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -793,6 +797,7 @@ let someFeatures = [{
 			"type": "Feature",
 			"properties": {
 				"region": "south",
+				"url": ""
 			},
 			"geometry": {
 				"type": "Polygon",
@@ -905,6 +910,12 @@ let someFeatures = [{
 	]
 }];
 
+function onEachFeature(feature, layer) {
+	layer.on('click', function (e) {
+		window.location.href = '?region='+ feature.properties.region;
+	})
+}
+
 L.geoJSON(someFeatures, {
 	style: function (feature) {
 		switch (feature.properties.region) {
@@ -919,5 +930,7 @@ L.geoJSON(someFeatures, {
 			case 'center':
 				return {color: "#ff00f6"};
 		}
-	}
+	},
+	onEachFeature: onEachFeature,
 }).addTo(map);
+

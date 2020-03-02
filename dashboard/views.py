@@ -15,6 +15,10 @@ def dashboard(request):
 	calendar = Calendar(locale='pt_PT.utf8')
 	cal = calendar.formatmonth(date.year, date.month)
 
+	region = request.GET.get('region', None)
+	if region:
+		print('hi')
+
 	if 'profile_type' not in request.session:
 		try:
 			organisation = OrganisationProfile.objects.get(user=request.user)
