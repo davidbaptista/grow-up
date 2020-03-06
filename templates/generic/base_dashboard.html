@@ -18,12 +18,8 @@
             </div>
             <div class="list-group list-group-flush">
                 {% if not is_administration %}
-                    <a href="{% url 'dashboard' %}"
+                    <a href="{% url 'dashboard_reservations' %}"
                        class="list-group-item list-group-item-warning list-group-item-action text-white">Dashboard</a>
-                    <a href="{% url 'activities' %}"
-                       class="list-group-item list-group-item-warning list-group-item-action text-white">Atividades</a>
-                    <a href="{% url 'reservations' %}"
-                       class="list-group-item list-group-item-warning list-group-item-action text-white">Reservas</a>
                     <a href="{% url 'about_us' %}"
                        class="list-group-item list-group-item-warning list-group-item-action text-white">Sobre nós</a>
                     <a href="{% url 'profile' %}"
@@ -44,6 +40,14 @@
                 <button class="btn btn-light text-black" id="menu-toggle">
                     <i class="fas fa-align-justify"></i>
                 </button>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="{% url 'dashboard_reservations' %}" class="nav-link text-white">Reservas</a>
+                    </li>
+                     <li class="nav-item">
+                        <a href="{% url 'dashboard_activities' %}" class="nav-link text-white">Atividades</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                     <li class="nav-item active">
                         <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>

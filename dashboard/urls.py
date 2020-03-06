@@ -3,9 +3,8 @@ from django.urls import path
 from dashboard import views
 
 urlpatterns = [
-	path('dashboard/', views.dashboard, name='dashboard'),
-	path('activities/', views.activities, name='activities'),
-	path('reservations/', views.reservations, name='reservations'),
+	path('dashboard-reservations/', views.dashboard_reservations, name='dashboard_reservations'),
+	path('dashboard-activities/', views.dashboard_activities, name='dashboard_activities'),
 	path('about-us/', views.about_us, name='about_us'),
 	path('plan-event/', views.plan_event, name='plan_event'),
 	path('profile/', views.profile, name='profile'),

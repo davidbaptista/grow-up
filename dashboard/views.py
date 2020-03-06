@@ -1,6 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 
@@ -10,7 +8,7 @@ from dashboard.utils import Calendar, previous_date, next_date, get_date
 
 
 @login_required
-def dashboard(request):
+def dashboard_reservations(request):
 	date = get_date(request.GET.get('date', None))
 	calendar = Calendar(locale='pt_PT.utf8')
 	cal = calendar.formatmonth(date.year, date.month)
@@ -34,19 +32,14 @@ def dashboard(request):
 			except KeyError:
 				redirect('error')
 
-	return render(request, 'dashboard/dashboard.html', {'calendar': mark_safe(cal),
+	return render(request, 'dashboard/dashboard_reservations.html', {'calendar': mark_safe(cal),
 	                                                    'previous_month': previous_date(date),
 	                                                    'next_month': next_date(date)})
 
 
 @login_required
-def activities(request):
-	return render(request, 'dashboard/activities.html')
-
-
-@login_required
-def reservations(request):
-	return render(request, 'dashboard/reservations.html')
+def dashboard_activities(request):
+	return render(request, 'dashboard/dashboard_activities.html')
 
 
 @login_required
