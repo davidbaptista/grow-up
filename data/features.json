@@ -1,8 +1,4 @@
-let map = L.map('mapid').setView([38.75, -9.15], 12);
-
-L.tileLayer('http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg').addTo(map);
-
-let someFeatures = [{
+[{
 	"type": "FeatureCollection",
 	"features": [
 		{
@@ -908,29 +904,4 @@ let someFeatures = [{
 			}
 		}
 	]
-}];
-
-function onEachFeature(feature, layer) {
-	layer.on('click', function (e) {
-		window.location.href = '?region='+ feature.properties.region;
-	})
-}
-
-L.geoJSON(someFeatures, {
-	style: function (feature) {
-		switch (feature.properties.region) {
-			case 'lisbon-east':
-				return {color: "#ffe700"};
-			case 'lisbon-west':
-				return {color: "#31ff00"};
-			case 'lisbon-south':
-				return {color: "#0078ff"};
-			case 'lisbon-north':
-				return {color: "#ff7b00"};
-			case 'lisbon-center':
-				return {color: "#ff00f6"};
-		}
-	},
-	onEachFeature: onEachFeature,
-}).addTo(map);
-
+}]

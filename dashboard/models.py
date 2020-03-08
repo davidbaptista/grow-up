@@ -7,10 +7,6 @@ from django.db import models
 from django.dispatch import receiver
 
 
-class Profile:
-	pass
-
-
 class AgeRange(models.Model):
 	name = models.CharField(max_length=16)
 
@@ -23,6 +19,16 @@ class OrganisationType(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Region(models.Model):
+	name = models.CharField(max_length=255)
+
+	def __str__(self):
+		return self.name
+
+
+class Profile:
+	pass
 
 
 class VolunteerProfile(models.Model, Profile):
