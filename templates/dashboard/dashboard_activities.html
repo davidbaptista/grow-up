@@ -2,5 +2,12 @@
 {% load static %}
 
 {% block container %}
-    <div id="mapid" style="height: 500px; width: 800px"></div>
+    <div class="d-flex px-3 row">
+        <div id="mapid" style="height: 500px;" class="col-4"></div>
+        <ul class="col-8 px-4 py-1 list-group">
+            {% for event in events %}
+                <li class="list-group-item">{{ event.title }} {{ event.description }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

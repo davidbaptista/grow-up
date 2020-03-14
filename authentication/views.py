@@ -40,7 +40,7 @@ def login(response):
 
 		if user is not None:
 			logon(response, user)
-			return redirect('dashboard')
+			return redirect('dashboard_reservations')
 	else:
 		return render(response, 'authentication/login.html', {'form': form})
 

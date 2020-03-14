@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
-from dashboard.models import VolunteerProfile, OrganisationProfile
+from dashboard.models import VolunteerProfile, OrganisationProfile, Event
 from dashboard.utils import Calendar, previous_date, next_date, get_date
 
 
@@ -38,8 +38,14 @@ def dashboard_reservations(request):
 
 
 @login_required
-def dashboard_activities(request):
-	return render(request, 'dashboard/dashboard_activities.html')
+def dashboard_activities(request, region=None):
+	if region and request.session['profile_type'] == 'volunteer':
+		events = Event.objects.filter(location__name=region)
+	elif request.session['profile_type'] == 'organisation':
+		events = Event.objects.filter(organisation_id=request.session['profile_id'])
+	else:
+		events = Event.objects.all()
+	return render(request, 'dashboard/dashboard_activities.html', {'events': events})
 
 
 @login_required
