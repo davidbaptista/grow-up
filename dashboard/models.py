@@ -21,7 +21,8 @@ class OrganisationType(models.Model):
 		return self.name
 
 class Region(models.Model):
-	name = models.CharField(max_length=255)
+	name = models.CharField(max_length=255, null=True)
+	description = models.CharField(max_length=255, null=True)
 
 	def __str__(self):
 		return self.name
@@ -109,15 +110,16 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 
 
 class Event(models.Model):
-	start = models.DateTimeField(blank=True, null=True)
-	end = models.DateTimeField(blank=True, null=True)
-	title = models.CharField(max_length=255, blank=False, null=False)
+	start = models.DateTimeField()
+	end = models.DateTimeField()
+	title = models.CharField(max_length=255)
 	description = models.TextField(blank=True, null=True)
-	location = models.TextField(blank=True, null=True)
+	location = models.OneToOneField(Region, on_delete=models.CASCADE)
 	organisation = models.OneToOneField(OrganisationProfile, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='events/', blank=True, null=True,
 	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 	def clean(self):
-		if self.end <= self.start:
-			raise ValidationError('O fim do evento deve ser após o seu inicio')
+		if self.end and self.start:
+			if self.end <= self.start:
+				raise ValidationError('O fim do evento deve ser após o seu inicio')

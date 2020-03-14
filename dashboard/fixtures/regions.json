@@ -1,0 +1,42 @@
+[
+	{
+		"model": "dashboard.region",
+		"pk": 1,
+		"fields": {
+			"description": "lisbon-north",
+			"name": "Lisboa - Norte"
+		}
+	},
+	{
+		"model": "dashboard.region",
+		"pk": 2,
+		"fields": {
+			"description": "lisbon-south",
+			"name": "Lisboa - Sul"
+		}
+	},
+	{
+		"model": "dashboard.region",
+		"pk": 3,
+		"fields": {
+			"description": "lisbon-center",
+			"name": "Lisboa - Centro"
+		}
+	},
+	{
+		"model": "dashboard.region",
+		"pk": 4,
+		"fields": {
+			"description": "lisbon-west",
+			"name": "Lisboa - Oeste"
+		}
+	},
+	{
+		"model": "dashboard.region",
+		"pk": 5,
+		"fields": {
+			"description": "lisbon-east",
+			"name": "Lisboa - Este"
+		}
+	}
+]

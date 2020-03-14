@@ -4,7 +4,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from dashboard.models import VolunteerProfile, OrganisationProfile, OrganisationType, AgeRange, Event
+from dashboard.models import VolunteerProfile, OrganisationProfile, OrganisationType, AgeRange, Event, Region
 
 
 class EditVolunteerProfileForm(forms.ModelForm):
@@ -134,18 +134,21 @@ class EditOrganisationProfileForm(forms.ModelForm):
 class PlanEventForm(forms.ModelForm):
 	start = forms.DateTimeField(
 		label='Início do evento',
+		required=True,
 		widget=forms.TextInput(attrs={'class': 'form-control mb-2', 'id': 'pickerStart'}),
 		error_messages={'required': 'Por favor dê uma data de início ao evento'},
-)
+	)
 
 	end = forms.DateTimeField(
 		label='Fim do evento',
+		required=True,
 		widget=forms.TextInput(attrs={'class': 'form-control mb-2', 'id': 'pickerEnd'}),
 		error_messages={'required': 'Por favor dê uma data de fim ao evento'},
 	)
 
 	title = forms.CharField(
 		label='Nome do evento',
+		required=True,
 		widget=forms.TextInput(attrs={'class': 'form-control mb-2'}),
 		error_messages={'required': 'Por favor dê um título ao evento'}
 	)
@@ -156,9 +159,11 @@ class PlanEventForm(forms.ModelForm):
 		error_messages={'required': 'Por favor dê uma descrição ao evento'}
 	)
 
-	location = forms.CharField(
+	location = forms.ModelChoiceField(
 		label='Localização do evento',
-		widget=forms.TextInput(attrs={'class': 'form-control mb-2'}),
+		required=True,
+		widget=forms.Select(attrs={'class': 'form-control mb-2'}),
+		queryset=Region.objects.all(),
 		error_messages={'required': 'Por favor escolha a localização do evento'}
 	)
 
