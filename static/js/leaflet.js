@@ -912,7 +912,7 @@ let someFeatures = [{
 
 function onEachFeature(feature, layer) {
 	layer.on('click', function (e) {
-		window.location.href = 'region='+ feature.properties.region;
+		window.location.href = feature.properties.region;
 	})
 }
 

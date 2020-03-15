@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
-from dashboard.models import VolunteerProfile, OrganisationProfile, Event
+from dashboard.models import VolunteerProfile, OrganisationProfile, Event, Region
 from dashboard.utils import Calendar, previous_date, next_date, get_date
 
 
@@ -40,15 +40,22 @@ def dashboard_reservations(request):
 @login_required
 def dashboard_activities(request, region=None):
 	is_organisation = False
+	region_name = None
 	if region and request.session['profile_type'] == 'volunteer':
-		events = Event.objects.filter(location__name=region)
+		events = Event.objects.filter(location__description=region)
+		region_name = Region.objects.get(description=region)
 	elif request.session['profile_type'] == 'organisation':
-		events = Event.objects.filter(organisation_id=request.session['profile_id'])
+		if region:
+			events = Event.objects.filter(organisation_id=request.session['profile_id'], location__description=region)
+			region_name = Region.objects.get(description=region)
+		else:
+			events = Event.objects.filter(organisation_id=request.session['profile_id'])
 		is_organisation = True
 	else:
 		events = Event.objects.all()
 	return render(request, 'dashboard/dashboard_activities.html', {'events': events,
-	                                                               'is_organisation': is_organisation })
+	                                                               'region': region_name,
+	                                                               'is_organisation': is_organisation})
 
 
 @login_required
@@ -93,16 +100,42 @@ def plan_event(request):
 
 			event.organisation = OrganisationProfile.objects.get(pk=request.session['profile_id'])
 
-			return redirect('dashboard')
+			return redirect('dashboard-activities')
 
 		return render(request, 'dashboard/plan_event.html', {'form': form})
 
 
 @login_required
 def edit_event(request, event_id):
-	pass
+	try:
+		event = Event.objects.get(pk=event_id)
+	except Event.DoesNotExist:
+		return redirect('index')
+
+	if request.session['profile_type'] == 'organisation' and event.organisation.id == request.session['profile_id']:
+		form = PlanEventForm(request.POST or None, instance=event)
+
+		if request.method == 'POST' and form.is_valid():
+			form.save()
+
+			return redirect(dashboard_activities)
+
+		return render(request, 'dashboard/edit_event.html', {'form': form})
+
+	return redirect('index')
 
 
 @login_required
 def delete_event(request, event_id):
-	pass
+	try:
+		event = Event.objects.get(pk=event_id)
+	except Event.DoesNotExist:
+		return redirect('index')
+
+	if request.session['profile_type'] == 'organisation' and event.organisation.id == request.session['profile_id']:
+
+		Event.objects.get(pk=event_id).delete()
+		return redirect('dashboard_activities')
+
+	return redirect('index')
+

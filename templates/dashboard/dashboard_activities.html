@@ -5,10 +5,20 @@
     <div class="d-flex px-3 row">
         <div id="mapid" style="height: 500px;" class="col-4"></div>
         <ul class="col-8 px-4 py-1 list-group">
+            {% if region %}
+                <h3>Atividades na região: {{ region }}</h3>
+            {% else %}
+                <h3>Atividades em todas as regiões</h3>
+            {% endif %}
             {% for event in events %}
                 {% if is_organisation %}
                     <li class="list-group-item list-group-item-action">
-                        {{ event.title }} {{ event.description }}
+                        {% if event.image %}
+                            <img src="{{ event.image }}" alt="Fotografia do evento" width="300" height="300">
+                        {% else %}
+                            <img src="{% static '' %}" alt="Fotografia do evento" width="300" height="300">
+                        {% endif %}
+                        <h5>{{ event.title }}</h5> {{ event.description }}
                         <a class="btn btn-danger float-right" href="{% url 'delete_event' event_id=event.id %}">Desmarcar Evento</a>
                         <a class="btn btn-secondary mr-2 float-right" href="{% url 'edit_event' event_id=event.id %}">Editar Evento</a>
                     </li>
@@ -16,5 +26,8 @@
                 {% endif %}
             {% endfor %}
         </ul>
+    </div>
+    <div class="px-3 py-3 row">
+        <a class="btn btn-primary" href="{% url 'dashboard_activities' %}">Todas as regiões</a>
     </div>
 {% endblock %}

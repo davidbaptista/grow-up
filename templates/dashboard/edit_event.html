@@ -1,0 +1,33 @@
+{% extends 'generic/base_dashboard.html' %}
+{% load static %}
+
+{% block container %}
+    <form method="POST" novalidate enctype="multipart/form-data" class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-10"
+          id="alter-form">
+         {% csrf_token %}
+            <h3 class="text-center">E um evento</h3>
+            {% for error in form.non_field_errors %}
+                <span class="text-danger float-left"> {{ error }} </span>
+            {% endfor %}
+            {% for field in form %}
+                {% if field.name == 'image' %}
+                    <label>{{ field.label }}</label>
+                    <div class="custom-file mb-2">
+                        <label for="{{ field.name }}" class="custom-file-label" id="file-label">Selecione a foto</label>
+                        {{ field }}
+                    </div>
+                {% else %}
+                    {{ field.label }}
+                    {{ field }}
+                {% endif %}
+                <div class="text-danger">
+                    {% for error in field.errors %}
+                        <span class="float-left">{{ error | escape }}</span>
+                        <br>
+                    {% endfor %}
+                </div>
+                <hr>
+            {% endfor %}
+            <button class="btn btn-primary text-white btn-block" type="submit">Marcar evento</button>
+    </form>
+{% endblock %}
