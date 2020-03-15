@@ -6,7 +6,14 @@
         <div id="mapid" style="height: 500px;" class="col-4"></div>
         <ul class="col-8 px-4 py-1 list-group">
             {% for event in events %}
-                <li class="list-group-item">{{ event.title }} {{ event.description }}</li>
+                {% if is_organisation %}
+                    <li class="list-group-item list-group-item-action">
+                        {{ event.title }} {{ event.description }}
+                        <a class="btn btn-danger float-right" href="{% url 'delete_event' event_id=event.id %}">Desmarcar Evento</a>
+                        <a class="btn btn-secondary mr-2 float-right" href="{% url 'edit_event' event_id=event.id %}">Editar Evento</a>
+                    </li>
+                {% else %}
+                {% endif %}
             {% endfor %}
         </ul>
     </div>

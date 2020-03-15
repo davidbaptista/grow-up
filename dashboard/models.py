@@ -20,6 +20,7 @@ class OrganisationType(models.Model):
 	def __str__(self):
 		return self.name
 
+
 class Region(models.Model):
 	name = models.CharField(max_length=255, null=True)
 	description = models.CharField(max_length=255, null=True)
@@ -114,10 +115,11 @@ class Event(models.Model):
 	end = models.DateTimeField()
 	title = models.CharField(max_length=255)
 	description = models.TextField(blank=True, null=True)
-	location = models.OneToOneField(Region, on_delete=models.CASCADE)
-	organisation = models.OneToOneField(OrganisationProfile, on_delete=models.CASCADE)
+	location = models.ForeignKey(Region, on_delete=models.CASCADE)
+	organisation = models.ForeignKey(OrganisationProfile, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='events/', blank=True, null=True,
 	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+	attendee = models.ManyToManyField(VolunteerProfile, blank=True)
 
 	def clean(self):
 		if self.end and self.start:

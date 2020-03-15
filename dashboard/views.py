@@ -39,13 +39,16 @@ def dashboard_reservations(request):
 
 @login_required
 def dashboard_activities(request, region=None):
+	is_organisation = False
 	if region and request.session['profile_type'] == 'volunteer':
 		events = Event.objects.filter(location__name=region)
 	elif request.session['profile_type'] == 'organisation':
 		events = Event.objects.filter(organisation_id=request.session['profile_id'])
+		is_organisation = True
 	else:
 		events = Event.objects.all()
-	return render(request, 'dashboard/dashboard_activities.html', {'events': events})
+	return render(request, 'dashboard/dashboard_activities.html', {'events': events,
+	                                                               'is_organisation': is_organisation })
 
 
 @login_required
@@ -93,3 +96,13 @@ def plan_event(request):
 			return redirect('dashboard')
 
 		return render(request, 'dashboard/plan_event.html', {'form': form})
+
+
+@login_required
+def edit_event(request, event_id):
+	pass
+
+
+@login_required
+def delete_event(request, event_id):
+	pass
