@@ -12,6 +12,29 @@
     <div class="d-flex mt-2">
         {% if request.session.profile_type == 'organisation' %}
             <a href="{% url 'plan_event' %}" class="btn btn-warning">Marcar evento</a>
+        {% else %}
+            <div class="container-fluid">
+                <div class="row">
+                    <h3>Eventos marcados</h3>
+                </div>
+                <div class="row">
+                    <ul class="col-12 py-1 list-group">
+                        {% for event in events %}
+                            <li class="list-group-item list-group-item-action">
+                                {% if event.image %}
+                                    <img src="{{ event.image }}" alt="Fotografia do evento" width="300" height="300">
+                                {% else %}
+                                    <img src="{% static '' %}" alt="Fotografia do evento" width="300" height="300">
+                                {% endif %}
+                                <h5>{{ event.title }}</h5> {{ event.description }}
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
         {% endif %}
+
     </div>
 {% endblock %}

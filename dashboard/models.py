@@ -33,43 +33,8 @@ class Profile:
 	pass
 
 
-class VolunteerProfile(models.Model, Profile):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	name = models.CharField(max_length=512, blank=True, null=True)
-	gender = models.BooleanField(default=False, blank=True)
-	birth_date = models.DateField(blank=True, null=True)
-	occupation = models.CharField(max_length=127, blank=True, null=True)
-	location = models.CharField(max_length=255, blank=True, null=True)
-	phone_number = models.CharField(blank=True, null=True, max_length=12)
-	image = models.ImageField(upload_to='volunteers/', blank=True, null=True,
-	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
 
 
-@receiver(models.signals.post_delete, sender=VolunteerProfile)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-	if instance.file:
-		if os.path.isfile(instance.file.path):
-			os.remove(instance.file.path)
-
-
-@receiver(models.signals.pre_save, sender=VolunteerProfile)
-def auto_delete_file_on_change(sender, instance, **kwargs):
-	if not instance.pk:
-		return False
-
-	try:
-		volunteer = VolunteerProfile.objects.get(pk=instance.pk)
-		if volunteer.image:
-			old_file = volunteer.image
-		else:
-			return False
-	except VolunteerProfile.DoesNotExist:
-		return False
-
-	new_file = instance.image
-	if old_file.url and not old_file == new_file:
-		if os.path.isfile(old_file.path):
-			os.remove(old_file.path)
 
 
 class OrganisationProfile(models.Model, Profile):
@@ -119,9 +84,47 @@ class Event(models.Model):
 	organisation = models.ForeignKey(OrganisationProfile, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='events/', blank=True, null=True,
 	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
-	attendee = models.ManyToManyField(VolunteerProfile, blank=True)
 
 	def clean(self):
 		if self.end and self.start:
 			if self.end <= self.start:
 				raise ValidationError('O fim do evento deve ser após o seu inicio')
+
+class VolunteerProfile(models.Model, Profile):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	name = models.CharField(max_length=512, blank=True, null=True)
+	gender = models.BooleanField(default=False, blank=True)
+	birth_date = models.DateField(blank=True, null=True)
+	occupation = models.CharField(max_length=127, blank=True, null=True)
+	location = models.CharField(max_length=255, blank=True, null=True)
+	phone_number = models.CharField(blank=True, null=True, max_length=12)
+	image = models.ImageField(upload_to='volunteers/', blank=True, null=True,
+	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])
+	events = models.ManyToManyField(Event, blank=True)
+
+
+@receiver(models.signals.post_delete, sender=VolunteerProfile)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+	if instance.file:
+		if os.path.isfile(instance.file.path):
+			os.remove(instance.file.path)
+
+
+@receiver(models.signals.pre_save, sender=VolunteerProfile)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+	if not instance.pk:
+		return False
+
+	try:
+		volunteer = VolunteerProfile.objects.get(pk=instance.pk)
+		if volunteer.image:
+			old_file = volunteer.image
+		else:
+			return False
+	except VolunteerProfile.DoesNotExist:
+		return False
+
+	new_file = instance.image
+	if old_file.url and not old_file == new_file:
+		if os.path.isfile(old_file.path):
+			os.remove(old_file.path)

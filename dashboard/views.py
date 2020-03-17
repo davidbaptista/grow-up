@@ -12,29 +12,36 @@ def dashboard_reservations(request):
 	date = get_date(request.GET.get('date', None))
 	calendar = Calendar(locale='pt_PT.utf8')
 	cal = calendar.formatmonth(date.year, date.month)
-
-	region = request.GET.get('region', None)
-	if region:
-		print('hi')
+	events = None
 
 	if 'profile_type' not in request.session:
 		try:
 			organisation = OrganisationProfile.objects.get(user=request.user)
 			request.session['profile_type'] = 'organisation'
 			request.session['profile_id'] = organisation.pk
+			events = Event.objects.filter(organisation=organisation)
 		except OrganisationProfile.DoesNotExist:
 			try:
 				volunteer = VolunteerProfile.objects.get(user=request.user)
 				request.session['profile_type'] = 'volunteer'
 				request.session['profile_id'] = volunteer.pk
+				events = volunteer.events
 			except VolunteerProfile.DoesNotExist:
 				redirect('error')
 			except KeyError:
 				redirect('error')
+	else:
+		if request.session['profile_type'] == 'volunteer':
+			volunteer = VolunteerProfile.objects.get(user=request.user)
+			events = volunteer.events.all()
+		else:
+			organisation = OrganisationProfile.objects.get(user=request.user)
+			events = Event.objects.filter(organisation=organisation)
 
 	return render(request, 'dashboard/dashboard_reservations.html', {'calendar': mark_safe(cal),
-	                                                    'previous_month': previous_date(date),
-	                                                    'next_month': next_date(date)})
+	                                                                 'previous_month': previous_date(date),
+	                                                                 'next_month': next_date(date),
+	                                                                 'events': events})
 
 
 @login_required
@@ -100,7 +107,9 @@ def plan_event(request):
 
 			event.organisation = OrganisationProfile.objects.get(pk=request.session['profile_id'])
 
-			return redirect('dashboard-activities')
+			event.save()
+
+			return redirect('dashboard_activities')
 
 		return render(request, 'dashboard/plan_event.html', {'form': form})
 
@@ -126,6 +135,27 @@ def edit_event(request, event_id):
 
 
 @login_required
+def attend_event(request, event_id):
+	try:
+		event = Event.objects.get(pk=event_id)
+	except Event.DoesNotExist:
+		return redirect('index')
+
+	if request.session['profile_type'] == 'volunteer':
+		try:
+			volunteer = VolunteerProfile.objects.get(pk=request.session['profile_id'])
+		except VolunteerProfile.DoesNotExist:
+			return redirect('index')
+
+		try:
+			volunteer.events.get(pk=event_id)
+			return redirect('error')
+		except Event.DoesNotExist:
+			volunteer.events.add(event)
+			return redirect('dashboard_reservations')
+
+
+@login_required
 def delete_event(request, event_id):
 	try:
 		event = Event.objects.get(pk=event_id)
@@ -133,9 +163,7 @@ def delete_event(request, event_id):
 		return redirect('index')
 
 	if request.session['profile_type'] == 'organisation' and event.organisation.id == request.session['profile_id']:
-
 		Event.objects.get(pk=event_id).delete()
 		return redirect('dashboard_activities')
 
 	return redirect('index')
-
