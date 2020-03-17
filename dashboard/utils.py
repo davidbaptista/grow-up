@@ -1,11 +1,9 @@
 import calendar
 import datetime
-from calendar import HTMLCalendar, different_locale
 
 
 class Calendar(calendar.LocaleHTMLCalendar):
 	cssclass_month = 'table'
-
 
 
 def previous_date(d):

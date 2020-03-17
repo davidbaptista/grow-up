@@ -21,7 +21,8 @@
                         <h5>{{ event.title }}</h5> {{ event.description }}
                         <a class="btn btn-danger float-right" href="{% url 'delete_event' event_id=event.id %}">Desmarcar
                             Evento</a>
-                        <a class="btn btn-secondary mr-2 float-right" href="{% url 'edit_event' event_id=event.id %}">Editar
+                        <a class="btn btn-secondary mr-2 float-right"
+                           href="{% url 'edit_event' event_id=event.id %}">Editar
                             Evento</a>
                     </li>
                 {% else %}
@@ -32,8 +33,10 @@
                             <img src="{% static '' %}" alt="Fotografia do evento" width="300" height="300">
                         {% endif %}
                         <h5>{{ event.title }}</h5> {{ event.description }}
-                        <a class="btn btn-primary float-right" href="{% url 'attend_event' event_id=event.id %}">Reservar
-                            Evento</a>
+                        {% if not event in profile.events.all %}
+                            <a class="btn btn-primary float-right" href="{% url 'attend_event' event_id=event.id %}">Reservar
+                                Evento</a>
+                        {% endif %}
                     </li>
                 {% endif %}
             {% endfor %}

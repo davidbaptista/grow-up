@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
@@ -15,28 +17,26 @@ def dashboard_reservations(request):
 	events = None
 
 	if 'profile_type' not in request.session:
-		try:
+		if OrganisationProfile.objects.filter(user=request.user).count() > 0:
 			organisation = OrganisationProfile.objects.get(user=request.user)
 			request.session['profile_type'] = 'organisation'
 			request.session['profile_id'] = organisation.pk
-			events = Event.objects.filter(organisation=organisation)
-		except OrganisationProfile.DoesNotExist:
-			try:
-				volunteer = VolunteerProfile.objects.get(user=request.user)
-				request.session['profile_type'] = 'volunteer'
-				request.session['profile_id'] = volunteer.pk
-				events = volunteer.events
-			except VolunteerProfile.DoesNotExist:
-				redirect('error')
-			except KeyError:
-				redirect('error')
+			events = Event.objects.filter(organisation=organisation, end__gte=datetime.now())
+		elif VolunteerProfile.objects.filter(user=request.user).count() > 0:
+			volunteer = VolunteerProfile.objects.get(user=request.user)
+			request.session['profile_type'] = 'volunteer'
+			request.session['profile_id'] = volunteer.pk
+			events = volunteer.events.filter(end__gte=datetime.now())
+		else:
+			redirect('error')
+
 	else:
 		if request.session['profile_type'] == 'volunteer':
 			volunteer = VolunteerProfile.objects.get(user=request.user)
-			events = volunteer.events.all()
+			events = volunteer.events.filter(end__gte=datetime.now())
 		else:
 			organisation = OrganisationProfile.objects.get(user=request.user)
-			events = Event.objects.filter(organisation=organisation)
+			events = Event.objects.filter(organisation=organisation, end__gte=datetime.now())
 
 	return render(request, 'dashboard/dashboard_reservations.html', {'calendar': mark_safe(cal),
 	                                                                 'previous_month': previous_date(date),
@@ -46,23 +46,35 @@ def dashboard_reservations(request):
 
 @login_required
 def dashboard_activities(request, region=None):
-	is_organisation = False
 	region_name = None
-	if region and request.session['profile_type'] == 'volunteer':
-		events = Event.objects.filter(location__description=region)
-		region_name = Region.objects.get(description=region)
+	if request.session['profile_type'] == 'volunteer':
+		if region:
+			region_name = Region.objects.get(description=region)
+			events = Event.objects.filter(location__description=region, start__gt=datetime.now())
+		else:
+			events = Event.objects.filter(start__gt=datetime.now())
+
+		profile = VolunteerProfile.objects.get(pk=request.session['profile_id'])
+
+		return render(request, 'dashboard/dashboard_activities.html', {'events': events,
+		                                                               'region': region_name,
+		                                                               'profile': profile,
+		                                                               'is_organisation': False})
 	elif request.session['profile_type'] == 'organisation':
 		if region:
-			events = Event.objects.filter(organisation_id=request.session['profile_id'], location__description=region)
 			region_name = Region.objects.get(description=region)
+
+			events = Event.objects.filter(organisation_id=request.session['profile_id'],
+			                              location__description=region,
+			                              start__gt=datetime.now())
 		else:
-			events = Event.objects.filter(organisation_id=request.session['profile_id'])
-		is_organisation = True
+			events = Event.objects.filter(organisation_id=request.session['profile_id'], start__gt=datetime.now())
+
+		return render(request, 'dashboard/dashboard_activities.html', {'events': events,
+		                                                               'region': region_name,
+		                                                               'is_organisation': True})
 	else:
-		events = Event.objects.all()
-	return render(request, 'dashboard/dashboard_activities.html', {'events': events,
-	                                                               'region': region_name,
-	                                                               'is_organisation': is_organisation})
+		return redirect('error')
 
 
 @login_required
@@ -147,12 +159,11 @@ def attend_event(request, event_id):
 		except VolunteerProfile.DoesNotExist:
 			return redirect('index')
 
-		try:
-			volunteer.events.get(pk=event_id)
-			return redirect('error')
-		except Event.DoesNotExist:
+		if volunteer.events.filter(pk=event_id).count() == 0:
 			volunteer.events.add(event)
 			return redirect('dashboard_reservations')
+		else:
+			return redirect('error')
 
 
 @login_required
