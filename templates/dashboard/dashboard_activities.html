@@ -30,7 +30,7 @@
                         {% if event.image %}
                             <img src="{{ event.image }}" alt="Fotografia do evento" width="300" height="300">
                         {% else %}
-                            <img src="{% static '' %}" alt="Fotografia do evento" width="300" height="300">
+                            <img src="{% static 'img/website/logo.png' %}" alt="Fotografia do evento" width="300" height="300">
                         {% endif %}
                         <h5>{{ event.title }}</h5> {{ event.description }}
                         {% if not event in profile.events.all %}
