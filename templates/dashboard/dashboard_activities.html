@@ -37,6 +37,9 @@
                             <a class="btn btn-primary float-right" href="{% url 'attend_event' event_id=event.id %}">Reservar
                                 Evento</a>
                         {% endif %}
+                        <br>
+                        <span><b>Inicio:</b> {{ event.start }}</span><br>
+                        <span><b>Fim:</b> {{ event.end }}</span>
                     </li>
                 {% endif %}
             {% endfor %}

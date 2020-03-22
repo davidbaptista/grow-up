@@ -34,7 +34,12 @@
                                 {% else %}
                                     <img src="{% static '' %}" alt="Fotografia do evento" width="300" height="300">
                                 {% endif %}
-                                <h5>{{ event.title }}</h5> {{ event.description }}
+
+                                <h5>{{ event.title }}</h5>
+                                {{ event.description }}
+                                <br>
+                                <span><b>Inicio:</b> {{ event.start }}</span><br>
+                                <span><b>Fim:</b> {{ event.end }}</span>
                             </li>
 
                         {% endfor %}

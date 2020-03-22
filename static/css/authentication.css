@@ -93,7 +93,7 @@ li {
 }
 
 #body-login {
-  background-image: url("/static/media/website/login-background.png");
+  background-image: url("/static/img/website/login-background.png");
   background-size: cover;
   overflow: auto;
 }
