@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 
+from dashboard.aux import get_organisation, get_volunteer, is_volunteer, is_organisation
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
 from dashboard.models import VolunteerProfile, OrganisationProfile, Event, Region
 from dashboard.utils import Calendar, previous_date, next_date, get_date
@@ -94,12 +95,14 @@ def profile(request):
 
 @login_required
 def edit_profile(request):
-	if request.session['profile_type'] == 'volunteer':
-		profile = VolunteerProfile.objects.get(pk=request.session['profile_id'])
+	if is_volunteer(request):
+		profile = get_volunteer(request)
 		form = EditVolunteerProfileForm(request.POST or None, request.FILES or None, instance=profile)
-	else:
-		profile = OrganisationProfile.objects.get(pk=request.session['profile_id'])
+	elif is_organisation(request):
+		profile = get_organisation(request)
 		form = EditOrganisationProfileForm(request.POST or None, request.FILES or None, instance=profile)
+	else:
+		return redirect('error')
 
 	if request.method == 'POST' and form.is_valid():
 		form.save()
@@ -111,13 +114,13 @@ def edit_profile(request):
 
 @login_required
 def plan_event(request):
-	if request.session['profile_type'] == 'organisation':
+	if is_organisation(request):
 		form = PlanEventForm(request.POST or None, request.FILES or None)
 
 		if request.method == 'POST' and form.is_valid():
 			event = form.save(commit=False)
 
-			event.organisation = OrganisationProfile.objects.get(pk=request.session['profile_id'])
+			event.organisation = get_organisation(request)
 
 			event.save()
 
@@ -133,7 +136,7 @@ def edit_event(request, event_id):
 	except Event.DoesNotExist:
 		return redirect('index')
 
-	if request.session['profile_type'] == 'organisation' and event.organisation.id == request.session['profile_id']:
+	if is_organisation(request) and event.organisation.id == request.session['profile_id']:
 		form = PlanEventForm(request.POST or None, instance=event)
 
 		if request.method == 'POST' and form.is_valid():
@@ -151,13 +154,13 @@ def attend_event(request, event_id):
 	try:
 		event = Event.objects.get(pk=event_id)
 	except Event.DoesNotExist:
-		return redirect('index')
+		return redirect('error')
 
-	if request.session['profile_type'] == 'volunteer':
-		try:
-			volunteer = VolunteerProfile.objects.get(pk=request.session['profile_id'])
-		except VolunteerProfile.DoesNotExist:
-			return redirect('index')
+	if is_volunteer(request):
+		volunteer = get_volunteer(request)
+
+		if not volunteer:
+			return redirect('error')
 
 		if volunteer.events.filter(pk=event_id).count() == 0:
 			volunteer.events.add(event)
@@ -165,6 +168,19 @@ def attend_event(request, event_id):
 		else:
 			return redirect('error')
 
+@login_required
+def unattend_event(request, event_id):
+	try:
+		event = Event.objects.get(pk=event_id)
+	except Event.DoesNotExist:
+		return redirect('error')
+
+	if is_volunteer(request):
+		volunteer = get_volunteer(request)
+		if volunteer.events.filter(id=event.id).count() == 1 and event.end.replace(tzinfo=None) >= datetime.now().replace(tzinfo=None):
+			volunteer.events.remove(event)
+			return redirect('dashboard_reservations')
+	return redirect('error')
 
 @login_required
 def delete_event(request, event_id):

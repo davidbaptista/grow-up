@@ -28,18 +28,26 @@
                 {% else %}
                     <li class="list-group-item list-group-item-action">
                         {% if event.image %}
-                            <img src="{{ event.image }}" alt="Fotografia do evento" width="300" height="300">
+                            <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
+                                 height="150">
                         {% else %}
-                            <img src="{% static 'img/website/logo.png' %}" alt="Fotografia do evento" width="300" height="300">
+                            <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
+                                 alt="Fotografia do evento" width="150" height="150">
                         {% endif %}
                         <h5>{{ event.title }}</h5> {{ event.description }}
-                        {% if not event in profile.events.all %}
-                            <a class="btn btn-primary float-right" href="{% url 'attend_event' event_id=event.id %}">Reservar
-                                Evento</a>
-                        {% endif %}
-                        <br>
-                        <span><b>Inicio:</b> {{ event.start }}</span><br>
-                        <span><b>Fim:</b> {{ event.end }}</span>
+                        <hr>
+                        <div class="d-flex flex-row">
+                            <div class="mr-auto">
+                                <span><b>Inicio:</b> {{ event.start }}</span><br>
+                                <span><b>Fim:</b> {{ event.end }}</span>
+
+                            </div>
+                            {% if not event in profile.events.all %}
+                                <a class="btn btn-lg btn-primary float-right"
+                                   href="{% url 'attend_event' event_id=event.id %}">Reservar
+                                    Evento</a>
+                            {% endif %}
+                        </div>
                     </li>
                 {% endif %}
             {% endfor %}
