@@ -3,14 +3,17 @@
 
 {% block container %}
     <h3>Calendário</h3>
-    {{ calendar }}
+    <br>
 
     <div class="d-inline-block mb-2 w-100">
         <a class="btn btn-primary float-left"
            href="{% url 'dashboard_reservations' %}?{{ previous_month }}">Anterior</a>
         <a class="btn btn-primary float-right" href="{% url 'dashboard_reservations' %}?{{ next_month }}">Próximo</a>
     </div>
-    <br>
+    {{ calendar }}
+
+    <a href="{% url 'dashboard_reservations' %}" class="btn btn-success">Limpar filtros</a>
+
     <div class="d-flex mt-2">
         {% if request.session.profile_type == 'organisation' %}
             <a href="{% url 'plan_event' %}" class="btn btn-warning">Marcar evento</a>

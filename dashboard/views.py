@@ -12,38 +12,44 @@ from dashboard.utils import Calendar, previous_date, next_date, get_date
 
 @login_required
 def dashboard_reservations(request):
-	date = get_date(request.GET.get('date', None))
-	calendar = Calendar(locale='pt_PT.utf8')
-	cal = calendar.formatmonth(date.year, date.month, True)
 	events = None
+	date = get_date(request.GET.get('date', None))
+	day = request.GET.get('day', None)
 
 	if 'profile_type' not in request.session:
 		if OrganisationProfile.objects.filter(user=request.user).count() > 0:
 			organisation = OrganisationProfile.objects.get(user=request.user)
 			request.session['profile_type'] = 'organisation'
 			request.session['profile_id'] = organisation.pk
-			events = Event.objects.filter(organisation=organisation, end__gte=datetime.now())
+			events = Event.objects.filter(organisation=organisation, start__month=date.month, end__gte=datetime.now())
 		elif VolunteerProfile.objects.filter(user=request.user).count() > 0:
 			volunteer = VolunteerProfile.objects.get(user=request.user)
 			request.session['profile_type'] = 'volunteer'
 			request.session['profile_id'] = volunteer.pk
-			events = volunteer.events.filter(end__gte=datetime.now())
+			events = volunteer.events.filter(start__month=date.month, end__gte=datetime.now())
 		else:
 			redirect('error')
-
 	else:
 		if request.session['profile_type'] == 'volunteer':
 			volunteer = VolunteerProfile.objects.get(user=request.user)
-			events = volunteer.events.filter(end__gte=datetime.now())
+			events = volunteer.events.filter(start__month=date.month, end__gte=datetime.now())
 		else:
 			organisation = OrganisationProfile.objects.get(user=request.user)
-			events = Event.objects.filter(organisation=organisation, end__gte=datetime.now())
+			events = Event.objects.filter(start__month=date.month, organisation=organisation, end__gte=datetime.now())
 
-	return render(request, 'dashboard/dashboard_reservations.html', {'calendar': mark_safe(cal),
-	                                                                 'previous_month': previous_date(date),
-	                                                                 'next_month': next_date(date),
-	                                                                 'events': events})
+	calendar = Calendar(locale='pt_PT.utf8')
+	cal = calendar.formatmonth(date.year, date.month, events, True)
 
+	if day and events:
+		return render(request, 'dashboard/dashboard_reservations.html', {'calendar': mark_safe(cal),
+		                                                                 'previous_month': previous_date(date),
+		                                                                 'next_month': next_date(date),
+		                                                                 'events': events.filter(start__day=day)})
+	else:
+		return render(request, 'dashboard/dashboard_reservations.html', {'calendar': mark_safe(cal),
+		                                                                 'previous_month': previous_date(date),
+		                                                                 'next_month': next_date(date),
+		                                                                 'events': events})
 
 @login_required
 def dashboard_activities(request, region=None):
