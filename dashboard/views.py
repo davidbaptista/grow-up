@@ -14,7 +14,7 @@ from dashboard.utils import Calendar, previous_date, next_date, get_date
 def dashboard_reservations(request):
 	date = get_date(request.GET.get('date', None))
 	calendar = Calendar(locale='pt_PT.utf8')
-	cal = calendar.formatmonth(date.year, date.month)
+	cal = calendar.formatmonth(date.year, date.month, True)
 	events = None
 
 	if 'profile_type' not in request.session:
@@ -168,6 +168,7 @@ def attend_event(request, event_id):
 		else:
 			return redirect('error')
 
+
 @login_required
 def unattend_event(request, event_id):
 	try:
@@ -177,10 +178,12 @@ def unattend_event(request, event_id):
 
 	if is_volunteer(request):
 		volunteer = get_volunteer(request)
-		if volunteer.events.filter(id=event.id).count() == 1 and event.end.replace(tzinfo=None) >= datetime.now().replace(tzinfo=None):
+		if volunteer.events.filter(id=event.id).count() == 1 and event.end.replace(
+				tzinfo=None) >= datetime.now().replace(tzinfo=None):
 			volunteer.events.remove(event)
 			return redirect('dashboard_reservations')
 	return redirect('error')
+
 
 @login_required
 def delete_event(request, event_id):
