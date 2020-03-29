@@ -12,54 +12,58 @@
     </div>
     {{ calendar }}
 
-    <a href="{% url 'dashboard_reservations' %}" class="btn btn-success">Limpar filtros</a>
-
+    <a href="{% url 'dashboard_reservations' %}" class="btn btn-success mb-2">Limpar filtros</a>
     <div class="d-flex mt-2">
-        {% if request.session.profile_type == 'organisation' %}
-            <a href="{% url 'plan_event' %}" class="btn btn-warning">Marcar evento</a>
-        {% else %}
-            <div class="container-fluid">
-                {% if events.count == 0 %}
-                    <div class="row">
-                        <h3 class="text-danger">Sem eventos reservados</h3>
-                    </div>
-                {% else %}
-                    <div class="row">
-                        <h3>Eventos com reserva</h3>
-                    </div>
-                {% endif %}
-
+        <div class="container-fluid">
+            {% if events.count == 0 %}
                 <div class="row">
-                    <ul class="col-12 py-1 list-group">
-                        {% for event in events %}
-                            <li class="list-group-item list-group-item-action">
-                                {% if event.image %}
-                                    <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento"
-                                         width="150"
-                                         height="150">
-                                {% else %}
-                                    <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
-                                         alt="Fotografia do evento"
-                                         width="150" height="150">
-                                {% endif %}
-
-                                <h5>{{ event.title }}</h5><br>
-                                {{ event.description }}
-                                <hr>
-                                <div class="d-flex flex-row">
-                                    <div class="mr-auto">
-                                        <span><b>Inicio:</b> {{ event.start }}</span><br>
-                                        <span><b>Fim:</b> {{ event.end }}</span>
-                                    </div>
-                                    <a class="btn btn-lg btn-danger float-right"
-                                       href="{% url 'unattend_event' event_id=event.id %}">Desmarcar
-                                        Reserva</a>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                    {% if request.session.profile_type == 'organisation' %}
+                        <h3 class="text-danger">Sem eventos marcados</h3>
+                    {% elif request.session.profile_type == 'volunteer' %}
+                        <h3 class="text-danger">Sem eventos reservados</h3>
+                    {% endif %}
                 </div>
+            {% else %}
+                <div class="row">
+                    {% if request.session.profile_type == 'organisation' %}
+                        <h3>Eventos marcados</h3>
+                    {% elif request.session.profile_type == 'volunteer' %}
+                        <h3>Eventos com reserva</h3>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="row">
+                <ul class="col-12 py-1 list-group">
+                    {% for event in events %}
+                        <li class="list-group-item list-group-item-action">
+                            {% if event.image %}
+                                <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento"
+                                     width="150"
+                                     height="150">
+                            {% else %}
+                                <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
+                                     alt="Fotografia do evento"
+                                     width="150" height="150">
+                            {% endif %}
+
+                            <h5>{{ event.title }}</h5><br>
+                            {{ event.description }}
+                            <hr>
+                            <div class="d-flex flex-row">
+                                <div class="mr-auto">
+                                    <span><b>Inicio:</b> {{ event.start }}</span><br>
+                                    <span><b>Fim:</b> {{ event.end }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
-        {% endif %}
+            {% if request.session.profile_type == 'organisation' %}
+                <div class="row">
+                    <a href="{% url 'plan_event' %}" class="btn btn-warning">Marcar evento</a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

@@ -1,5 +1,4 @@
 /* Imports */
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 @import "stylesheet";
 
 /* HTML Tags */
@@ -52,7 +51,7 @@ footer {
 
 .nav-text {
 	color: white !important;
-	font-family: $font-header;
+	font-family: $font-header !important;
 	letter-spacing: 0.1em;
 	position: relative;
 	&:after {

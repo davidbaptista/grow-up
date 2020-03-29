@@ -1,4 +1,5 @@
 /* Imports */
+@import url("https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 input[type=file] {
   cursor: pointer;
@@ -56,12 +57,12 @@ html, body {
 
 h1 {
   color: white;
-  font-family: paralucent-stencil, sans-serif;
+  font-family: "Allerta Stencil", sans-serif;
   margin: 15px;
 }
 
 h2 {
-  font-family: paralucent-stencil, sans-serif;
+  font-family: "Allerta Stencil", sans-serif;
 }
 
 footer {
@@ -87,7 +88,7 @@ footer {
 
 .navbar {
   color: white;
-  font-family: paralucent-stencil, sans-serif;
+  font-family: "Allerta Stencil", sans-serif;
   font-size: 23px;
 }
 
@@ -97,7 +98,7 @@ footer {
 
 .nav-text {
   color: white !important;
-  font-family: paralucent-stencil, sans-serif;
+  font-family: "Allerta Stencil", sans-serif !important;
   letter-spacing: 0.1em;
   position: relative;
 }
@@ -193,7 +194,7 @@ ul.social li {
   background-color: #3a67b9;
   color: #FFFFFF;
   display: inline-block;
-  font-family: paralucent-stencil, sans-serif;
+  font-family: "Allerta Stencil", sans-serif;
   font-size: 25px;
   font-weight: bold;
   height: 250px;

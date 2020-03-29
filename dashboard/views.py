@@ -30,12 +30,14 @@ def dashboard_reservations(request):
 		else:
 			redirect('error')
 	else:
-		if request.session['profile_type'] == 'volunteer':
+		if is_volunteer(request):
 			volunteer = VolunteerProfile.objects.get(user=request.user)
 			events = volunteer.events.filter(start__month=date.month, end__gte=datetime.now())
-		else:
+		elif is_organisation(request):
 			organisation = OrganisationProfile.objects.get(user=request.user)
 			events = Event.objects.filter(start__month=date.month, organisation=organisation, end__gte=datetime.now())
+		else:
+			return redirect('error')
 
 	calendar = Calendar(locale='pt_PT.utf8')
 	cal = calendar.formatmonth(date.year, date.month, events, True)
@@ -54,7 +56,7 @@ def dashboard_reservations(request):
 @login_required
 def dashboard_activities(request, region=None):
 	region_name = None
-	if request.session['profile_type'] == 'volunteer':
+	if is_volunteer(request):
 		if region:
 			region_name = Region.objects.get(description=region)
 			events = Event.objects.filter(location__description=region, start__gt=datetime.now())
@@ -67,7 +69,7 @@ def dashboard_activities(request, region=None):
 		                                                               'region': region_name,
 		                                                               'profile': profile,
 		                                                               'is_organisation': False})
-	elif request.session['profile_type'] == 'organisation':
+	elif is_organisation(request):
 		if region:
 			region_name = Region.objects.get(description=region)
 
@@ -91,10 +93,12 @@ def about_us(request):
 
 @login_required
 def profile(request):
-	if request.session['profile_type'] == 'volunteer':
+	if is_volunteer(request):
 		prof = VolunteerProfile.objects.get(pk=request.session['profile_id'])
-	else:
+	elif is_organisation(request):
 		prof = OrganisationProfile.objects.get(pk=request.session['profile_id'])
+	else:
+		return redirect('error')
 
 	return render(request, 'dashboard/profile.html', {'profile': prof})
 
@@ -157,9 +161,9 @@ def edit_event(request, event_id):
 
 @login_required
 def attend_event(request, event_id):
-	try:
+	if Event.objects.filter(pk=event_id).count() == 1:
 		event = Event.objects.get(pk=event_id)
-	except Event.DoesNotExist:
+	else:
 		return redirect('error')
 
 	if is_volunteer(request):
@@ -177,9 +181,9 @@ def attend_event(request, event_id):
 
 @login_required
 def unattend_event(request, event_id):
-	try:
+	if Event.objects.filter(pk=event_id).count() == 1:
 		event = Event.objects.get(pk=event_id)
-	except Event.DoesNotExist:
+	else:
 		return redirect('error')
 
 	if is_volunteer(request):
@@ -193,12 +197,12 @@ def unattend_event(request, event_id):
 
 @login_required
 def delete_event(request, event_id):
-	try:
+	if Event.objects.filter(pk=event_id).count() == 1:
 		event = Event.objects.get(pk=event_id)
-	except Event.DoesNotExist:
-		return redirect('index')
+	else:
+		return redirect('error')
 
-	if request.session['profile_type'] == 'organisation' and event.organisation.id == request.session['profile_id']:
+	if is_organisation(request) and event.organisation.id == request.session['profile_id']:
 		Event.objects.get(pk=event_id).delete()
 		return redirect('dashboard_activities')
 

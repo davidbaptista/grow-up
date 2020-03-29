@@ -5,7 +5,7 @@
     <form method="POST" novalidate enctype="multipart/form-data" class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-10"
           id="alter-form">
          {% csrf_token %}
-            <h3 class="text-center">E um evento</h3>
+            <h3 class="text-center">Editar evento {{ form.title.value }}</h3>
             {% for error in form.non_field_errors %}
                 <span class="text-danger float-left"> {{ error }} </span>
             {% endfor %}
