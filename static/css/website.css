@@ -1,6 +1,16 @@
 /* Imports */
 @import url("https://fonts.googleapis.com/css?family=Allerta+Stencil&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+html, body {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  height: 100%;
+}
+
+h1, h2 {
+  font-family: "Allerta Stencil", sans-serif;
+}
+
 input[type=file] {
   cursor: pointer;
 }
@@ -46,33 +56,6 @@ input[type=file] {
 
 .custom-file-label::after {
   content: "Pesquisar";
-}
-
-/* HTML Tags */
-html, body {
-  font-family: "Lato", sans-serif;
-  margin: 0;
-  height: 100%;
-}
-
-h1 {
-  color: white;
-  font-family: "Allerta Stencil", sans-serif;
-  margin: 15px;
-}
-
-h2 {
-  font-family: "Allerta Stencil", sans-serif;
-}
-
-footer {
-  padding: 15px 0;
-}
-
-/* Bootstrap classes */
-.container-fluid {
-  margin: 0 !important;
-  padding: 0 !important;
 }
 
 .row {

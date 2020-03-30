@@ -1,33 +1,6 @@
 /* Imports */
 @import "stylesheet";
 
-/* HTML Tags */
-html, body {
-    font-family: $font-base;
-  	margin: 0;
-  	height: percentage(1);
-}
-
-h1 {
-    color: white;
-	font-family: $font-header;
-    margin: 15px;
-}
-
-h2 {
-   font-family: $font-header;
-}
-
-footer {
-    padding: 15px 0;
-}
-
-/* Bootstrap classes */
-.container-fluid {
-	margin: 0 !important;
-	padding: 0 !important;
-}
-
 .row {
 	margin: 0 !important;
 	padding: 0 !important;

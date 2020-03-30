@@ -8,6 +8,15 @@ $color-green: #009933;
 $font-base: 'Lato', sans-serif;
 $font-header: 'Allerta Stencil', sans-serif;
 
+html, body {
+    font-family: $font-base;
+  	margin: 0;
+  	height: percentage(1);
+}
+
+h1, h2 {
+	font-family: $font-header;
+}
 
 input[type=file] {
 	cursor: pointer;
