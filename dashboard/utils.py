@@ -6,8 +6,12 @@ class Calendar(calendar.LocaleHTMLCalendar):
 	cssclass_month = 'table'
 
 	def formatday(self, theyear, themonth, day, events):
-		events_per_day = events.filter(start__day=day)
-		if events_per_day.all().count() > 0 and day != 0:
+		events_per_day = None
+
+		if events:
+			events_per_day = events.filter(start__day=day)
+
+		if events_per_day and events_per_day.all().count() > 0 and day != 0:
 			return f"<td><span class='date'><a href='/dashboard-reservations/?date={theyear}-{themonth}&day={day}'" \
 			       f"class='btn btn-secondary'>{day}</a></span></td>"
 		elif day != 0:

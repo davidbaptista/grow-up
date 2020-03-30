@@ -45,8 +45,16 @@ footer {
     font-size: 23px;
 }
 
+.navbar-light {
+	font-family: $font-header !important;
+}
+
 .nav-item {
     padding: 15px;
+}
+
+.nav-link {
+	font-family: $font-header !important;
 }
 
 .nav-text {

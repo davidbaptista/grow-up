@@ -2,10 +2,10 @@ from django.shortcuts import render
 
 
 def index(request):
-	if 'id' in request.session:
-		del request.session['id']
-	if 'org' in request.session:
-		del request.session['org']
+	if not request.user.is_authenticated and 'profile_id' in request.session:
+		del request.session['profile_id']
+	if not request.user.is_authenticated and 'profile_type' in request.session:
+		del request.session['profile_type']
 
 	return render(request, 'website/index.html')
 

@@ -92,8 +92,16 @@ footer {
   font-size: 23px;
 }
 
+.navbar-light {
+  font-family: "Allerta Stencil", sans-serif !important;
+}
+
 .nav-item {
   padding: 15px;
+}
+
+.nav-link {
+  font-family: "Allerta Stencil", sans-serif !important;
 }
 
 .nav-text {

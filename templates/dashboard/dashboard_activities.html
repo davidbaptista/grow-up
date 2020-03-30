@@ -18,58 +18,39 @@
                 <h3 class="text-danger">Sem eventos marcados</h3>
             {% endif %}
             {% for event in events %}
-                {% if is_organisation %}
-                    <li class="list-group-item list-group-item-action">
-                        {% if event.image %}
-                            <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
-                                 height="150">
-                        {% else %}
-                            <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
-                                 alt="Fotografia do evento" width="150" height="150">
-                        {% endif %}
-                        <h5>{{ event.title }}</h5> {{ event.description }}
-                        <hr>
-                        <div class="d-flex flex-row">
-                            <div class="mr-auto">
-                                <span><b>Inicio:</b> {{ event.start }}</span><br>
-                                <span><b>Fim:</b> {{ event.end }}</span>
-                            </div>
+                <li class="list-group-item list-group-item-action">
+                    {% if event.image %}
+                        <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
+                             height="150">
+                    {% else %}
+                        <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
+                             alt="Fotografia do evento" width="150" height="150">
+                    {% endif %}
+                    <h5>{{ event.title }}</h5> {{ event.description }}
+                    <hr>
+                    <div class="d-flex flex-row">
+                        <div class="mr-auto">
+                            <span><b>Inicio:</b> {{ event.start }}</span><br>
+                            <span><b>Fim:</b> {{ event.end }}</span>
+                        </div>
+                        {% if is_organisation %}
                             <a class="btn btn-lg btn-danger mr-2 float-right"
                                href="{% url 'delete_event' event_id=event.id %}">Desmarcar
                                 Evento</a>
                             <a class="btn btn-lg btn-secondary float-right"
                                href="{% url 'edit_event' event_id=event.id %}">Editar
                                 Evento</a>
-                        </div>
-                    </li>
-                {% else %}
-                    <li class="list-group-item list-group-item-action">
-                        {% if event.image %}
-                            <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
-                                 height="150">
                         {% else %}
-                            <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
-                                 alt="Fotografia do evento" width="150" height="150">
-                        {% endif %}
-                        <h5>{{ event.title }}</h5> {{ event.description }}
-                        <hr>
-                        <div class="d-flex flex-row">
-                            <div class="mr-auto">
-                                <span><b>Inicio:</b> {{ event.start }}</span><br>
-                                <span><b>Fim:</b> {{ event.end }}</span>
-                            </div>
                             {% if not event in profile.events.all %}
                                 <a class="btn btn-lg btn-primary float-right"
-                                   href="{% url 'attend_event' event_id=event.id %}">Criar
-                                    reserva</a>
+                                   href="{% url 'attend_event' event_id=event.id %}">Criar reserva</a>
                             {% else %}
                                 <a class="btn btn-lg btn-danger float-right"
-                                   href="{% url 'unattend_event' event_id=event.id %}">Desmarcar
-                                    reserva</a>
+                                   href="{% url 'unattend_event' event_id=event.id %}">Desmarcar reserva</a>
                             {% endif %}
-                        </div>
-                    </li>
-                {% endif %}
+                        {% endif %}
+                    </div>
+                </li>
             {% endfor %}
         </ul>
     </div>
