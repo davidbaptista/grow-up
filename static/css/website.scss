@@ -1,58 +1,6 @@
 /* Imports */
 @import "stylesheet";
 
-.row {
-	margin: 0 !important;
-	padding: 0 !important;
-	width: 100%;
-}
-
-.img-fluid {
-	height: 100%;
-	width: 100%;
-}
-
-.navbar {
-    color: white;
-    font-family: $font-header;
-    font-size: 23px;
-}
-
-.navbar-light {
-	font-family: $font-header !important;
-}
-
-.nav-item {
-    padding: 15px;
-}
-
-.nav-link {
-	font-family: $font-header !important;
-}
-
-.nav-text {
-	color: white !important;
-	font-family: $font-header !important;
-	letter-spacing: 0.1em;
-	position: relative;
-	&:after {
-		background: $color-white;
-		bottom: 0;
-		content: "";
-		display: block;
-		left: percentage(0.5);
-		height: 2px;
-		position: absolute;
-		transition: width 0.3s ease 0s, left 0.3s ease 0s;
-		width: 0;
-	}
-	&:hover {
-		&:after {
-			width: percentage(1);
-			left: 0;
-		}
-	}
-}
 
 ul.social {
 	display: inline;
@@ -128,25 +76,12 @@ ul.social {
     background-color: $color-yellow
 }
 
-.row-images {
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 650px;
-}
-
-.col-images {
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 100%;
-}
-
 .choice-circle {
     border: $color-yellow solid 5px;
     border-radius: 50%;
     background-color: $color-blue;
     color: $color-white;
     display: inline-block;
-    font-family: $font-header;
     font-size: 25px;
     font-weight: bold;
     height: 250px;
@@ -231,14 +166,6 @@ ul.social {
 	.navbar {
 		min-height: 50px;
 		font-size: 16px;
-	}
-	.nav-text {
-		&:after {
-			height: 0;
-		}
-	}
-	.nav-item {
-		padding: 5px 0;
 	}
 	.row-images {
 		height: 200px;

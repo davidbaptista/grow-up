@@ -6,7 +6,7 @@ html, body {
   height: 100%;
 }
 
-h1, h2 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Allerta Stencil", sans-serif;
 }
 
@@ -55,6 +55,31 @@ input[type=file] {
 
 .custom-file-label::after {
   content: "Pesquisar";
+}
+
+.navbar {
+  font-size: 20px;
+}
+
+.nav-link {
+  letter-spacing: 0.1em;
+  position: relative;
+  font-family: "Allerta Stencil", sans-serif;
+}
+.nav-link:after {
+  background: #FFFFFF;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 50%;
+  height: 2px;
+  position: absolute;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+.nav-link:hover:after {
+  width: 100%;
+  left: 0;
 }
 
 html, body {

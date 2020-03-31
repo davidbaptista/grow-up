@@ -2,94 +2,98 @@
 {% load static %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static '/css/website.css' %}">
+    <link rel="stylesheet" href="{% static '/css/stylesheet.css' %}">
 {% endblock %}
 
 {% block navbar %}
-   {% include 'generic/navbar/navbar_website.html' %}
+    {% include 'generic/navbar/navbar_website.html' %}
 {% endblock %}
 
 {% block content %}
-	<!-- Images -->
-	<div class="container-fluid row-images">
-		<div class="row row-images">
-			<div class="col-4 col-images">
-				<img src="{% static '/img/website/index1.jpg' %}" class="img-fluid" alt="Imagem 1">
-			</div>
-			<div class="col-4 col-images">
-				<img src="{% static '/img/website/index1.jpg' %}" class="img-fluid" alt="Imagem 2">
-			</div>
-			<div class="col-4 col-images">
-				<img src="{% static '/img/website/index1.jpg' %}" class="img-fluid" alt="Imagem 3">
-			</div>
-		</div>
-	</div>
+    <!-- Images -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4 p-0">
+                <img src="{% static '/img/website/index1.jpg' %}" alt="Imagem 1" style="height: 650px; width: 100%">
+            </div>
+            <div class="col-4 p-0">
+                <img src="{% static '/img/website/index1.jpg' %}" alt="Imagem 2" style="height: 650px; width: 100%">
+            </div>
+            <div class="col-4 p-0">
+                <img src="{% static '/img/website/index1.jpg' %}" alt="Imagem 3" style="height: 650px; width: 100%">
+            </div>
+        </div>
+    </div>
 
-	<!-- It depends on you text -->
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-12  bg-blue text-center">
-				<h1>Depende de ti ajudar</h1>
-			</div>
-		</div>
-	</div>
+    <!-- It depends on you text -->
+    <div class="d-flex justify-content-center align-content-center bg-primary py-2">
+        <h1 class="text-white">Depende de ti ajudar</h1>
+    </div>
 
-	<!-- Choose volunteer or organization-->
-	<div class="container-fluid">
+    <!-- Choose volunteer or organization-->
+    <div class="container-fluid">
         <br>
-		<div class="row bg-white" id="choice-row">
-			<div class="col-6 text-center">
-				<a href="{% url 'register_organisation' %}">
-					<figure class="choice-circle">
-						<figcaption >Eu sou uma organização</figcaption>
-						<img src="{% static '/img/website/hand.png' %}" alt="Hand pointing up" class="hand">
-					</figure>
-				</a>
-			</div>
-			<div class="col-6 text-center">
-				<a href="{% url 'register_volunteer' %}">
+        <div class="row bg-white" id="choice-row">
+            <div class="col-6 text-center">
+                <a href="{% url 'register_organisation' %}">
                     <figure class="choice-circle">
-                        <figcaption >Eu sou um voluntário</figcaption>
+                        <figcaption><h4>Eu sou uma organização</h4></figcaption>
                         <img src="{% static '/img/website/hand.png' %}" alt="Hand pointing up" class="hand">
                     </figure>
-				</a>
-			</div>
-		</div>
+                </a>
+            </div>
+            <div class="col-6 text-center">
+                <a href="{% url 'register_volunteer' %}">
+                    <figure class="choice-circle">
+                        <figcaption><h4>Eu sou um voluntário</h4></figcaption>
+                        <img src="{% static '/img/website/hand.png' %}" alt="Hand pointing up" class="hand">
+                    </figure>
+                </a>
+            </div>
+        </div>
         <br>
-	</div>
+    </div>
 
     <!-- About us text -->
-	<div class="container-fluid text-center bg-yellow">
+    <div class="container-fluid text-center bg-warning">
         <br>
-		<h2>Sobre nós</h2>
+        <h2>Sobre nós</h2>
         <hr>
-        <p>A Grow Up nasceu numa conversa entre um grupo de voluntários em São Tomé que, com base na sua experiência, perceberam que existem vários problemas que dificultam a participação de novos voluntários.</p>
-        <p>O primeiro problema encontrado é o difícil acesso e a falta de informação sobre os programas de voluntariado internacional. O que leva muitas pessoas a desistirem do seu sonho de fazer voluntariado fora do país e a perderem uma experiência única.</p>
-        <p>Por outro lado, encontrámos também uma falta de formação anterior à viagem. O que por vezes pode tornar uma experiência inesquecível em algo desagradável, que inibe o voluntário de a querer repetir.</p>
-        <p>A Grow Up nasce então como resposta a estes problemas, procurando ser a ponte entre os voluntários e as organizações.</p>
-        <p>Apresentamos atividades e formações que permitem a qualquer pessoa fazer voluntariado ativo  e a assim prepará-las para experiências mais exigentes como o voluntariado internacional.</p>
-        <p>Ao mesmo tempo oferecemos às organizações a hipótese de conhecer e chamar novos voluntários para as suas atividades.</p>
-        <p>E ainda, oferecemos  acesso ao histórico de todas as atividades em que o voluntário participou e a possibilidade de receber um documento oficial que o prove.</p>
+        <p>A Grow Up nasceu numa conversa entre um grupo de voluntários em São Tomé que, com base na sua experiência,
+            perceberam que existem vários problemas que dificultam a participação de novos voluntários.</p>
+        <p>O primeiro problema encontrado é o difícil acesso e a falta de informação sobre os programas de voluntariado
+            internacional. O que leva muitas pessoas a desistirem do seu sonho de fazer voluntariado fora do país e a
+            perderem uma experiência única.</p>
+        <p>Por outro lado, encontrámos também uma falta de formação anterior à viagem. O que por vezes pode tornar uma
+            experiência inesquecível em algo desagradável, que inibe o voluntário de a querer repetir.</p>
+        <p>A Grow Up nasce então como resposta a estes problemas, procurando ser a ponte entre os voluntários e as
+            organizações.</p>
+        <p>Apresentamos atividades e formações que permitem a qualquer pessoa fazer voluntariado ativo e a assim
+            prepará-las para experiências mais exigentes como o voluntariado internacional.</p>
+        <p>Ao mesmo tempo oferecemos às organizações a hipótese de conhecer e chamar novos voluntários para as suas
+            atividades.</p>
+        <p>E ainda, oferecemos acesso ao histórico de todas as atividades em que o voluntário participou e a
+            possibilidade de receber um documento oficial que o prove.</p>
         <br>
     </div>
 
     <!-- Footer -->
-	<footer class="bg-blue">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-4 text-center">
-					<p class="footer-text">Copyright &copy; 2020 <span>Grow Up</span></p>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 text-center">
-					<ul class="social social-circle">
-						<li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f facebook"></i></a></li>
-						<li><a href="https://www.instagram.com/"><i class="fab fa-instagram instagram "></i></a></li>
-					</ul>
-				</div>
-				<div class="col-lg-4 col-md-4 col-sm-4 text-center">
-					<p class="footer-text">grow.up.portugal@gmail.com</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+    <footer class="bg-primary">
+        <div class="container-fluid">
+            <div class="row py-3">
+                <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                    <p class="footer-text">Copyright &copy; 2020 <span>Grow Up</span></p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                    <ul class="social social-circle">
+                        <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f facebook"></i></a></li>
+                        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram instagram "></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 text-center">
+                    <p class="footer-text">grow.up.portugal@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endblock %}
