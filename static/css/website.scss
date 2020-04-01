@@ -1,7 +1,6 @@
 /* Imports */
 @import "stylesheet";
 
-
 ul.social {
 	display: inline;
 	list-style: none;
@@ -67,27 +66,21 @@ ul.social {
 	}
 }
 
-/* Other classes */
-.bg-blue {
-    background-color: $color-blue;
-}
-
-.bg-yellow {
-    background-color: $color-yellow
-}
-
 .choice-circle {
     border: $color-yellow solid 5px;
     border-radius: 50%;
     background-color: $color-blue;
     color: $color-white;
     display: inline-block;
-    font-size: 25px;
     font-weight: bold;
     height: 250px;
 	margin: 0;
     padding: 40px 0 0 0;
     width: 250px;
+}
+
+.choice-text {
+	font-size: 24px;
 }
 
 .hand {
@@ -100,10 +93,6 @@ ul.social {
     padding: 10px 0 0 0;
 }
 
-.navbar-yellow {
-    background-color: $color-yellow;
-    font-weight: bold;
-}
 
 .logo {
     height: 100px;
@@ -111,10 +100,6 @@ ul.social {
 }
 
 /* IDs */
-
-#choice-row {
-    padding: 50px 0;
-}
 
 #login-box {
 	height: 300px;
@@ -132,70 +117,26 @@ ul.social {
     padding: 3px;
 }
 
-/* Media conditions */
-@media screen and (max-width: 1200px) {
-	.row-images {
-		height: 500px;
+#website-navbar .nav-link {
+	position: relative;
+	font-size: 24px;
+	font-family: $font-header;
+	&:after {
+		background: $color-white;
+		bottom: 0;
+		content: "";
+		display: block;
+		left: percentage(0.5);
+		height: 2px;
+		position: absolute;
+		transition: width 0.3s ease 0s, left 0.3s ease 0s;
+		width: 0;
+	}
+	&:hover {
+		&:after {
+			width: percentage(1);
+			left: 0;
+		}
 	}
 }
 
-@media screen and (max-width: 900px) {
-	h1 {
-		font-size: 16px !important;
-	}
-	.row-images {
-		height: 400px;
-	}
-
-	.navbar {
-		font-size: 16px;
-	}
-}
-
-@media screen and (max-width: 600px) {
-	h1 {
-		font-size: 16px !important;
-	}
-	footer {
-		height: 150px !important;
-		font-size: 14px;
-	}
-	.social-circle {
-		line-height: 25px !important;
-	}
-	.navbar {
-		min-height: 50px;
-		font-size: 16px;
-	}
-	.row-images {
-		height: 200px;
-	}
-	.choice-circle {
-		height: 150px;
-		padding: 20px 0 0 0;
-		font-size: 18px;
-		width: 150px;
-	}
-	.footer-text {
-		padding: 0 0 5px 0;
-	}
-	#login-button {
-		border-width: 0;
-		padding: 5px 0;
-	}
-
-	.hand {
-		margin-top: 10px;
-		height: 45px !important;
-		width: 25px !important;
-	}
-}
-
-@media screen and (max-width: 400px) {
-	.choice-circle {
-		height: 125px;
-		padding: 13px 0 0 0;
-		font-size: 14px;
-		width: 125px;
-	}
-}
