@@ -119,9 +119,7 @@ ul.social li {
   border: #F3AE3A solid 5px;
   border-radius: 50%;
   background-color: #3a67b9;
-  color: #FFFFFF;
   display: inline-block;
-  font-weight: bold;
   height: 250px;
   margin: 0;
   padding: 40px 0 0 0;
@@ -129,7 +127,8 @@ ul.social li {
 }
 
 .choice-text {
-  font-size: 24px;
+  font-family: "Allerta Stencil", sans-serif;
+  font-size: 22px;
 }
 
 .hand {

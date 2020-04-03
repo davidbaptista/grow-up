@@ -70,9 +70,7 @@ ul.social {
     border: $color-yellow solid 5px;
     border-radius: 50%;
     background-color: $color-blue;
-    color: $color-white;
     display: inline-block;
-    font-weight: bold;
     height: 250px;
 	margin: 0;
     padding: 40px 0 0 0;
@@ -80,7 +78,8 @@ ul.social {
 }
 
 .choice-text {
-	font-size: 24px;
+	font-family: $font-header;
+	font-size: 22px;
 }
 
 .hand {
@@ -139,4 +138,3 @@ ul.social {
 		}
 	}
 }
-
