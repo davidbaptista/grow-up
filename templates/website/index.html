@@ -3,6 +3,7 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static '/css/stylesheet.css' %}">
+    <link rel="stylesheet" href="{% static '/css/website.css' %}">
 {% endblock %}
 
 {% block navbar %}
@@ -13,13 +14,13 @@
     <!-- Images -->
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4 p-0">
+            <div class="col-lg-4 p-0">
                 <img src="{% static '/img/website/index1.jpg' %}" alt="Imagem 1" style="height: 650px; width: 100%">
             </div>
-            <div class="col-4 p-0">
+            <div class="col-lg-4 p-0">
                 <img src="{% static '/img/website/index1.jpg' %}" alt="Imagem 2" style="height: 650px; width: 100%">
             </div>
-            <div class="col-4 p-0">
+            <div class="col-lg-4 p-0">
                 <img src="{% static '/img/website/index1.jpg' %}" alt="Imagem 3" style="height: 650px; width: 100%">
             </div>
         </div>
@@ -33,11 +34,11 @@
     <!-- Choose volunteer or organization-->
     <div class="container-fluid">
         <br>
-        <div class="row bg-white" id="choice-row">
+        <div class="row bg-white">
             <div class="col-6 text-center">
                 <a href="{% url 'register_organisation' %}">
                     <figure class="choice-circle">
-                        <figcaption><h4>Eu sou uma organização</h4></figcaption>
+                        <figcaption class="mb-3"><span class="choice-text text-white">Eu sou uma <br> organização</span></figcaption>
                         <img src="{% static '/img/website/hand.png' %}" alt="Hand pointing up" class="hand">
                     </figure>
                 </a>
@@ -45,7 +46,7 @@
             <div class="col-6 text-center">
                 <a href="{% url 'register_volunteer' %}">
                     <figure class="choice-circle">
-                        <figcaption><h4>Eu sou um voluntário</h4></figcaption>
+                        <figcaption class="mb-3"><span class="choice-text text-white">Eu sou um <br> voluntário</span></figcaption>
                         <img src="{% static '/img/website/hand.png' %}" alt="Hand pointing up" class="hand">
                     </figure>
                 </a>
@@ -78,7 +79,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-primary">
+    <footer class="bg-primary text-white">
         <div class="container-fluid">
             <div class="row py-3">
                 <div class="col-lg-4 col-md-4 col-sm-4 text-center">

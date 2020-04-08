@@ -7,7 +7,7 @@ html, body {
   height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
   font-family: "Allerta Stencil", sans-serif;
 }
 
@@ -44,6 +44,10 @@ input[type=file] {
   background-color: #F3AE3A !important;
 }
 
+.font-header {
+  font-family: "Allerta Stencil", sans-serif;
+}
+
 .list-group-item-warning {
   background-color: #F3AE3A !important;
 }
@@ -60,27 +64,6 @@ input[type=file] {
 
 .navbar {
   font-size: 20px;
-}
-
-.nav-link {
-  letter-spacing: 0.1em;
-  position: relative;
-  font-family: "Allerta Stencil", sans-serif;
-}
-.nav-link:after {
-  background: #FFFFFF;
-  bottom: 0;
-  content: "";
-  display: block;
-  left: 50%;
-  height: 2px;
-  position: absolute;
-  transition: width 0.3s ease 0s, left 0.3s ease 0s;
-  width: 0;
-}
-.nav-link:hover:after {
-  width: 100%;
-  left: 0;
 }
 
 ul.social {
@@ -132,27 +115,20 @@ ul.social li {
   color: #ffffff;
 }
 
-/* Other classes */
-.bg-blue {
-  background-color: #3a67b9;
-}
-
-.bg-yellow {
-  background-color: #F3AE3A;
-}
-
 .choice-circle {
   border: #F3AE3A solid 5px;
   border-radius: 50%;
   background-color: #3a67b9;
-  color: #FFFFFF;
   display: inline-block;
-  font-size: 25px;
-  font-weight: bold;
   height: 250px;
   margin: 0;
   padding: 40px 0 0 0;
   width: 250px;
+}
+
+.choice-text {
+  font-family: "Allerta Stencil", sans-serif;
+  font-size: 22px;
 }
 
 .hand {
@@ -165,21 +141,12 @@ ul.social li {
   padding: 10px 0 0 0;
 }
 
-.navbar-yellow {
-  background-color: #F3AE3A;
-  font-weight: bold;
-}
-
 .logo {
   height: 100px;
   width: 100px;
 }
 
 /* IDs */
-#choice-row {
-  padding: 50px 0;
-}
-
 #login-box {
   height: 300px;
   position: relative;
@@ -196,77 +163,25 @@ ul.social li {
   padding: 3px;
 }
 
-/* Media conditions */
-@media screen and (max-width: 1200px) {
-  .row-images {
-    height: 500px;
-  }
+#website-navbar .nav-link {
+  position: relative;
+  font-size: 24px;
+  font-family: "Allerta Stencil", sans-serif;
 }
-@media screen and (max-width: 900px) {
-  h1 {
-    font-size: 16px !important;
-  }
-
-  .row-images {
-    height: 400px;
-  }
-
-  .navbar {
-    font-size: 16px;
-  }
+#website-navbar .nav-link:after {
+  background: #FFFFFF;
+  bottom: 0;
+  content: "";
+  display: block;
+  left: 50%;
+  height: 2px;
+  position: absolute;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
 }
-@media screen and (max-width: 600px) {
-  h1 {
-    font-size: 16px !important;
-  }
-
-  footer {
-    height: 150px !important;
-    font-size: 14px;
-  }
-
-  .social-circle {
-    line-height: 25px !important;
-  }
-
-  .navbar {
-    min-height: 50px;
-    font-size: 16px;
-  }
-
-  .row-images {
-    height: 200px;
-  }
-
-  .choice-circle {
-    height: 150px;
-    padding: 20px 0 0 0;
-    font-size: 18px;
-    width: 150px;
-  }
-
-  .footer-text {
-    padding: 0 0 5px 0;
-  }
-
-  #login-button {
-    border-width: 0;
-    padding: 5px 0;
-  }
-
-  .hand {
-    margin-top: 10px;
-    height: 45px !important;
-    width: 25px !important;
-  }
-}
-@media screen and (max-width: 400px) {
-  .choice-circle {
-    height: 125px;
-    padding: 13px 0 0 0;
-    font-size: 14px;
-    width: 125px;
-  }
+#website-navbar .nav-link:hover:after {
+  width: 100%;
+  left: 0;
 }
 
 /*# sourceMappingURL=website.css.map */

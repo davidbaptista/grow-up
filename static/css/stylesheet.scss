@@ -14,11 +14,9 @@ html, body {
   	height: percentage(1);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
 	font-family: $font-header;
 }
-
-
 
 input[type=file] {
 	cursor: pointer;
@@ -57,6 +55,10 @@ input[type=file] {
 	background-color: $color-yellow !important;
 }
 
+.font-header {
+	font-family: $font-header;
+}
+
 .list-group-item-warning {
 	background-color: $color-yellow !important;
 
@@ -76,28 +78,5 @@ input[type=file] {
 
 .navbar {
 	font-size: 20px;
-}
-
-.nav-link {
-	letter-spacing: 0.1em;
-	position: relative;
-	font-family: $font-header;
-	&:after {
-		background: $color-white;
-		bottom: 0;
-		content: "";
-		display: block;
-		left: percentage(0.5);
-		height: 2px;
-		position: absolute;
-		transition: width 0.3s ease 0s, left 0.3s ease 0s;
-		width: 0;
-	}
-	&:hover {
-		&:after {
-			width: percentage(1);
-			left: 0;
-		}
-	}
 }
 
