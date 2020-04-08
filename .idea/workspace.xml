@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b1b42b59-7600-47fd-82ce-55a90d66045d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/authentication.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/authentication.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/authentication.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/authentication.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/dashboard.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/dashboard.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/stylesheet.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/stylesheet.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/website.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/website.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/website.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/website.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/website.scss" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/website.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/generic/navbar/navbar_website.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/generic/navbar/navbar_website.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/website/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/website/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,6 +224,9 @@
       <workItem from="1585595787146" duration="4021000" />
       <workItem from="1585686105247" duration="571000" />
       <workItem from="1585686687798" duration="4010000" />
+      <workItem from="1585750982966" duration="98000" />
+      <workItem from="1586011321913" duration="125000" />
+      <workItem from="1586099422048" duration="8000" />
     </task>
     <servers />
   </component>
@@ -243,6 +238,10 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="555" y="216" width="804" height="677" key="#Configure_Path_Variables/0.27.1920.1053@0.27.1920.1053" timestamp="1579958674622" />
+    <state x="555" y="182" width="808" height="681" key="#File_Watchers" timestamp="1585751077646">
+      <screen x="0" y="0" width="1920" height="1035" />
+    </state>
+    <state x="555" y="182" width="808" height="681" key="#File_Watchers/0.0.1920.1035@0.0.1920.1035" timestamp="1585751077646" />
     <state x="555" y="151" key="#JSON" timestamp="1584112981473">
       <screen x="0" y="0" width="1920" height="1053" />
     </state>
@@ -310,9 +309,10 @@
     </state>
     <state width="1032" height="646" key="DebuggerActiveHint/0.0.1920.1053@0.0.1920.1053" timestamp="1584478138518" />
     <state width="575" height="646" key="DebuggerActiveHint/0.27.1920.1053@0.27.1920.1053" timestamp="1579949628255" />
-    <state x="886" y="314" width="685" height="493" key="EditFileWatcherDialog" timestamp="1582378644588">
-      <screen x="0" y="0" width="1920" height="1053" />
+    <state x="886" y="309" width="689" height="485" key="EditFileWatcherDialog" timestamp="1585751076119">
+      <screen x="0" y="0" width="1920" height="1035" />
     </state>
+    <state x="886" y="309" width="689" height="485" key="EditFileWatcherDialog/0.0.1920.1035@0.0.1920.1035" timestamp="1585751076119" />
     <state x="886" y="314" width="685" height="493" key="EditFileWatcherDialog/0.0.1920.1053@0.0.1920.1053" timestamp="1582378644588" />
     <state x="886" y="341" width="800" height="459" key="EditFileWatcherDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1579951330964" />
     <state width="1874" height="213" key="GridCell.Tab.0.bottom" timestamp="1585690145363">
