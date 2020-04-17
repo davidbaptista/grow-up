@@ -13,36 +13,44 @@ from formtools.wizard.views import SessionWizardView
 
 from authentication.forms import LoginForm, PasswordChangeForm, RegisterForm, RegisterOrganisationForm, \
 	RegisterOrganisationProfileForm, RegisterVolunteerForm
-from dashboard.models import OrganisationProfile
+from dashboard.models import VolunteerProfile, OrganisationProfile
+from dashboard.aux import *
 
 authentication_token = PasswordResetTokenGenerator()
 
 
-def login(response):
-	if response.user.is_authenticated:
+def login(request):
+	if request.user.is_authenticated:
 		return redirect('index')
 
-	if 'profile_type' in response.session:
-		del response.session['profile_type']
-	if 'profile_id' in response.session:
-		del response.session['profile_id']
-	if 'id' in response.session:
-		del response.session['id']
-	if 'org' in response.session:
-		del response.session['org']
+	# Session variables used everywhere
+	if 'profile_type' in request.session:
+		del request.session['profile_type']
+	if 'profile_id' in request.session:
+		del request.session['profile_id']
 
-	form = LoginForm(data=response.POST or None)
+	# Session variables used in authentication methods
+	if 'id' in request.session:
+		del request.session['id']
+	if 'org' in request.session:
+		del request.session['org']
 
-	if response.method == 'POST' and form.is_valid():
+	form = LoginForm(data=request.POST or None)
+
+	if request.method == 'POST' and form.is_valid():
 		username = form.cleaned_data['username']
 		password = form.cleaned_data['password']
 		user = authenticate(username=username, password=password)
 
 		if user is not None:
-			logon(response, user)
-			return redirect('dashboard_reservations')
+			logon(request, user)
+
+			if is_volunteer(request) or is_organisation(request):
+				return redirect('dashboard')
+			else:
+				return redirect('error')
 	else:
-		return render(response, 'authentication/login.html', {'form': form})
+		return render(request, 'authentication/login.html', {'form': form})
 
 
 class RegisterOrganisationWizard(SessionWizardView):
@@ -173,7 +181,6 @@ def register_complete(response, uidb64, token):
 		else:
 			user.is_active = True
 			user.save()
-			logon(response, user)
 			org = False
 
 		return render(response, 'authentication/register_complete.html', {'org': org})

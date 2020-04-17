@@ -6,7 +6,7 @@
         <div class="col-4">
             <div id="mapid" style="height: 500px;"></div>
             <div class="py-3">
-                <a class="btn btn-primary" href="{% url 'dashboard_activities' %}">Todas as regiões</a>
+                <a class="btn btn-primary" href="{% url 'browse_events' %}">Todas as regiões</a>
             </div>
         </div>
         <ul class="col-8 px-4 list-group">
@@ -15,7 +15,7 @@
             {% elif events.count > 0 %}
                 <h3>Atividades futuras em todas as regiões</h3>
             {% else %}
-                <h3 class="text-danger">Sem eventos marcados</h3>
+                <h3 class="text-danger">Não existem atividades marcadas</h3>
             {% endif %}
             {% for event in events %}
                 <li class="list-group-item list-group-item-action">
@@ -33,21 +33,12 @@
                             <span><b>Inicio:</b> {{ event.start }}</span><br>
                             <span><b>Fim:</b> {{ event.end }}</span>
                         </div>
-                        {% if is_organisation %}
-                            <a class="btn btn-lg btn-danger mr-2 float-right"
-                               href="{% url 'delete_event' event_id=event.id %}">Desmarcar
-                                Evento</a>
-                            <a class="btn btn-lg btn-secondary float-right"
-                               href="{% url 'edit_event' event_id=event.id %}">Editar
-                                Evento</a>
+                        {% if not event in profile.events.all %}
+                            <a class="btn btn-lg btn-primary float-right"
+                                href="{% url 'attend_event' event_id=event.id %}">Criar reserva</a>
                         {% else %}
-                            {% if not event in profile.events.all %}
-                                <a class="btn btn-lg btn-primary float-right"
-                                   href="{% url 'attend_event' event_id=event.id %}">Criar reserva</a>
-                            {% else %}
-                                <a class="btn btn-lg btn-danger float-right"
-                                   href="{% url 'unattend_event' event_id=event.id %}">Desmarcar reserva</a>
-                            {% endif %}
+                            <a class="btn btn-lg btn-danger float-right"
+                                href="{% url 'unattend_event' event_id=event.id %}">Desmarcar reserva</a>
                         {% endif %}
                     </div>
                 </li>
@@ -61,7 +52,6 @@
     <script src="{% static 'datetimepicker/build/jquery.datetimepicker.full.min.js' %}"></script>
     <!-- Leaflet map-->
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-
     <!-- Scripts overriding package settings -->
     <script src="{% static 'js/datetimepicker.js' %}"></script>
     <script src="{% static 'js/leaflet.js' %}"></script>

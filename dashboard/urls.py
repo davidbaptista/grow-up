@@ -3,9 +3,11 @@ from django.urls import path
 from dashboard import views
 
 urlpatterns = [
-	path('dashboard-reservations/', views.dashboard_reservations, name='dashboard_reservations'),
-	path('dashboard-activities/', views.dashboard_activities, name='dashboard_activities'),
-	path('dashboard-activities/<region>', views.dashboard_activities, name='dashboard_activities'),
+	path('dashboard/', views.dashboard, name='dashboard'),
+	path('events/', views.events, name='events'),
+	path('browse-events/', views.browse_events, name='browse_events'),
+	path('browse-events/<region>', views.browse_events, name='browse_events'),
+	path('manage-events/', views.manage_events, name='manage_events'),
 	path('about-us/', views.about_us, name='about_us'),
 	path('plan-event/', views.plan_event, name='plan_event'),
 	path('edit-event/<event_id>', views.edit_event, name='edit_event'),

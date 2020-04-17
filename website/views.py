@@ -1,13 +1,14 @@
 from django.shortcuts import render
+from dashboard.aux import *
 
 
 def index(request):
-	if not request.user.is_authenticated and 'profile_id' in request.session:
-		del request.session['profile_id']
-	if not request.user.is_authenticated and 'profile_type' in request.session:
-		del request.session['profile_type']
-
-	return render(request, 'website/index.html')
+	if is_volunteer(request):
+		return render(request, 'website/index.html', {'user_type': 'volunteer'})
+	elif is_organisation(request):
+		return render(request, 'website/index.html', {'user_type': 'organisation'})
+	else:
+		return render(request, 'website/index.html')
 
 
 def organisation(request):

@@ -25,7 +25,7 @@
             </li>
             {% if user.is_authenticated %}
                 <li class="px-2">
-                    <a class="nav-link text-white" href="{% url 'dashboard_reservations' %}">Dashboard</a>
+                    <a class="nav-link text-white" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 {% if user.is_staff %}
                     <li class="px-2">

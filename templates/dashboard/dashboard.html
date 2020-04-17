@@ -1,0 +1,58 @@
+{% extends 'generic/base_dashboard.html' %}
+{% load static %}
+
+{% block container %}
+	<h3>Calendário</h3>
+	<br>
+
+	<div class="d-inline-block mb-2 w-100">
+		<a class="btn btn-primary float-left"
+		   	href="{% url 'dashboard' %}?{{ previous_month }}">Anterior</a>
+		<a class="btn btn-primary float-right" 
+			href="{% url 'dashboard' %}?{{ next_month }}">Próximo</a>
+	</div>
+	{{ calendar }}
+
+	<a href="{% url 'dashboard' %}" class="btn btn-success mb-2">Limpar filtros</a>
+	<div class="d-flex mt-2">
+		<div class="container-fluid">
+			{% if events.count == 0 %}
+				<div class="row">
+					<h3 class="text-danger">Mês sem eventos</h3>
+				</div>
+			{% else %}
+				<div class="row">
+					<h3>Eventos</h3>
+				</div>
+			{% endif %}
+			<div class="row">
+				<ul class="col-12 py-1 list-group">
+					{% for event in events %}
+						<li class="list-group-item list-group-item-action">
+							{% if event.image %}
+								<img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento"
+									 width="150"
+									 height="150">
+							{% else %}
+								<img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
+									 alt="Fotografia do evento"
+									 width="150" height="150">
+							{% endif %}
+
+							<h5>{{ event.title }}</h5>
+							<br>
+							{{ event.description }}
+							<hr>
+							<div class="d-flex flex-row">
+								<div class="mr-auto">
+									<span><b>Inicio:</b> {{ event.start }}</span><br>
+									<span><b>Fim:</b> {{ event.end }}</span>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -2,24 +2,17 @@ from dashboard.models import VolunteerProfile, OrganisationProfile
 
 
 def is_volunteer(request):
-	if 'profile_type' and 'profile_id' in request.session:
-		return request.session['profile_type'] == 'volunteer'
-	else:
-		return False
+	return request.user.is_authenticated and VolunteerProfile.objects.filter(user=request.user).count() == 1
 
 
 def is_organisation(request):
-	if 'profile_type' and 'profile_id' in request.session:
-		return request.session['profile_type'] == 'organisation'
-	else:
-		return False
+	return request.user.is_authenticated and OrganisationProfile.objects.filter(user=request.user).count() == 1
 
 
 def get_volunteer(request):
 	if is_volunteer(request):
 		try:
-			profile = VolunteerProfile.objects.get(pk=request.session['profile_id'])
-			return profile
+			return VolunteerProfile.objects.get(user=request.user)
 		except VolunteerProfile.DoesNotExist:
 			return None
 	return None
@@ -28,8 +21,7 @@ def get_volunteer(request):
 def get_organisation(request):
 	if is_organisation(request):
 		try:
-			profile = OrganisationProfile.objects.get(pk=request.session['profile_id'])
-			return profile
+			return OrganisationProfile.objects.get(user=request.user)
 		except OrganisationProfile.DoesNotExist:
 			return None
 	return None

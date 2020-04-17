@@ -2,28 +2,27 @@
 {% load static %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static '/css/authentication.css' %}">
+	<link rel="stylesheet" href="{% static '/css/authentication.css' %}">
 {% endblock %}
 
 {% block bodyid %}body-login{% endblock %}
 
 {% block content %}
-    <div id="auth-container">
-        <div class="text-center bg-light rounded-lg" id="form-signin">
-            {% csrf_token %}
-            <a href="{% url 'index' %}">
-                <img class="mb-4" src="{% static '/img/website/logo.png' %}" alt="Logo" width="72" height="72">
-            </a>
+	<div id="auth-container">
+		<div class="text-center bg-light rounded-lg" id="form-signin">
+			{% csrf_token %}
+			<a href="{% url 'index' %}">
+				<img class="mb-4" src="{% static '/img/website/logo.png' %}" alt="Logo" width="72" height="72">
+			</a>
 
-            <h5>Email confirmado!</h5>
-
-            {% if org %}
-                <p>Como se trata de uma organização, a conta aguarda ainda a
-                    aprovação por parte da administração da Grow Up</p>
-            {% endif %}
-            <a href="{% url 'index' %}" class="btn btn-primary">
-                Ir para a página principal
-            </a>
-        </div>
-    </div>
+			<h5>Email confirmado!</h5>
+			{% if org %}
+				<p>Como se trata de uma organização, a conta aguarda ainda a aprovação por parte da administração da Grow Up</p>
+				<a href="{% url 'index' %}" class="btn btn-primary">Ir para a página principal</a>
+			{% else %}
+				<p>Já pode efetuar login</p>
+				<a href="{% url 'index' %}" class="btn btn-primary">Login</a>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}
