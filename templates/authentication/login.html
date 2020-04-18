@@ -1,11 +1,9 @@
-{% extends 'generic/base.html' %}
+{% extends 'generic/base/website.html' %}
 {% load static %}
 
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static '/css/authentication.css' %}">
 {% endblock %}
-
-{% block bodyid %}body-login{% endblock %}
 
 {% block content %}
     <div id="auth-container">
@@ -16,7 +14,7 @@
                 <img class="mb-4" src="{% static '/img/website/logo.png' %}" alt="Logo" width="72" height="72">
             </a>
 
-            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            <h3 class="h3 mb-3">Login</h3>
 
             {% for error in form.non_field_errors %}
                 <span class="text-danger float-left"> {{ error }}</span>

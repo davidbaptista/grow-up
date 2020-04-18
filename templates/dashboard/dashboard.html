@@ -1,7 +1,11 @@
-{% extends 'generic/base_dashboard.html' %}
+{% extends 'generic/base/dashboard.html' %}
 {% load static %}
 
-{% block container %}
+{% block navbar %}
+    {% include 'generic/navbar/dashboard.html'%}
+{% endblock %}
+
+{% block content %}
 	<h3>Calendário</h3>
 	<br>
 

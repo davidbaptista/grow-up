@@ -4,93 +4,71 @@
 html, body {
   font-family: "Lato", sans-serif;
   margin: 0;
-  height: 100%;
-}
+  height: 100%; }
 
-h1, h2 {
-  font-family: "Allerta Stencil", sans-serif;
-}
+h1, h2, h3 {
+  font-family: "Allerta Stencil", sans-serif; }
 
 input[type=file] {
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .btn-primary {
-  background-color: #3a67b9 !important;
-}
-.btn-primary:hover {
-  background-color: #4b87eb !important;
-}
-.btn-primary:active {
-  background-color: #5193ff !important;
-}
+  background-color: #3a67b9 !important; }
+  .btn-primary:hover {
+    background-color: #4b87eb !important; }
+  .btn-primary:active {
+    background-color: #5193ff !important; }
 
 .btn-warning {
-  background-color: #F3AE3A;
-}
-.btn-warning:hover {
-  background-color: #ffb73d;
-}
+  background-color: #F3AE3A; }
+  .btn-warning:hover {
+    background-color: #ffb73d; }
 
 .bg-light {
-  background-color: #f3f3f3;
-}
+  background-color: #f3f3f3; }
 
 .bg-primary {
-  background-color: #3a67b9 !important;
-}
+  background-color: #3a67b9 !important; }
 
 .bg-warning {
-  background-color: #F3AE3A !important;
-}
+  background-color: #F3AE3A !important; }
 
 .font-header {
-  font-family: "Allerta Stencil", sans-serif;
-}
+  font-family: "Allerta Stencil", sans-serif; }
 
 .list-group-item-warning {
-  background-color: #F3AE3A !important;
-}
-.list-group-item-warning:hover {
-  background-color: #dd9c36 !important;
-}
-.list-group-item-warning:active {
-  background-color: #d39335 !important;
-}
+  background-color: #F3AE3A !important; }
+  .list-group-item-warning:hover {
+    background-color: #dd9c36 !important; }
+  .list-group-item-warning:active {
+    background-color: #d39335 !important; }
 
 .custom-file-label::after {
-  content: "Pesquisar";
-}
+  content: "Pesquisar"; }
 
 .navbar {
-  font-size: 20px;
-}
+  font-size: 20px; }
 
 ul.social {
   display: inline;
   list-style: none;
   margin-left: 0;
-  padding: 0;
-}
-ul.social li {
-  display: inline;
-  margin: 0 6px;
-}
+  padding: 0; }
+  ul.social li {
+    display: inline;
+    margin: 0 6px; }
 
 .facebook:hover {
-  background-color: #3B5998;
-}
+  background-color: #3B5998; }
 
 .instagram:hover {
-  background-color: #bd3799;
-}
+  background-color: #bd3799; }
 
 .social .facebook:hover i {
-  color: #afafaf;
-}
+  color: #afafaf; }
+
 .social .instagram:hover i {
-  color: #afafaf;
-}
+  color: #afafaf; }
 
 .social-circle li a i {
   background-color: #afafaf;
@@ -103,17 +81,16 @@ ul.social li {
   position: relative;
   width: 50px;
   -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-}
+  -webkit-border-radius: 50%; }
+
 .social-circle li i {
   line-height: 50px;
   text-align: center;
   margin: 0;
-  transition-duration: 0.3s;
-}
+  transition-duration: 0.3s; }
+
 .social-circle i {
-  color: #ffffff;
-}
+  color: #ffffff; }
 
 .choice-circle {
   border: #F3AE3A solid 5px;
@@ -123,28 +100,23 @@ ul.social li {
   height: 250px;
   margin: 0;
   padding: 40px 0 0 0;
-  width: 250px;
-}
+  width: 250px; }
 
 .choice-text {
   font-family: "Allerta Stencil", sans-serif;
-  font-size: 22px;
-}
+  font-size: 22px; }
 
 .hand {
   height: 85px;
-  width: 50px;
-}
+  width: 50px; }
 
 .footer-text {
   margin: 0;
-  padding: 10px 0 0 0;
-}
+  padding: 10px 0 0 0; }
 
 .logo {
   height: 100px;
-  width: 100px;
-}
+  width: 100px; }
 
 /* IDs */
 #login-box {
@@ -153,35 +125,28 @@ ul.social li {
   margin: 0;
   top: 50%;
   -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
+  transform: translateY(-50%); }
 
 #login-button {
   border-style: solid;
   border-width: 5px;
   border-color: #F3AE3A #F3AE3A #F3AE3A #3a67b9;
-  padding: 3px;
-}
+  padding: 3px; }
 
 #website-navbar .nav-link {
   position: relative;
   font-size: 24px;
-  font-family: "Allerta Stencil", sans-serif;
-}
-#website-navbar .nav-link:after {
-  background: #FFFFFF;
-  bottom: 0;
-  content: "";
-  display: block;
-  left: 50%;
-  height: 2px;
-  position: absolute;
-  transition: width 0.3s ease 0s, left 0.3s ease 0s;
-  width: 0;
-}
-#website-navbar .nav-link:hover:after {
-  width: 100%;
-  left: 0;
-}
-
-/*# sourceMappingURL=website.css.map */
+  font-family: "Allerta Stencil", sans-serif; }
+  #website-navbar .nav-link:after {
+    background: #FFFFFF;
+    bottom: 0;
+    content: "";
+    display: block;
+    left: 50%;
+    height: 2px;
+    position: absolute;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+    width: 0; }
+  #website-navbar .nav-link:hover:after {
+    width: 100%;
+    left: 0; }

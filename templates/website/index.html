@@ -1,13 +1,12 @@
-{% extends 'generic/base.html' %}
+{% extends 'generic/base/website.html' %}
 {% load static %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="{% static '/css/stylesheet.css' %}">
     <link rel="stylesheet" href="{% static '/css/website.css' %}">
 {% endblock %}
 
 {% block navbar %}
-    {% include 'generic/navbar/navbar_website.html' %}
+    {% include 'generic/navbar/website.html' %}
 {% endblock %}
 
 {% block content %}

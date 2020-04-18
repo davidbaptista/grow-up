@@ -1,12 +1,10 @@
-{% extends 'generic/base.html' %}
+{% extends 'generic/base/website.html' %}
 {% load static %}
 {% load i18n %}
 
 {% block stylesheet %}
     <link rel="stylesheet" href="{% static '/css/authentication.css' %}">
 {% endblock %}
-
-{% block bodyid %}body-login{% endblock %}
 
 {% block content %}
     <div id="auth-container">
@@ -17,7 +15,7 @@
                     <img class="mb-4 " src="{% static '/img/website/logo.png' %}" alt="Logo" width="72" height="72">
                 </a>
             </div>
-            <h3 class="h3 mb-3 font-weight-normal text-center">Criar uma conta de {{ msg }}</h3>
+            <h3 class="h3 mb-3 text-center">Criar uma conta de {{ msg }}</h3>
 
             <hr>
             <p>{{ message }}</p>

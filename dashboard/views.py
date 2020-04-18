@@ -73,9 +73,9 @@ def browse_events(request, region=None):
 			events = Event.objects.filter(start__gt=datetime.now())
 
 		return render(request, 'dashboard/browse_events.html',	{'events': events,
-																	'region': region_name,
-																	'profile': profile,
-																	'is_organisation': False})
+																'region': region_name,
+																'profile': profile,
+																'is_organisation': False})
 	else:
 		return redirect('error')
 

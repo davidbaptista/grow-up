@@ -3,7 +3,7 @@
 html, body {
     height: 100%;
 	position: relative;
-	overflow: hidden;
+    overflow: hidden;
 }
 
 li {
@@ -35,6 +35,8 @@ li {
 }
 
 #auth-container {
+    background-image: url("/static/img/website/login-background.png") !important;
+    background-size: cover;
 	display: -ms-flexbox;
 	display: -webkit-box;
 	display: flex;
@@ -44,15 +46,9 @@ li {
 	align-items: center;
 	-webkit-box-pack: center;
 	justify-content: center;
-	min-height: 100% !important;
-}
-
-#body-login {
-    background-image: url("/static/img/website/login-background.png");
-    background-size: cover;
+    min-height: 100% !important;
     overflow: auto;
 }
-
 
 #form-signin {
     max-width: 400px;

@@ -1,21 +1,29 @@
-{% extends 'generic/base_dashboard.html' %}
+{% extends 'generic/base/dashboard.html' %}
 {% load static %}
 
-{% block container %}
+{% block navbar %}
+    {% include 'generic/navbar/dashboard.html'%}
+{% endblock %}
+
+{% block content %}
     <div class="d-flex">
         <div class="col-4">
             <div id="mapid" style="height: 500px;"></div>
-            <div class="py-3">
-                <a class="btn btn-primary" href="{% url 'browse_events' %}">Todas as regiões</a>
-            </div>
+            {% if region %}
+                <div class="py-3">
+                    <a class="btn btn-primary" href="{% url 'browse_events' %}">Todas as regiões</a>
+                </div>
+            {% endif %}
         </div>
         <ul class="col-8 px-4 list-group">
             {% if region and events.count > 0 %}
-                <h3>Atividades futuras na região: {{ region }}</h3>
+                <h3>Eventos futuros na região: {{ region }}</h3>
             {% elif events.count > 0 %}
-                <h3>Atividades futuras em todas as regiões</h3>
+                <h3>Eventos futuros em todas as regiões</h3>
+            {% elif events.count == 0 and region %}
+                <h3 class="text-danger">Não existem eventos disponíveis da região {{region}}</h3>
             {% else %}
-                <h3 class="text-danger">Não existem atividades marcadas</h3>
+                <h3 class="text-danger">Não existem eventos disponíveis</h3>
             {% endif %}
             {% for event in events %}
                 <li class="list-group-item list-group-item-action">
@@ -48,13 +56,7 @@
 {% endblock %}
 
 {% block script %}
-    <!-- Date picker -->
-    <script src="{% static 'datetimepicker/build/jquery.datetimepicker.full.min.js' %}"></script>
-    <!-- Leaflet map-->
+    <!-- Leaflet -->
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-    <!-- Scripts overriding package settings -->
-    <script src="{% static 'js/datetimepicker.js' %}"></script>
     <script src="{% static 'js/leaflet.js' %}"></script>
-    <!-- Other settings -->
-    <script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
