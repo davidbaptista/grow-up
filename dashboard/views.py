@@ -56,14 +56,21 @@ def events(request):
 	
 @login_required
 def manage_events(request):
-	return render(request, 'dashboard/manage_events.html')
+	organisation = get_organisation(request)
+
+	if profile:
+		events = Event.objects.filter(organisation=organisation, start__gt=datetime.now())
+		return render(request, 'dashboard/manage_events.html', {'events': events})
+	else:
+		return redirect('error')
+
 
 @login_required
 def browse_events(request, region=None):
 	region_name = None
-	profile = get_volunteer(request)
+	volunteer = get_volunteer(request)
 
-	if profile:
+	if volunteer:
 		if region:
 			region_name = Region.objects.get(description=region)
 			# Events which have not started in this region
@@ -74,11 +81,33 @@ def browse_events(request, region=None):
 
 		return render(request, 'dashboard/browse_events.html',	{'events': events,
 																'region': region_name,
-																'profile': profile,
+																'profile': volunteer,
 																'is_organisation': False})
 	else:
 		return redirect('error')
 
+
+@login_required
+def event(request, id):
+	if Event.objects.filter(pk=id).count() == 1:
+		event = Event.objects.get(pk=id)
+
+		profile = get_organisation(request)
+
+		if profile:
+			if event.organisation_id == profile.id:
+				return render(request, 'dashboard/manage_event.html', {'event': event})
+			else:
+				return redirect('error')
+		else:
+			profile = get_volunteer(request)
+
+			if profile:
+				pass
+			else:	
+				return redirect('error')
+
+			
 
 @login_required
 def profile(request):
@@ -132,19 +161,24 @@ def plan_event(request):
 
 
 @login_required
-def edit_event(request, event_id):
+def edit_event(request, id):
 	try:
-		event = Event.objects.get(pk=event_id)
+		event = Event.objects.get(pk=id)
 	except Event.DoesNotExist:
 		return redirect('index')
 
-	if is_organisation(request) and event.organisation.id == request.session['profile_id']:
+	organisation = get_organisation(request)
+
+	if not organisation:
+		return redirect('error')
+
+	if is_organisation(request) and event.organisation.id == organisation.id:
 		form = PlanEventForm(request.POST or None, instance=event)
 
 		if request.method == 'POST' and form.is_valid():
 			form.save()
 
-			return redirect(activities)
+			return redirect(dashboard)
 
 		return render(request, 'dashboard/edit_event.html', {'form': form})
 
@@ -152,9 +186,9 @@ def edit_event(request, event_id):
 
 
 @login_required
-def attend_event(request, event_id):
-	if Event.objects.filter(pk=event_id).count() == 1:
-		event = Event.objects.get(pk=event_id)
+def attend_event(request, id):
+	if Event.objects.filter(pk=id).count() == 1:
+		event = Event.objects.get(pk=id)
 	else:
 		return redirect('error')
 
@@ -164,7 +198,7 @@ def attend_event(request, event_id):
 		if not volunteer:
 			return redirect('error')
 
-		if volunteer.events.filter(pk=event_id).count() == 0:
+		if volunteer.events.filter(pk=id).count() == 0:
 			volunteer.events.add(event)
 			return redirect('dashboard')
 		else:
@@ -172,9 +206,9 @@ def attend_event(request, event_id):
 
 
 @login_required
-def unattend_event(request, event_id):
-	if Event.objects.filter(pk=event_id).count() == 1:
-		event = Event.objects.get(pk=event_id)
+def unattend_event(request, id):
+	if Event.objects.filter(pk=id).count() == 1:
+		event = Event.objects.get(pk=id)
 	else:
 		return redirect('error')
 
@@ -188,17 +222,19 @@ def unattend_event(request, event_id):
 
 
 @login_required
-def delete_event(request, event_id):
-	if Event.objects.filter(pk=event_id).count() == 1:
-		event = Event.objects.get(pk=event_id)
+def delete_event(request, id):
+	if Event.objects.filter(pk=id).count() == 1:
+		event = Event.objects.get(pk=id)
 	else:
 		return redirect('error')
 
-	if is_organisation(request) and event.organisation.id == request.session['profile_id']:
-		Event.objects.get(pk=event_id).delete()
-		return redirect('browse_events')
+	organisation = get_organisation(request)
 
-	return redirect('index')
+	if organisation and event.organisation.id == organisation.id:
+		Event.objects.get(pk=id).delete()
+		return redirect('manage_events')
+	else:
+		return redirect('error')
 
 @login_required
 def about_us(request):

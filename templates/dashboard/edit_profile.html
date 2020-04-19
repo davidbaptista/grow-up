@@ -1,6 +1,10 @@
 {% extends 'generic/base/dashboard.html' %}
 {% load static %}
 
+{% block navbar %}
+    {% include 'generic/navbar/profile.html' %}
+{% endblock %}
+
 {% block content %}
     <div class="d-flex justify-content-center mt-2">
         <form method="POST" novalidate enctype="multipart/form-data" class="col-xl-5 col-lg-6 col-md-8 col-sm-8 col-10"

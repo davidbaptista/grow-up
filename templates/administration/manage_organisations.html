@@ -1,9 +1,7 @@
-{% extends 'generic/base_dashboard.html' %}
+{% extends 'generic/base/dashboard.html' %}
 {% load static %}
 
-{% block container-classes %}bg-gray{% endblock %}
-
-{% block container %}
+{% block content %}
     <div class="row">
         {% if organisations %}
         <div class="col-12 text-center" style="align-content: center">

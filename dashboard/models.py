@@ -33,10 +33,6 @@ class Profile:
 	pass
 
 
-
-
-
-
 class OrganisationProfile(models.Model, Profile):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	organisation_name = models.CharField(max_length=255, blank=True)
@@ -81,6 +77,7 @@ class Event(models.Model):
 	title = models.CharField(max_length=255)
 	description = models.TextField(blank=True, null=True)
 	location = models.ForeignKey(Region, on_delete=models.CASCADE)
+	address = models.CharField(max_length=512, blank=True, null=True)
 	organisation = models.ForeignKey(OrganisationProfile, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='events/', blank=True, null=True,
 	                          validators=[FileExtensionValidator(allowed_extensions=['png', 'jpeg', 'jpg'])])

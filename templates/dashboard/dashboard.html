@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-	<h3>Calendário</h3>
+	<h3 class="h3">Calendário</h3>
 	<br>
 
 	<div class="d-inline-block mb-2 w-100">
@@ -16,8 +16,10 @@
 			href="{% url 'dashboard' %}?{{ next_month }}">Próximo</a>
 	</div>
 	{{ calendar }}
-
 	<a href="{% url 'dashboard' %}" class="btn btn-success mb-2">Limpar filtros</a>
+
+	<hr>
+
 	<div class="d-flex mt-2">
 		<div class="container-fluid">
 			{% if events.count == 0 %}

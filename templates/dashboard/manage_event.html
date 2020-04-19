@@ -1,0 +1,22 @@
+{% extends 'generic/base/dashboard.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'generic/navbar/event.html' %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="bg-white border rounded p-3 mb-3" style="min-height: 290px;">
+        <img class="float-left border rounded mr-3" src={% static 'img/website/logo.png' %} style="height:250px; width: 250px;">
+        <h1 class="h1">{{event.title}}</h1>
+        <p>{{event.description}}</p>
+            <span><b>Início - </b> {{ event.start }} </span>
+        <span><b>Fim - </b> {{ event.end }} </span>
+        <p><b>Região - </b> {{ event.location }}
+        <p><b>Morada - </b> {{ event.address }} </p>
+    </div>
+    <a class="btn btn-primary" href="{% url 'edit_event' id=event.id %}">Editar detalhes</a>
+    <a class="btn btn-danger float-right" href="{% url 'delete_event' id=event.id %}">Desmarcar evento</a>
+
+{% endblock %}

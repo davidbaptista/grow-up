@@ -6,5 +6,25 @@
 {% endblock %}
 
 {% block content %}
-
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for event in events %}
+            <div class="card m-1" style="width:16rem;">
+                <div class="p-1">
+                    {% if event.image %}
+                        <img class="card-img-top" src="{{ event.image }}" alt="Event image">
+                    {% else %}
+                        <img class="card-img-top" src="{% static 'img/website/logo.png' %}" alt="Event image">
+                    {% endif %}
+                </div>
+                <div class="card-body pt-0">
+                    <hr/>
+                    <h5 class="card-title">{{event.title}}</h5>
+                    <span class="card-text"><b>Data de início:</b> {{event.start.date}}</span>
+                    <h6><b>Região:</b> {{event.location}} </h6>
+                    <hr/>
+                    <a href="{% url 'event' id=event.id %}" class="btn btn-primary float-left">Detalhes</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

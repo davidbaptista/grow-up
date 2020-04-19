@@ -1,6 +1,10 @@
 /* Imports */
 @import "stylesheet.scss";
 
+h1, h2{
+	font-family: $font-header;
+}
+
 ul.social {
 	display: inline;
 	list-style: none;
