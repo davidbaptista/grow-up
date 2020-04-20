@@ -8,7 +8,7 @@
         </button>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="{% url 'manage_events' %}" class="nav-link text-white"><i class="fas fa-arrow-left"></i></a>
+                <a href="{% url 'browse_events' %}" class="nav-link text-white"><i class="fas fa-arrow-left"></i></a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -25,12 +25,14 @@
         <img class="float-left border rounded mr-3" src={% static 'img/website/logo.png' %} style="height:250px; width: 250px;">
         <h1 class="h1">{{event.title}}</h1>
         <p><b>Descrição - </b>{{event.description}}</p>
-        <span><b>Início - </b> {{ event.start }} </span>
-        <span><b>Fim - </b> {{ event.end }} </span>
-        <p><b>Região - </b> {{ event.location }}
-        <p><b>Morada - </b> {{ event.address }} </p>
+        <p><b>Início - </b> {{ event.start }} </p>
+        <p><b>Fim - </b> {{ event.end }} </p>
+        <p><b>Região - </b> {{ event.location }}</p>
+        {% if not event in profile.events.all %}
+            <a class="btn btn-primary float-right" href="{% url 'event' id=event.id %}">Criar reserva</a>
+        {% else %}
+            <a class="btn btn-danger float-right" href="{% url 'unattend_event' id=event.id %}">Desmarcar reserva</a>
+        {% endif %}
+        <p class="mb-0"><b>Morada - </b> {{ event.address }} </p>
     </div>
-    <a class="btn btn-primary" href="{% url 'edit_event' id=event.id %}">Editar detalhes</a>
-    <a class="btn btn-danger float-right" href="{% url 'delete_event' id=event.id %}">Desmarcar evento</a>
-
 {% endblock %}

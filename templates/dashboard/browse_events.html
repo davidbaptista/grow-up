@@ -6,52 +6,70 @@
 {% endblock %}
 
 {% block content %}
-    <div class="d-flex">
-        <div class="col-4">
-            <div id="mapid" style="height: 500px;"></div>
-            {% if region %}
-                <div class="py-3">
-                    <a class="btn btn-primary" href="{% url 'browse_events' %}">Todas as regiões</a>
-                </div>
-            {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 px-4">
+                {% if region and events.count > 0 %}
+                    <h3>Eventos futuros na região: {{ region }}</h3>
+                {% elif events.count > 0 %}
+                    <h3>Eventos futuros em todas as regiões</h3>
+                {% elif events.count == 0 and region %}
+                    <h3 class="text-danger">Não existem eventos disponíveis da região {{region}}</h3>
+                {% else %}
+                    <h3 class="text-danger">Não existem eventos disponíveis</h3>
+                {% endif %}
+            </div>
         </div>
-        <ul class="col-8 px-4 list-group">
-            {% if region and events.count > 0 %}
-                <h3>Eventos futuros na região: {{ region }}</h3>
-            {% elif events.count > 0 %}
-                <h3>Eventos futuros em todas as regiões</h3>
-            {% elif events.count == 0 and region %}
-                <h3 class="text-danger">Não existem eventos disponíveis da região {{region}}</h3>
-            {% else %}
-                <h3 class="text-danger">Não existem eventos disponíveis</h3>
-            {% endif %}
-            {% for event in events %}
-                <li class="list-group-item list-group-item-action">
-                    {% if event.image %}
-                        <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
-                             height="150">
-                    {% else %}
-                        <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
-                             alt="Fotografia do evento" width="150" height="150">
-                    {% endif %}
-                    <h5>{{ event.title }}</h5> {{ event.description }}
-                    <hr>
-                    <div class="d-flex flex-row">
-                        <div class="mr-auto">
+        <div class="row">
+            <ul class="col-8 px-4 list-group">
+                {% for event in events %}
+                    <li class="list-group-item list-group-item-action">
+                        {% if event.image %}
+                            <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
+                                height="150">
+                        {% else %}
+                            <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
+                                alt="Fotografia do evento" width="150" height="150">
+                        {% endif %}
+                        <h5>{{ event.title }}</h5> {{ event.description }}
+                        <hr>
                             <span><b>Inicio:</b> {{ event.start }}</span><br>
                             <span><b>Fim:</b> {{ event.end }}</span>
-                        </div>
-                        {% if not event in profile.events.all %}
-                            <a class="btn btn-lg btn-primary float-right"
-                                href="{% url 'attend_event' event_id=event.id %}">Criar reserva</a>
-                        {% else %}
-                            <a class="btn btn-lg btn-danger float-right"
-                                href="{% url 'unattend_event' event_id=event.id %}">Desmarcar reserva</a>
-                        {% endif %}
+                            <a class="btn  btn-primary float-right" href="{% url 'event' id=event.id %}">Detalhes</a>
+                    </li>
+                {% endfor %}
+               
+{% if events.has_other_pages %}
+  <ul class="pagination">
+    {% if events.has_previous %}
+      <li><a href="?page={{ events.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in events.paginator.page_range %}
+      {% if events.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if events.has_next %}
+      <li><a href="?page={{ events.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+            </ul>
+            <div class="col-4">
+                <div id="mapid" style="height: 500px;"></div>
+                {% if region %}
+                    <div class="py-3">
+                        <a class="btn btn-primary" href="{% url 'browse_events' %}">Todas as regiões</a>
                     </div>
-                </li>
-            {% endfor %}
-        </ul>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 

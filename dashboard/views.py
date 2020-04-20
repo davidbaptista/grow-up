@@ -1,9 +1,10 @@
 from datetime import datetime
+import pytz
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from dashboard.aux import get_organisation, get_volunteer, is_volunteer, is_organisation
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
 from dashboard.models import VolunteerProfile, OrganisationProfile, Event, Region
@@ -56,10 +57,10 @@ def events(request):
 	
 @login_required
 def manage_events(request):
-	organisation = get_organisation(request)
+	profile = get_organisation(request)
 
 	if profile:
-		events = Event.objects.filter(organisation=organisation, start__gt=datetime.now())
+		events = Event.objects.filter(organisation=profile, start__gt=datetime.now())
 		return render(request, 'dashboard/manage_events.html', {'events': events})
 	else:
 		return redirect('error')
@@ -78,8 +79,19 @@ def browse_events(request, region=None):
 		else:
 			# Events which have not started
 			events = Event.objects.filter(start__gt=datetime.now())
+		
+		paginator = Paginator(events, 10)
+		page = request.GET.get('page', 1)
 
-		return render(request, 'dashboard/browse_events.html',	{'events': events,
+
+		try:
+			event_list = paginator.page(page)
+		except PageNotAnInteger:
+			event_list = paginator.page(1)
+		except EmptyPage:
+			event_list = paginator.page(paginator.num_pages)
+
+		return render(request, 'dashboard/browse_events.html',	{'events': event_list,
 																'region': region_name,
 																'profile': volunteer,
 																'is_organisation': False})
@@ -101,9 +113,10 @@ def event(request, id):
 				return redirect('error')
 		else:
 			profile = get_volunteer(request)
+			timezone = event.start.tzinfo 
 
-			if profile:
-				pass
+			if profile and event.start > datetime.now(timezone):
+				return render(request, 'dashboard/event_details.html', {'event': event, 'profile': profile})
 			else:	
 				return redirect('error')
 

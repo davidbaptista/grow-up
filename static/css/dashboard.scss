@@ -4,6 +4,16 @@ body {
 	overflow-x: hidden;
 }
 
+.nav-link {
+	&:hover {
+		background-color: #4b87eb !important;
+	}
+
+	&:active {
+		background-color: #5193ff !important;
+	}
+}
+
 #sidebar-wrapper {
 	min-height: 100vh;
 	max-width: 15rem;

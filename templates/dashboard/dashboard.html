@@ -46,15 +46,12 @@
 							{% endif %}
 
 							<h5>{{ event.title }}</h5>
-							<br>
-							{{ event.description }}
+							<b>Descrição - </b>{{ event.description }}
 							<hr>
-							<div class="d-flex flex-row">
-								<div class="mr-auto">
-									<span><b>Inicio:</b> {{ event.start }}</span><br>
-									<span><b>Fim:</b> {{ event.end }}</span>
-								</div>
-							</div>
+							<span><b>Inicio - </b> {{ event.start }}</span><br>
+							<span><b>Fim - </b> {{ event.end }}</span>
+ 							<p><b>Região - </b> {{ event.location }}
+							<p><b>Morada - </b> {{ event.address }} </p>
 						</li>
 					{% endfor %}
 				</ul>
