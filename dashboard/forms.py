@@ -155,7 +155,7 @@ class PlanEventForm(forms.ModelForm):
 
 	description = forms.CharField(
 		label='Descrição do evento',
-		widget=forms.Textarea(attrs={'class': 'form-control mb-2'}),
+		widget=forms.Textarea(attrs={'class': 'form-control mb-2', 'rows': '5'}),
 		error_messages={'required': 'Por favor dê uma descrição ao evento'}
 	)
 
@@ -166,6 +166,13 @@ class PlanEventForm(forms.ModelForm):
 		queryset=Region.objects.all(),
 		error_messages={'required': 'Por favor escolha a localização do evento'}
 	)
+	
+	address = forms.CharField(
+		label='Morada do evento',
+		required=False,
+		widget=forms.TextInput(attrs={'class': 'form-control mb-2'}),
+		error_messages={'required': 'Por favor insira a morada do evento'}
+	)
 
 	image = forms.ImageField(label='Foto descritiva do evento',
         required=False,
@@ -174,4 +181,4 @@ class PlanEventForm(forms.ModelForm):
 
 	class Meta:
 		model = Event
-		fields = ['start', 'end', 'title', 'description', 'location', 'image']
+		fields = ['title', 'description', 'start', 'end', 'location', 'address', 'image']

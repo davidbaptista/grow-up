@@ -79,7 +79,7 @@ def browse_events(request, region=None):
             # Events which have not started
             events = Event.objects.filter(start__gt=datetime.now())
 
-        paginator = Paginator(events, 8)
+        paginator = Paginator(events, 7)
         page = request.GET.get('page', 1)
 
         try:
@@ -208,7 +208,7 @@ def attend_event(request, id):
 
         if volunteer.events.filter(pk=id).count() == 0:
             volunteer.events.add(event)
-            return redirect('dashboard')
+            return redirect('event', id=id)
         else:
             return redirect('error')
 

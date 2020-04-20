@@ -36,22 +36,18 @@
 					{% for event in events %}
 						<li class="list-group-item list-group-item-action">
 							{% if event.image %}
-								<img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento"
-									 width="150"
-									 height="150">
+								<img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
+									height="150">
 							{% else %}
 								<img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
-									 alt="Fotografia do evento"
-									 width="150" height="150">
+									alt="Fotografia do evento" width="150" height="150">
 							{% endif %}
-
-							<h5>{{ event.title }}</h5>
-							<b>Descrição - </b>{{ event.description }}
+							<h5>{{ event.title }}</h5> 
+							<span><b>Descrição - </b>{{ event.description }}</span>
 							<hr>
-							<span><b>Inicio - </b> {{ event.start }}</span><br>
+							<span><b>Inicio - </b> {{ event.start }}</span><br/>
 							<span><b>Fim - </b> {{ event.end }}</span>
- 							<p><b>Região - </b> {{ event.location }}
-							<p><b>Morada - </b> {{ event.address }} </p>
+							<a class="btn  btn-primary float-right" href="{% url 'event' id=event.id %}">Detalhes</a>
 						</li>
 					{% endfor %}
 				</ul>

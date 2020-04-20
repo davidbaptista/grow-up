@@ -12,7 +12,7 @@ class Calendar(calendar.LocaleHTMLCalendar):
 			events_per_day = events.filter(start__day=day)
 
 		if events_per_day and events_per_day.all().count() > 0 and day != 0:
-			return f"<td><span class='date'><a href='/dashboard-reservations/?date={theyear}-{themonth}&day={day}'" \
+			return f"<td><span class='date'><a href='/dashboard/?date={theyear}-{themonth}&day={day}'" \
 			       f"class='btn btn-secondary'>{day}</a></span></td>"
 		elif day != 0:
 			return f"<td><span class='date btn btn-light'>{day}</span></td>"

@@ -25,8 +25,9 @@
         <img class="float-left border rounded mr-3" src={% static 'img/website/logo.png' %} style="height:250px; width: 250px;">
         <h1 class="h1">{{event.title}}</h1>
         <p><b>Descrição - </b>{{event.description}}</p>
-        <span><b>Início - </b> {{ event.start }} </span>
-        <span><b>Fim - </b> {{ event.end }} </span>
+        <hr/>
+        <p><b>Início - </b> {{ event.start }} </p> 
+        <p><b>Fim - </b> {{ event.end }} </p>
         <p><b>Região - </b> {{ event.location }}
         <p><b>Morada - </b> {{ event.address }} </p>
     </div>

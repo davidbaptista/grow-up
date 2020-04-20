@@ -32,11 +32,12 @@
                             <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
                                 alt="Fotografia do evento" width="150" height="150">
                         {% endif %}
-                        <h5>{{ event.title }}</h5> {{ event.description }}
+                        <h5>{{ event.title }}</h5> 
+                        <span><b>Descrição - </b>{{ event.description }}</span>
                         <hr>
-                            <span><b>Inicio:</b> {{ event.start }}</span><br>
-                            <span><b>Fim:</b> {{ event.end }}</span>
-                            <a class="btn  btn-primary float-right" href="{% url 'event' id=event.id %}">Detalhes</a>
+                        <span><b>Inicio - </b> {{ event.start }}</span><br/>
+                        <span><b>Fim - </b> {{ event.end }}</span>
+                        <a class="btn  btn-primary float-right" href="{% url 'event' id=event.id %}">Detalhes</a>
                     </li>
                 {% endfor %}
                
