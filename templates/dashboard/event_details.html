@@ -8,7 +8,8 @@
         </button>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="{% url 'browse_events' region=None %}" class="nav-link text-white"><i class="fas fa-arrow-left"></i></a>
+                <a href="{% url 'browse_events'  %}" class="nav-link text-white"><i
+                        class="fas fa-arrow-left"></i></a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -21,14 +22,18 @@
 
 
 {% block content %}
-    <div class="bg-white border rounded p-3 mb-3" style="min-height: 290px;">
-        <img alt="image" class="float-left border rounded mr-3" src="{% static 'img/website/logo.png' %}" style="height:250px; width: 250px;">
-        <h1 class="h1">{{event.title}}</h1>
-        <p><b>Descrição - </b>{{event.description}}</p>
-        <p><b>Início - </b> {{ event.start }} </p>
-        <p><b>Fim - </b> {{ event.end }} </p>
-        <p><b>Região - </b> {{ event.location }}</p>
-        <p class="mb-0"><b>Morada - </b> {{ event.address }} </p>
+    <div class="bg-white container-fluid border rounded p-3 mb-3" style="min-height: 290px;">
+        <img alt="image" class="float-left position-relative border rounded mr-3"
+             src="{% static 'img/website/logo.png' %}"
+             style="height:250px; width: 250px;">
+        <div class="overflow-auto">
+            <h1 class="h1">{{ event.title }}</h1>
+            <p><b>Descrição - </b>{{ event.description }}</p>
+            <p><b>Início - </b> {{ event.start }} </p>
+            <p><b>Fim - </b> {{ event.end }} </p>
+            <p><b>Região - </b> {{ event.location }}</p>
+            <p class="mb-0"><b>Morada - </b> {{ event.address }} </p>
+        </div>
     </div>
     {% if not event in profile.events.all %}
         <a class="btn btn-primary float-right" href="{% url 'attend_event' id=event.id %}">Criar reserva</a>

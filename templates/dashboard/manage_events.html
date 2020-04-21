@@ -26,7 +26,7 @@
             </div>
         {% endif %}
         <div class="row">
-            <ul class="col-8 px-4 list-group">
+            <ul class="col-9 px-4 list-group">
                 {% for event in events %}
                     <li class="list-group-item list-group-item-action my-1 border">
                         {% if event.image %}
@@ -68,10 +68,8 @@
                     </ul>
                 {% endif %}
             </ul>
-            {% if events_object_list %}
-                <div class="col-4">
-                    <a class="btn btn-primary" href="{% url 'plan_event' %}">Marcar evento</a>
-                </div>
+            {% if events.object_list %}
+                <a class="btn btn-lg btn-primary col-3 h-25" href="{% url 'plan_event' %}">Marcar evento</a>
             {% endif %}
         </div>
     </div>
