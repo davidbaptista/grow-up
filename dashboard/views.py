@@ -1,14 +1,15 @@
 from datetime import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.timezone import make_aware
+
 from dashboard.aux import get_organisation, get_volunteer, is_volunteer, is_organisation
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
-from dashboard.models import VolunteerProfile, OrganisationProfile, Event, Region
+from dashboard.models import Event, Region
 from dashboard.utils import Calendar, previous_date, next_date, get_date
-from django.utils.timezone import make_aware
 
 
 @login_required
@@ -173,9 +174,11 @@ def plan_event(request):
             event = form.save(commit=False)
 
             event.organisation = get_organisation(request)
-
             event.save()
 
+            event.age_range.set(form.cleaned_data['age_range'])
+            event.organisation_type.set(form.cleaned_data['organisation_type'])
+            event.save()
             return redirect('events')
 
         return render(request, 'dashboard/plan_event.html', {'form': form})
@@ -184,7 +187,7 @@ def plan_event(request):
 @login_required
 def edit_event(request, id):
     try:
-        event = Event.objects.get(pk=id)
+        ev = Event.objects.get(pk=id)
     except Event.DoesNotExist:
         return redirect('index')
 
@@ -193,13 +196,13 @@ def edit_event(request, id):
     if not organisation:
         return redirect('error')
 
-    if is_organisation(request) and event.organisation.id == organisation.id:
-        form = PlanEventForm(request.POST or None, instance=event)
+    if is_organisation(request) and ev.organisation.id == organisation.id:
+        form = PlanEventForm(request.POST or None, request.FILES or None, instance=ev)
 
         if request.method == 'POST' and form.is_valid():
             form.save()
 
-            return redirect(dashboard)
+            return redirect('event', id)
 
         return render(request, 'dashboard/edit_event.html', {'form': form, 'id': id})
 

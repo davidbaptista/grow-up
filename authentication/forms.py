@@ -12,302 +12,303 @@ from dashboard.models import OrganisationProfile, AgeRange, OrganisationType, Vo
 
 
 class LoginForm(forms.Form):
-	username = forms.CharField(
-		label='',
-		widget=forms.TextInput(attrs={
-			'autofocus': True,
-			'placeholder': 'Nome de utilizador',
-			'class': 'form-input-username form-control mb-2'}),
-		error_messages={'required': _('Campo obrigatório')},
-	)
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'autofocus': True,
+            'placeholder': 'Nome de utilizador',
+            'class': 'form-input-username form-control mb-2'}),
+        error_messages={'required': _('Campo obrigatório')},
+    )
 
-	password = forms.CharField(
-		label='',
-		strip=False,
-		widget=forms.PasswordInput(attrs={
-			'autocomplete': 'current-password',
-			'placeholder': 'Password',
-			'class': 'form-input-password form-control mb-2'
-		}),
-		error_messages={'required': _('Campo obrigatório')},
-	)
+    password = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'autocomplete': 'current-password',
+            'placeholder': 'Password',
+            'class': 'form-input-password form-control mb-2'
+        }),
+        error_messages={'required': _('Campo obrigatório')},
+    )
 
-	def clean(self, *args, **kwargs):
-		username = self.cleaned_data.get('username')
-		password = self.cleaned_data.get('password')
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
 
-		if username and password:
-			user = authenticate(username=username, password=password)
-			if not user:
-				raise forms.ValidationError('Credenciais erradas')
-			if not user.check_password(password):
-				raise forms.ValidationError('Credenciais erradas')
-			if not user.is_active:
-				raise forms.ValidationError('Credenciais erradas')
-		return super(LoginForm, self).clean()
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise forms.ValidationError('Credenciais erradas')
+            if not user.check_password(password):
+                raise forms.ValidationError('Credenciais erradas')
+            if not user.is_active:
+                raise forms.ValidationError('Credenciais erradas')
+        return super(LoginForm, self).clean()
 
 
 class RegisterForm(forms.ModelForm):
-	username = forms.CharField(
-		label='',
-		widget=forms.TextInput(attrs={
-			'placeholder': 'Nome de utilizador',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'unique': 'Já existe um utilizador com esse nome',
-		                'invalid': 'Nome de utilizador inválido: Insira apenas letras e números'},
-	)
+    username = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Nome de utilizador',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório',
+                        'unique': 'Já existe um utilizador com esse nome',
+                        'invalid': 'Nome de utilizador inválido: Insira apenas letras e números'},
+    )
 
-	email = forms.EmailField(
-		label='',
-		widget=forms.EmailInput(attrs={'placeholder': 'Email',
-		                               'class': 'form-control mb-2'}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'invalid': 'Email inválido',
-		                'unique': 'Já existe um utilizador com esse email'},
-	)
+    email = forms.EmailField(
+        label='',
+        widget=forms.EmailInput(attrs={'placeholder': 'Email',
+                                       'class': 'form-control mb-2'}),
+        error_messages={'required': 'Este campo é obrigatório',
+                        'invalid': 'Email inválido',
+                        'unique': 'Já existe um utilizador com esse email'},
+    )
 
-	password1 = forms.CharField(
-		label='',
-		strip=False,
-		widget=forms.PasswordInput(attrs={
-			'placeholder': 'Password',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
-	)
+    password1 = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Password',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório',
+                        'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+    )
 
-	password2 = forms.CharField(
-		label='',
-		strip=False,
-		widget=forms.PasswordInput(attrs={
-			'placeholder': 'Confirmação',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório',
-		                'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
-	)
+    password2 = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'placeholder': 'Confirmação',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório',
+                        'password_too_short': 'A password deve ter pelo menos 8 caracteres'},
+    )
 
-	error_messages = {
-		'password_mismatch': _('As duas palavras passe não são iguais'),
-	}
+    error_messages = {
+        'password_mismatch': _('As duas palavras passe não são iguais'),
+    }
 
-	class Meta:
-		model = User
-		fields = ['username', 'email', 'password1', 'password2']
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
-	def clean(self, *args, **kwargs):
-		email = self.cleaned_data.get('email')
-		password1 = self.cleaned_data.get('password1')
-		password2 = self.cleaned_data.get('password2')
+    def clean(self, *args, **kwargs):
+        email = self.cleaned_data.get('email')
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
 
-		if password1 != password2:
-			raise forms.ValidationError('As passwords devem ser iguais')
-		if User.objects.filter(email=email).exists():
-			raise ValidationError('Já existe um utilizador com esse email')
+        if password1 != password2:
+            raise forms.ValidationError('As passwords devem ser iguais')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('Já existe um utilizador com esse email')
 
-		return super(RegisterForm, self).clean()
+        return super(RegisterForm, self).clean()
 
-	def clean_username(self):
-		username = self.cleaned_data['username']
+    def clean_username(self):
+        username = self.cleaned_data['username']
 
-		if User.objects.filter(username=username).exists():
-			raise ValidationError('Já existe um utilizador com esse nome de utilizador')
+        if User.objects.filter(username=username).exists():
+            raise ValidationError('Já existe um utilizador com esse nome de utilizador')
 
-		return username
+        return username
 
-	def clean_email(self):
-		email = self.cleaned_data['email']
+    def clean_email(self):
+        email = self.cleaned_data['email']
 
-		if User.objects.filter(email=email).exists():
-			raise ValidationError('Já existe um utilizador com esse email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('Já existe um utilizador com esse email')
 
-		return email
+        return email
 
-	def save(self, commit=True):
-		user = super().save(commit=False)
-		user.set_password(self.cleaned_data["password1"])
-		user.is_active = False
-		if commit:
-			user.save()
-		return user
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        user.is_active = False
+        if commit:
+            user.save()
+        return user
 
 
 class RegisterOrganisationForm(forms.ModelForm):
-	organisation_name = forms.CharField(
-		label='',
-		widget=forms.TextInput(attrs={
-			'placeholder': 'Nome da organização',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório'},
-		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
-	)
+    organisation_name = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Nome da organização',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório'},
+        validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+    )
 
-	representative_name = forms.CharField(
-		label='',
-		widget=forms.TextInput(attrs={
-			'placeholder': 'Nome do representante',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório'},
-		validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
-	)
+    representative_name = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Nome do representante',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório'},
+        validators=[RegexValidator('[A-Za-zÀ-ÖØ-öø-ÿ]', message='O campo deve apenas conter letras')]
+    )
 
-	class Meta:
-		model = OrganisationProfile
-		fields = ['organisation_name', 'representative_name']
+    class Meta:
+        model = OrganisationProfile
+        fields = ['organisation_name', 'representative_name']
 
 
 class RegisterOrganisationProfileForm(forms.ModelForm):
-	age_range = forms.ModelMultipleChoiceField(
-		label='Escolha o(s) alvo(s) da organização:',
-		queryset=AgeRange.objects.all(),
-		widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkboxes'}),
-		error_messages={'required': 'Selecione pelo menos uma opção'})
+    age_range = forms.ModelMultipleChoiceField(
+        label='Escolha o(s) alvo(s) da organização:',
+        queryset=AgeRange.objects.all(),
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkboxes'}),
+        error_messages={'required': 'Selecione pelo menos uma opção'})
 
-	organisation_type = forms.ModelMultipleChoiceField(
-		label='Escolha a(s) àrea(s) de atuação organização:',
-		queryset=OrganisationType.objects.all(),
-		widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkboxes'}),
-		error_messages={'required': 'Selecione pelo menos uma opção'})
+    organisation_type = forms.ModelMultipleChoiceField(
+        label='Escolha a(s) àrea(s) de atuação organização:',
+        queryset=OrganisationType.objects.all(),
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkboxes'}),
+        error_messages={'required': 'Selecione pelo menos uma opção'})
 
-	class Meta:
-		model = OrganisationProfile
-		fields = ['age_range', 'organisation_type']
+    class Meta:
+        model = OrganisationProfile
+        fields = ['age_range', 'organisation_type']
 
 
 class RegisterVolunteerForm(forms.ModelForm):
-	name = forms.CharField(
-		label='',
-		widget=forms.TextInput(attrs={
-			'placeholder': 'Nome completo',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={'required': 'Este campo é obrigatório'},
-		validators=[RegexValidator('^[a-zA-ZÀ-ÖØ-öø-ÿ]+(([\',. -][a-zA-ZÀ-ÖØ-öø-ÿ ])?[a-zA-ZÀ-ÖØ-öø-ÿ]*)*$',
-			message='O campo deve apenas conter letras e espaços')]
-	)
+    name = forms.CharField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Nome completo',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={'required': 'Este campo é obrigatório'},
+        validators=[RegexValidator('^[a-zA-ZÀ-ÖØ-öø-ÿ]+(([\',. -][a-zA-ZÀ-ÖØ-öø-ÿ ])?[a-zA-ZÀ-ÖØ-öø-ÿ]*)*$',
+                                   message='O campo deve apenas conter letras e espaços')]
+    )
 
-	birth_date = forms.DateField(
-		label='',
-		widget=forms.TextInput(attrs={
-			'placeholder': 'Data de nascimento',
-			'class': 'form-control mb-2',
-			'id': 'picker',
-		}),
-		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
-	)
+    birth_date = forms.DateField(
+        label='',
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Data de nascimento',
+            'class': 'form-control mb-2',
+            'id': 'picker',
+        }),
+        error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Insira uma data válida'},
+    )
 
-	gender = forms.CharField(label='', widget=forms.Select(
-		choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
-		attrs={'class': 'form-control mb-2', 'placeholder': 'Selecione o seu sexo'}),
-	    error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Selecione uma opção'},)
+    gender = forms.CharField(label='', widget=forms.Select(
+        choices=[('', 'Selecione o sexo'), (True, 'Feminino'), (False, 'Masculino')],
+        attrs={'class': 'form-control mb-2', 'placeholder': 'Selecione o seu sexo'}),
+                             error_messages={'required': 'Este campo é obrigatório',
+                                             'invalid': 'Selecione uma opção'}, )
 
-	def clean_birth_date(self):
-		date = self.cleaned_data['birth_date']
-		if date >= datetime.date.today():
-			raise ValidationError('Data inválida')
-		return date
+    def clean_birth_date(self):
+        date = self.cleaned_data['birth_date']
+        if date >= datetime.date.today():
+            raise ValidationError('Data inválida')
+        return date
 
-	class Meta:
-		model = VolunteerProfile
-		fields = ['name', 'birth_date', 'gender']
+    class Meta:
+        model = VolunteerProfile
+        fields = ['name', 'birth_date', 'gender']
 
 
 class PasswordChangeForm(PasswordChangeForm):
-	error_messages = {
-		'password_mismatch': _('As duas passwords não são iguais'),
-		'password_incorrect': _('Password antiga incorreta')
-	}
+    error_messages = {
+        'password_mismatch': _('As duas passwords não são iguais'),
+        'password_incorrect': _('Password antiga incorreta')
+    }
 
-	old_password = forms.CharField(
-		label='',
-		strip=False,
-		widget=forms.PasswordInput(attrs={
-			'autocomplete': 'current-password',
-			'autofocus': True,
-			'placeholder': 'Password antiga',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={
-			'required': 'Este campo é obrigatório',
-			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
-		},
-	)
+    old_password = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'autocomplete': 'current-password',
+            'autofocus': True,
+            'placeholder': 'Password antiga',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={
+            'required': 'Este campo é obrigatório',
+            'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+        },
+    )
 
-	new_password1 = forms.CharField(
-		label='',
-		widget=forms.PasswordInput(attrs={
-			'autocomplete': 'new-password',
-			'placeholder': 'Password nova',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={
-			'required': 'Este campo é obrigatório',
-			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
-		},
-		strip=False,
-		help_text=password_validation.password_validators_help_text_html(),
-	)
+    new_password1 = forms.CharField(
+        label='',
+        widget=forms.PasswordInput(attrs={
+            'autocomplete': 'new-password',
+            'placeholder': 'Password nova',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={
+            'required': 'Este campo é obrigatório',
+            'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+        },
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+    )
 
-	new_password2 = forms.CharField(
-		label='',
-		strip=False,
-		widget=forms.PasswordInput(attrs={
-			'autocomplete': 'new-password',
-			'placeholder': 'Confirmação da password',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={
-			'required': 'Este campo é obrigatório',
-			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
-		},
-	)
+    new_password2 = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'autocomplete': 'new-password',
+            'placeholder': 'Confirmação da password',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={
+            'required': 'Este campo é obrigatório',
+            'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+        },
+    )
 
 
 class PasswordResetForm(PasswordResetForm):
-	email = forms.EmailField(
-		label='',
-		max_length=254,
-		widget=forms.EmailInput(attrs={
-			'autocomplete': 'email',
-			'placeholder': 'Email associado à conta',
-			'class': 'form-control mb-3'}),
-		error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Email inválido'}
-	)
+    email = forms.EmailField(
+        label='',
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            'autocomplete': 'email',
+            'placeholder': 'Email associado à conta',
+            'class': 'form-control mb-3'}),
+        error_messages={'required': 'Este campo é obrigatório', 'invalid': 'Email inválido'}
+    )
 
 
 class SetPasswordForm(SetPasswordForm):
-	error_messages = {'password_mismatch': _('As passwords não são iguais'), }
+    error_messages = {'password_mismatch': _('As passwords não são iguais'), }
 
-	new_password1 = forms.CharField(
-		label='',
-		widget=forms.PasswordInput(attrs={
-			'autocomplete': 'new-password',
-			'placeholder': 'Password nova',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={
-			'required': 'Este campo é obrigatório',
-		    'password_too_short': 'A password deve ter pelo menos 8 caracteres'
-		},
-		strip=False,
-		help_text=password_validation.password_validators_help_text_html(),
-	)
+    new_password1 = forms.CharField(
+        label='',
+        widget=forms.PasswordInput(attrs={
+            'autocomplete': 'new-password',
+            'placeholder': 'Password nova',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={
+            'required': 'Este campo é obrigatório',
+            'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+        },
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+    )
 
-	new_password2 = forms.CharField(
-		label='',
-		strip=False,
-		widget=forms.PasswordInput(attrs={
-			'autocomplete': 'new-password',
-			'placeholder': 'Confirmação da password',
-			'class': 'form-control mb-2'
-		}),
-		error_messages={
-			'required': 'Este campo é obrigatório',
-			'password_too_short': 'A password deve ter pelo menos 8 caracteres'
-		},
-	)
+    new_password2 = forms.CharField(
+        label='',
+        strip=False,
+        widget=forms.PasswordInput(attrs={
+            'autocomplete': 'new-password',
+            'placeholder': 'Confirmação da password',
+            'class': 'form-control mb-2'
+        }),
+        error_messages={
+            'required': 'Este campo é obrigatório',
+            'password_too_short': 'A password deve ter pelo menos 8 caracteres'
+        },
+    )

@@ -104,7 +104,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     'static/',
     'tools/',
-    'data/',
 )
 
 LOGIN_URL = '/login/'

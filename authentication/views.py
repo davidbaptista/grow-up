@@ -46,7 +46,7 @@ def login(request):
 			logon(request, user)
 
 			if is_volunteer(request) or is_organisation(request):
-				return redirect('dashboard')
+				return redirect('index')
 			else:
 				return redirect('error')
 	else:
@@ -71,7 +71,7 @@ class RegisterOrganisationWizard(SessionWizardView):
 
 	def dispatch(self, request, *args, **kwargs):
 		if request.user.is_authenticated:
-			return redirect('index')
+			return redirect('error')
 		else:
 			return super(RegisterOrganisationWizard, self).dispatch(request, *args, **kwargs)
 

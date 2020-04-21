@@ -8,8 +8,9 @@
         </button>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="{% url 'browse_events'  %}" class="nav-link text-white"><i
-                        class="fas fa-arrow-left"></i></a>
+                <a href="{% url 'browse_events'  %}" class="nav-link text-white">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -20,12 +21,15 @@
     </nav>
 {% endblock %}
 
-
 {% block content %}
     <div class="bg-white container-fluid border rounded p-3 mb-3" style="min-height: 290px;">
-        <img alt="image" class="float-left position-relative border rounded mr-3"
-             src="{% static 'img/website/logo.png' %}"
-             style="height:250px; width: 250px;">
+        {% if event.image %}
+            <img class="float-left border rounded mr-3" src="{{ event.image.url }}"
+                 style="height:250px; width: 250px;" alt="image">
+        {% else %}
+            <img class="float-left border rounded mr-3" src="{% static 'img/website/logo.png' %}"
+                 style="height:250px; width: 250px;" alt="image">
+        {% endif %}
         <div class="overflow-auto">
             <h1 class="h1">{{ event.title }}</h1>
             <p><b>Descrição - </b>{{ event.description }}</p>
