@@ -16,6 +16,7 @@ class AgeRange(models.Model):
 
 class OrganisationType(models.Model):
     name = models.CharField(max_length=255)
+    description = models.CharField(max_length=4, null=True, blank=True)
 
     def __str__(self):
         return self.name

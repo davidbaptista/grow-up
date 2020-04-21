@@ -93,9 +93,19 @@ def browse_events(request, region=None):
             # Events which have not started
             events = Event.objects.filter(start__gt=make_aware(datetime.now())).order_by('start')
 
+        age_ranges = request.GET.get('age', None)
+        types = request.GET.get('type', None)
+
+        if age_ranges:
+            for i in age_ranges:
+                events = events.filter(age_range__id=i)
+
+        if types:
+            for i in types:
+                events = events.filter(organisation_type__description=i)
+
         paginator = Paginator(events, 7)
         page = request.GET.get('page', 1)
-        age_ranges = request.GET.get('age', None)
 
         try:
             event_list = paginator.page(page)
