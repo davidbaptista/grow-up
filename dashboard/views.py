@@ -8,6 +8,7 @@ from dashboard.aux import get_organisation, get_volunteer, is_volunteer, is_orga
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
 from dashboard.models import VolunteerProfile, OrganisationProfile, Event, Region
 from dashboard.utils import Calendar, previous_date, next_date, get_date
+from django.utils.timezone import make_aware
 
 
 @login_required
@@ -59,8 +60,19 @@ def manage_events(request):
     profile = get_organisation(request)
 
     if profile:
-        events = Event.objects.filter(organisation=profile, start__gt=datetime.now())
-        return render(request, 'dashboard/manage_events.html', {'events': events})
+        events = Event.objects.filter(organisation=profile, start__gt=make_aware(datetime.now())).order_by('start')
+
+        paginator = Paginator(events, 7)
+        page = request.GET.get('page', 1)
+
+        try:
+            event_list = paginator.page(page)
+        except PageNotAnInteger:
+            event_list = paginator.page(1)
+        except EmptyPage:
+            event_list = paginator.page(paginator.num_pages)
+
+        return render(request, 'dashboard/manage_events.html', {'events': event_list})
     else:
         return redirect('error')
 
@@ -74,10 +86,11 @@ def browse_events(request, region=None):
         if region:
             region_name = Region.objects.get(description=region)
             # Events which have not started in this region
-            events = Event.objects.filter(location__description=region, start__gt=datetime.now())
+            events = Event.objects.filter(location__description=region, start__gt=make_aware(datetime.now()))\
+                .order_by('start')
         else:
             # Events which have not started
-            events = Event.objects.filter(start__gt=datetime.now())
+            events = Event.objects.filter(start__gt=make_aware(datetime.now())).order_by('start')
 
         paginator = Paginator(events, 7)
         page = request.GET.get('page', 1)
@@ -163,7 +176,7 @@ def plan_event(request):
 
             event.save()
 
-            return redirect('activities')
+            return redirect('events')
 
         return render(request, 'dashboard/plan_event.html', {'form': form})
 
@@ -188,7 +201,7 @@ def edit_event(request, id):
 
             return redirect(dashboard)
 
-        return render(request, 'dashboard/edit_event.html', {'form': form})
+        return render(request, 'dashboard/edit_event.html', {'form': form, 'id': id})
 
     return redirect('index')
 

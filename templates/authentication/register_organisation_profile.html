@@ -1,4 +1,4 @@
-{% extends 'generic/base.html' %}
+{% extends 'generic/base/website.html' %}
 {% load static %}
 
 {% block stylesheet %}
@@ -7,6 +7,7 @@
 
 
 {% block content %}
+<div id="auth-container">
     <form method="POST" class="bg-light my-3 p-2 rounded-lg mx-auto" novalidate id="organisation-form">
         {% csrf_token %}
         <br>
@@ -35,4 +36,5 @@
         {% endfor %}
         <button class="btn btn-lg btn-primary text-white btn-block mb-2" type="submit">Submeter</button>
     </form>
+</div>
 {% endblock %}

@@ -2,23 +2,41 @@
 {% load static %}
 
 {% block navbar %}
-    {% include 'generic/navbar/dashboard.html'%}
+    {% include 'generic/navbar/dashboard.html' %}
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
+        {% if events.object_list %}
+            <div class="row mb-3">
+                <div class="col-12 px-4">
+                    <h3 class="h3">Futuros eventos</h3>
+                </div>
+            </div>
+        {% else %}
+            <div class="row mb-3">
+                <div class="col-12 px-4">
+                    <h3 class="h3 text-danger">Não existem eventos disponíveis</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 px-4">
+                    <a class="btn btn-primary" href="{% url 'plan_event' %}">Marcar evento</a>
+                </div>
+            </div>
+        {% endif %}
         <div class="row">
             <ul class="col-8 px-4 list-group">
                 {% for event in events %}
                     <li class="list-group-item list-group-item-action my-1 border">
                         {% if event.image %}
                             <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
-                                height="150">
+                                 height="150">
                         {% else %}
                             <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
-                                alt="Fotografia do evento" width="150" height="150">
+                                 alt="Fotografia do evento" width="150" height="150">
                         {% endif %}
-                        <h5>{{ event.title }}</h5> 
+                        <h5>{{ event.title }}</h5>
                         <span><b>Descrição - </b>{{ event.description }}</span>
                         <hr>
                         <span><b>Inicio - </b> {{ event.start }}</span><br/>
@@ -26,10 +44,35 @@
                         <a class="btn btn-primary float-right" href="{% url 'event' id=event.id %}">Detalhes</a>
                     </li>
                 {% endfor %}
+                {% if events.has_other_pages %}
+                    <ul class="pagination">
+                        {% if events.has_previous %}
+                            <li class="page-item"><a href="?page={{ events.previous_page_number }}"
+                                                     class="page-link"><</a></li>
+                        {% else %}
+                            <li class="disabled page-item"><span class="page-link disabled"><</span></li>
+                        {% endif %}
+                        {% for i in events.paginator.page_range %}
+                            {% if events.number == i %}
+                                <li class="page-item active"><span class="page-link active">{{ i }}</span></li>
+                            {% else %}
+                                <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if events.has_next %}
+                            <li class="page-item"><a href="?page={{ events.next_page_number }}" class="page-link">></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled"><span class="page-link">></span></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
             </ul>
-            <div class="col-4">
-                <a class="btn btn-primary" href="{% url 'plan_event' %}">Marcar evento</a>
-            </div>
+            {% if events_object_list %}
+                <div class="col-4">
+                    <a class="btn btn-primary" href="{% url 'plan_event' %}">Marcar evento</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

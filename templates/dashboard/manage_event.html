@@ -22,7 +22,8 @@
 
 {% block content %}
     <div class="bg-white border rounded p-3 mb-3" style="min-height: 290px;">
-        <img class="float-left border rounded mr-3" src={% static 'img/website/logo.png' %} style="height:250px; width: 250px;">
+        <img class="float-left border rounded mr-3" src="{% static 'img/website/logo.png' %}"
+             style="height:250px; width: 250px;">
         <h1 class="h1">{{event.title}}</h1>
         <p><b>Descrição - </b>{{event.description}}</p>
         <hr/>
