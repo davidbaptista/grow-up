@@ -6,28 +6,30 @@
 {% endblock %}
 
 {% block content %}
-    <div class="d-flex flex-wrap justify-content-left">
-        <a class="btn btn-primary" href="{% url 'plan_event' %}">Marcar evento</a>
-    </div>
-    <div class="d-flex flex-wrap justify-content-center">
-        {% for event in events %}
-            <div class="card m-1" style="width:16rem;">
-                <div class="p-1">
-                    {% if event.image %}
-                        <img class="card-img-top" src="{{ event.image }}" alt="Event image">
-                    {% else %}
-                        <img class="card-img-top" src="{% static 'img/website/logo.png' %}" alt="Event image">
-                    {% endif %}
-                </div>
-                <div class="card-body pt-0">
-                    <hr/>
-                    <h5 class="card-title">{{event.title}}</h5>
-                    <span class="card-text"><b>Data de início:</b> {{event.start.date}}</span>
-                    <h6><b>Região:</b> {{event.location}} </h6>
-                    <hr/>
-                    <a href="{% url 'event' id=event.id %}" class="btn btn-primary float-left">Detalhes</a>
-                </div>
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="col-8 px-4 list-group">
+                {% for event in events %}
+                    <li class="list-group-item list-group-item-action my-1 border">
+                        {% if event.image %}
+                            <img src="{{ event.image }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
+                                height="150">
+                        {% else %}
+                            <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
+                                alt="Fotografia do evento" width="150" height="150">
+                        {% endif %}
+                        <h5>{{ event.title }}</h5> 
+                        <span><b>Descrição - </b>{{ event.description }}</span>
+                        <hr>
+                        <span><b>Inicio - </b> {{ event.start }}</span><br/>
+                        <span><b>Fim - </b> {{ event.end }}</span>
+                        <a class="btn btn-primary float-right" href="{% url 'event' id=event.id %}">Detalhes</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="col-4">
+                <a class="btn btn-primary" href="{% url 'plan_event' %}">Marcar evento</a>
             </div>
-        {% endfor %}
+        </div>
     </div>
 {% endblock %}
