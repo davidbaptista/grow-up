@@ -33,9 +33,8 @@
                         {% endif %}
                         <h5>{{ event.title }}</h5>
                         <p><b>Descrição - </b>{{ event.description }}</p>
-                        <p><b>Inicio - </b> {{ event.start }}</p>
                         <a class="btn btn-primary float-right" href="{% url 'event' id=event.id %}">Detalhes</a>
-                        <p><b>Fim - </b> {{ event.end }}</p>
+                        <p><b>Data - </b> {{ event.start }}</p>
                     </li>
                 {% endfor %}
                

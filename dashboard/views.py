@@ -95,6 +95,7 @@ def browse_events(request, region=None):
 
         paginator = Paginator(events, 7)
         page = request.GET.get('page', 1)
+        age_ranges = request.GET.get('age', None)
 
         try:
             event_list = paginator.page(page)
