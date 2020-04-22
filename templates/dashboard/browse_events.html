@@ -71,20 +71,26 @@
                     </div>
                 {% endif %}
                 <div>
-                    <form method="get">
-                        <h6 class="h6">Público alvo</h6>
-                        {% for age in ages %}
-                            <input type="checkbox" id="{{ age }}" name="age" value="{{ age.id }}">
-                            <label for="{{ age }}">{{ age }}</label>
-                            <br>
-                        {% endfor %}
-                        <h6 class="h6">Tipo de evento</h6>
-                        {% for type in types %}
-                            <input type="checkbox" id="{{ type.description }}" name="type" value="{{ type.description }}">
-                            <label for="{{ type.description }}">{{ type.name }}</label>
-                            <br>
-                        {% endfor %}
-                        <button class="btn btn-success">Filtrar</button>
+                    <form method="get" id="form-filters">
+                        <h6 class="h6 my-3">Público alvo</h6>
+                        <ul class="custom-checkboxes">
+                            {% for age in ages %}
+                                <li>
+                                    <input type="checkbox" id="{{ age }}" name="age" value="{{ age.id }}">
+                                    <label class="pr-5" for="{{ age }}">{{ age }}</label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <h6 class="h6 mt-3">Tipo de evento</h6>
+                        <ul class="custom-checkboxes">
+                            {% for type in types %}
+                                <li>
+                                    <input type="checkbox" id="{{ type.description }}" name="type"
+                                           value="{{ type.description }}">
+                                    <label for="{{ type.description }}">{{ type.name }}</label>
+                                </li>
+                            {% endfor %}
+                        </ul>
                     </form>
                 </div>
             </div>
@@ -112,7 +118,7 @@
                 ages = window.location.href.substr(i + 1).replace(/age=/g, '').split('&');
             }
 
-             if (urlParams.has('type')) {
+            if (urlParams.has('type')) {
                 types = window.location.href.substr(i + 1).replace(/type=/g, '').split('&');
             }
 
@@ -120,7 +126,7 @@
                 url = url + $(this).val();
             });
 
-           $("input:checkbox[name=type]:checked").each(function () {
+            $("input:checkbox[name=type]:checked").each(function () {
                 url = url + $(this).val();
             });
 
@@ -135,6 +141,12 @@
                     return $.inArray(this.value, types) !== -1;
                 });
             }
+
+            $("input:checkbox").change(
+                function () {
+                    $("#form-filters").submit();
+                }
+            );
 
             if (url !== window.location.href) {
                 window.location = url;
