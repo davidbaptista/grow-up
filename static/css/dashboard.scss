@@ -5,8 +5,8 @@ body {
 }
 
 ul.custom-checkboxes {
+	padding: 0;
 	list-style: none;
-	padding: 20px;
 }
 
 ul.custom-checkboxes li {
@@ -14,14 +14,13 @@ ul.custom-checkboxes li {
 }
 
 ul.custom-checkboxes li label {
-    text-align: center;
+	text-align: center;
 	display: inline-block;
-	background-color: rgba(255, 255, 255, .9);
-	border: 2px solid rgba(139, 139, 139, .3);
-	color: #adadad;
+	background-color: $color-gray;
+	border: 2px solid $color-yellow;
 	border-radius: 25px;
 	white-space: nowrap;
-	margin: 3px 0px;
+	margin: 3px 0;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
@@ -31,10 +30,19 @@ ul.custom-checkboxes li label {
 	transition: all .2s;
 	padding: 8px 12px;
 	cursor: pointer;
+
+	&:hover {
+		background-color: #f3f3f3;
+	}
+
+	&:active {
+		background-color: #e0e0e0;
+	}
+
 }
 
 ul.custom-checkboxes li label::before {
-    text-align: center;
+	text-align: center;
 	display: inline-block;
 	font-style: normal;
 	font-variant: normal;
@@ -47,27 +55,33 @@ ul.custom-checkboxes li label::before {
 }
 
 ul.custom-checkboxes li input[type="checkbox"]:checked + label::before {
-    transform: rotate(-360deg);
-    transition: transform .3s ease-in-out;
+	transform: rotate(-360deg);
+	transition: transform .3s ease-in-out;
 }
 
 ul.custom-checkboxes li input[type="checkbox"]:checked + label {
-    border: 2px solid #1bdbf8;
-    background-color: #12bbd4;
-    color: #fff;
-    transition: all .2s;
-}
-ul.custom-checkboxes li input[type="checkbox"] {
-  position: absolute;
-}
-ul.custom-checkboxes li input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-}
-ul.custom-checkboxes li input[type="checkbox"]:focus + label {
-  border: 2px solid #e9a1ff;
+	border: 2px solid $color-yellow;
+	background-color: $color-blue;
+	color: #ffffff;
+	transition: all .1s;
+
+	&:hover {
+		background-color: #4b87eb;
+	}
+
+	&:active {
+		background-color: #5193ff;
+	}
 }
 
+ul.custom-checkboxes li input[type="checkbox"] {
+	position: absolute;
+}
+
+ul.custom-checkboxes li input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+}
 
 .nav-link {
 	&:hover {
