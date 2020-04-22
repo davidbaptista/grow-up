@@ -37,8 +37,8 @@
             <p><b>Fim - </b> {{ event.end }} </p>
             <p><b>Região - </b> {{ event.location }}</p>
             <p><b>Morada - </b> {{ event.address }} </p>
-            <ul><b>Público alvo:</b> {% for age in event.age_range.all %} <li>  - {{ age }} </<li>{% endfor %}</ul>
-            <ul><b>Áreas abrangidas:</b> {% for type in event.organisation_type.all %} <li>  - {{ type }} </li>{% endfor %}</ul>
+            <b>Público alvo:</b><ul style="list-style-position: inside; padding-left: 0"> {% for age in event.age_range.all %} <li> {{ age }} </li>{% endfor %}</ul>
+            <b>Áreas abrangidas:</b><ul style="list-style-position: inside; padding-left: 0"> {% for type in event.organisation_type.all %} <li> {{ type }} </li>{% endfor %}</ul>
         </div>
     </div>
     {% if not event in profile.events.all %}

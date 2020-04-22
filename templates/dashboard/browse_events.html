@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block navbar %}
-    {% include 'generic/navbar/dashboard.html'%}
+    {% include 'generic/navbar/dashboard.html' %}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
                 {% elif events.object_list %}
                     <h3>Eventos futuros em todas as regiões</h3>
                 {% elif not events.object_list and region %}
-                    <h3 class="text-danger">Não existem eventos disponíveis da região {{region}}</h3>
+                    <h3 class="text-danger">Não existem eventos disponíveis da região {{ region }}</h3>
                 {% else %}
                     <h3 class="text-danger">Não existem eventos disponíveis</h3>
                 {% endif %}
@@ -25,7 +25,8 @@
                 {% for event in events %}
                     <li class="list-group-item list-group-item-action my-1 border">
                         {% if event.image %}
-                            <img src="{{ event.image.url }}" class="float-left mr-3" alt="Fotografia do evento" width="150"
+                            <img src="{{ event.image.url }}" class="float-left mr-3" alt="Fotografia do evento"
+                                 width="150"
                                  height="150">
                         {% else %}
                             <img src="{% static 'img/website/logo.png' %}" class="float-left mr-3"
@@ -37,11 +38,12 @@
                         <p><b>Data - </b> {{ event.start }}</p>
                     </li>
                 {% endfor %}
-               
+
                 {% if events.has_other_pages %}
                     <ul class="pagination">
                         {% if events.has_previous %}
-                            <li  class="page-item"><a href="?page={{ events.previous_page_number }}" class="page-link"><</a></li>
+                            <li class="page-item"><a href="?page={{ events.previous_page_number }}"
+                                                     class="page-link"><</a></li>
                         {% else %}
                             <li class="disabled page-item"><span class="page-link disabled"><</span></li>
                         {% endif %}
@@ -49,15 +51,16 @@
                             {% if events.number == i %}
                                 <li class="page-item active"><span class="page-link active">{{ i }}</span></li>
                             {% else %}
-                                <li  class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
+                                <li class="page-item"><a href="?page={{ i }}" class="page-link">{{ i }}</a></li>
                             {% endif %}
                         {% endfor %}
                         {% if events.has_next %}
-                            <li  class="page-item"><a href="?page={{ events.next_page_number }}" class="page-link">></a></li>
+                            <li class="page-item"><a href="?page={{ events.next_page_number }}" class="page-link">></a>
+                            </li>
                         {% else %}
                             <li class="page-item disabled"><span class="page-link">></span></li>
                         {% endif %}
-                      </ul>
+                    </ul>
                 {% endif %}
             </ul>
             <div class="col-4">
@@ -67,13 +70,75 @@
                         <a class="btn btn-primary" href="{% url 'browse_events' %}">Todas as regiões</a>
                     </div>
                 {% endif %}
+                <div>
+                    <form method="get">
+                        <h6 class="h6">Público alvo</h6>
+                        {% for age in ages %}
+                            <input type="checkbox" id="{{ age }}" name="age" value="{{ age.id }}">
+                            <label for="{{ age }}">{{ age }}</label>
+                            <br>
+                        {% endfor %}
+                        <h6 class="h6">Tipo de evento</h6>
+                        {% for type in types %}
+                            <input type="checkbox" id="{{ type.description }}" name="type" value="{{ type.description }}">
+                            <label for="{{ type.description }}">{{ type.name }}</label>
+                            <br>
+                        {% endfor %}
+                        <button class="btn btn-success">Filtrar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block script %}
     <!-- Leaflet -->
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <script src="{% static 'js/leaflet.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            let url = window.location.href;
+
+            let i = window.location.href.lastIndexOf('?');
+
+            let ages = null;
+            let types = null;
+
+            if (urlParams.has('age')) {
+                ages = window.location.href.substr(i + 1).replace(/age=/g, '').split('&');
+            }
+
+             if (urlParams.has('type')) {
+                types = window.location.href.substr(i + 1).replace(/type=/g, '').split('&');
+            }
+
+            $("input:checkbox[name=age]:checked").each(function () {
+                url = url + $(this).val();
+            });
+
+           $("input:checkbox[name=type]:checked").each(function () {
+                url = url + $(this).val();
+            });
+
+            if (ages != null) {
+                $("input:checkbox[name=age]").prop('checked', function () {
+                    return $.inArray(this.value, ages) !== -1;
+                });
+            }
+
+            if (types != null) {
+                $("input:checkbox[name=type]").prop('checked', function () {
+                    return $.inArray(this.value, types) !== -1;
+                });
+            }
+
+            if (url !== window.location.href) {
+                window.location = url;
+            }
+        })
+    </script>
 {% endblock %}

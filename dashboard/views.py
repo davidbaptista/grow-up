@@ -8,7 +8,7 @@ from django.utils.timezone import make_aware
 
 from dashboard.aux import get_organisation, get_volunteer, is_volunteer, is_organisation
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
-from dashboard.models import Event, Region
+from dashboard.models import Event, Region, AgeRange, OrganisationType
 from dashboard.utils import Calendar, previous_date, next_date, get_date
 
 
@@ -93,8 +93,8 @@ def browse_events(request, region=None):
             # Events which have not started
             events = Event.objects.filter(start__gt=make_aware(datetime.now())).order_by('start')
 
-        age_ranges = request.GET.get('age', None)
-        types = request.GET.get('type', None)
+        age_ranges = request.GET.getlist('age', None)
+        types = request.GET.getlist('type', None)
 
         if age_ranges:
             for i in age_ranges:
@@ -114,8 +114,13 @@ def browse_events(request, region=None):
         except EmptyPage:
             event_list = paginator.page(paginator.num_pages)
 
+        types = OrganisationType.objects.all()
+        ages = AgeRange.objects.all()
+
         return render(request, 'dashboard/browse_events.html', {'events': event_list,
-                                                                'region': region_name, })
+                                                                'region': region_name,
+                                                                'ages': ages,
+                                                                'types': types})
     else:
         return redirect('error')
 

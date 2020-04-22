@@ -1979,311 +1979,316 @@ organisationtype_id</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="466" parent="339" name="PRIMARY">
+    <column id="466" parent="339" name="description">
+      <Position>3</Position>
+      <DataType>varchar(4)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="467" parent="339" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="467" parent="340" name="id">
+    <column id="468" parent="340" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="468" parent="340" name="name">
+    <column id="469" parent="340" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="469" parent="340" name="description">
+    <column id="470" parent="340" name="description">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="470" parent="340" name="PRIMARY">
+    <key id="471" parent="340" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="471" parent="341" name="id">
+    <column id="472" parent="341" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="472" parent="341" name="name">
+    <column id="473" parent="341" name="name">
       <Position>2</Position>
       <DataType>varchar(512)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="473" parent="341" name="gender">
+    <column id="474" parent="341" name="gender">
       <Position>3</Position>
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="474" parent="341" name="birth_date">
+    <column id="475" parent="341" name="birth_date">
       <Position>4</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="475" parent="341" name="occupation">
+    <column id="476" parent="341" name="occupation">
       <Position>5</Position>
       <DataType>varchar(127)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="476" parent="341" name="location">
+    <column id="477" parent="341" name="location">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="477" parent="341" name="phone_number">
+    <column id="478" parent="341" name="phone_number">
       <Position>7</Position>
       <DataType>varchar(12)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="478" parent="341" name="image">
+    <column id="479" parent="341" name="image">
       <Position>8</Position>
       <DataType>varchar(100)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="479" parent="341" name="user_id">
+    <column id="480" parent="341" name="user_id">
       <Position>9</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="480" parent="341" name="user_id">
+    <index id="481" parent="341" name="user_id">
       <ColNames>user_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="481" parent="341" name="PRIMARY">
+    <key id="482" parent="341" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="482" parent="341" name="user_id">
+    <key id="483" parent="341" name="user_id">
       <ColNames>user_id</ColNames>
       <UnderlyingIndexName>user_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="483" parent="341" name="dashboard_volunteerprofile_user_id_ca7a4cd5_fk_auth_user_id">
+    <foreign-key id="484" parent="341" name="dashboard_volunteerprofile_user_id_ca7a4cd5_fk_auth_user_id">
       <ColNames>user_id</ColNames>
       <RefTableName>auth_user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="484" parent="342" name="id">
+    <column id="485" parent="342" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="485" parent="342" name="volunteerprofile_id">
+    <column id="486" parent="342" name="volunteerprofile_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="486" parent="342" name="event_id">
+    <column id="487" parent="342" name="event_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="487" parent="342" name="dashboard_volunteerprofi_volunteerprofile_id_even_64787720_uniq">
+    <index id="488" parent="342" name="dashboard_volunteerprofi_volunteerprofile_id_even_64787720_uniq">
       <ColNames>volunteerprofile_id
 event_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="488" parent="342" name="dashboard_volunteerp_event_id_3cc1abc5_fk_dashboard">
+    <index id="489" parent="342" name="dashboard_volunteerp_event_id_3cc1abc5_fk_dashboard">
       <ColNames>event_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="489" parent="342" name="PRIMARY">
+    <key id="490" parent="342" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="490" parent="342" name="dashboard_volunteerprofi_volunteerprofile_id_even_64787720_uniq">
+    <key id="491" parent="342" name="dashboard_volunteerprofi_volunteerprofile_id_even_64787720_uniq">
       <ColNames>volunteerprofile_id
 event_id</ColNames>
       <UnderlyingIndexName>dashboard_volunteerprofi_volunteerprofile_id_even_64787720_uniq</UnderlyingIndexName>
     </key>
-    <foreign-key id="491" parent="342" name="dashboard_volunteerp_volunteerprofile_id_24cf164c_fk_dashboard">
+    <foreign-key id="492" parent="342" name="dashboard_volunteerp_volunteerprofile_id_24cf164c_fk_dashboard">
       <ColNames>volunteerprofile_id</ColNames>
       <RefTableName>dashboard_volunteerprofile</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="492" parent="342" name="dashboard_volunteerp_event_id_3cc1abc5_fk_dashboard">
+    <foreign-key id="493" parent="342" name="dashboard_volunteerp_event_id_3cc1abc5_fk_dashboard">
       <ColNames>event_id</ColNames>
       <RefTableName>dashboard_event</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="493" parent="343" name="id">
+    <column id="494" parent="343" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="494" parent="343" name="action_time">
+    <column id="495" parent="343" name="action_time">
       <Position>2</Position>
       <DataType>datetime(6)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="495" parent="343" name="object_id">
+    <column id="496" parent="343" name="object_id">
       <Position>3</Position>
       <DataType>longtext|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="496" parent="343" name="object_repr">
+    <column id="497" parent="343" name="object_repr">
       <Position>4</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="497" parent="343" name="action_flag">
+    <column id="498" parent="343" name="action_flag">
       <Position>5</Position>
       <DataType>smallint(5) unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="498" parent="343" name="change_message">
+    <column id="499" parent="343" name="change_message">
       <Position>6</Position>
       <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="499" parent="343" name="content_type_id">
+    <column id="500" parent="343" name="content_type_id">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="500" parent="343" name="user_id">
+    <column id="501" parent="343" name="user_id">
       <Position>8</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="501" parent="343" name="django_admin_log_content_type_id_c4bce8eb_fk_django_co">
+    <index id="502" parent="343" name="django_admin_log_content_type_id_c4bce8eb_fk_django_co">
       <ColNames>content_type_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="502" parent="343" name="django_admin_log_user_id_c564eba6_fk_auth_user_id">
+    <index id="503" parent="343" name="django_admin_log_user_id_c564eba6_fk_auth_user_id">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="503" parent="343" name="PRIMARY">
+    <key id="504" parent="343" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="504" parent="343" name="django_admin_log_content_type_id_c4bce8eb_fk_django_co">
+    <foreign-key id="505" parent="343" name="django_admin_log_content_type_id_c4bce8eb_fk_django_co">
       <ColNames>content_type_id</ColNames>
       <RefTableName>django_content_type</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="505" parent="343" name="django_admin_log_user_id_c564eba6_fk_auth_user_id">
+    <foreign-key id="506" parent="343" name="django_admin_log_user_id_c564eba6_fk_auth_user_id">
       <ColNames>user_id</ColNames>
       <RefTableName>auth_user</RefTableName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <check id="506" parent="343" name="action_flag">
+    <check id="507" parent="343" name="action_flag">
       <Predicate>`action_flag` &gt;= 0</Predicate>
     </check>
-    <column id="507" parent="344" name="id">
+    <column id="508" parent="344" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="508" parent="344" name="app_label">
+    <column id="509" parent="344" name="app_label">
       <Position>2</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="509" parent="344" name="model">
+    <column id="510" parent="344" name="model">
       <Position>3</Position>
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="510" parent="344" name="django_content_type_app_label_model_76bd3d3b_uniq">
+    <index id="511" parent="344" name="django_content_type_app_label_model_76bd3d3b_uniq">
       <ColNames>app_label
 model</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="511" parent="344" name="PRIMARY">
+    <key id="512" parent="344" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="512" parent="344" name="django_content_type_app_label_model_76bd3d3b_uniq">
+    <key id="513" parent="344" name="django_content_type_app_label_model_76bd3d3b_uniq">
       <ColNames>app_label
 model</ColNames>
       <UnderlyingIndexName>django_content_type_app_label_model_76bd3d3b_uniq</UnderlyingIndexName>
     </key>
-    <column id="513" parent="345" name="id">
+    <column id="514" parent="345" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="514" parent="345" name="app">
+    <column id="515" parent="345" name="app">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="515" parent="345" name="name">
+    <column id="516" parent="345" name="name">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="516" parent="345" name="applied">
+    <column id="517" parent="345" name="applied">
       <Position>4</Position>
       <DataType>datetime(6)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="517" parent="345" name="PRIMARY">
+    <key id="518" parent="345" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="518" parent="346" name="session_key">
+    <column id="519" parent="346" name="session_key">
       <Position>1</Position>
       <DataType>varchar(40)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="519" parent="346" name="session_data">
+    <column id="520" parent="346" name="session_data">
       <Position>2</Position>
       <DataType>longtext|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="520" parent="346" name="expire_date">
+    <column id="521" parent="346" name="expire_date">
       <Position>3</Position>
       <DataType>datetime(6)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="521" parent="346" name="django_session_expire_date_a5c62663">
+    <index id="522" parent="346" name="django_session_expire_date_a5c62663">
       <ColNames>expire_date</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="522" parent="346" name="PRIMARY">
+    <key id="523" parent="346" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>session_key</ColNames>
       <Primary>1</Primary>
