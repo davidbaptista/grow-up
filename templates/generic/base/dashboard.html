@@ -38,19 +38,18 @@
                 </a>
             </div>
             <div class="list-group list-group-flush">
-                {% if not is_administration %}
-                    <a href="{% url 'dashboard' %}"
+                {% if is_administration %}
+                    <a href="{% url 'administration' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Administração</a>
+                    <a href="{% url 'manage_organisations' %}"
+                       class="list-group-item list-group-item-warning list-group-item-action text-white">Organizações</a>
+                {% else %}
+                   <a href="{% url 'dashboard' %}"
                        class="list-group-item list-group-item-warning list-group-item-action text-white">Dashboard</a>
                     <a href="{% url 'about_us' %}"
                        class="list-group-item list-group-item-warning list-group-item-action text-white">Sobre nós</a>
                     <a href="{% url 'profile' %}"
                        class="list-group-item list-group-item-warning list-group-item-action text-white">Perfil</a>
-                {% else %}
-                    <a href="{% url 'administration' %}"
-                       class="list-group-item list-group-item-warning list-group-item-action text-white">Administração</a>
-                    <a href="{% url 'manage_organisations' %}"
-                       class="list-group-item list-group-item-warning list-group-item-action text-white">Gerir
-                        organizações</a>
                 {% endif %}
             </div>
         </div>

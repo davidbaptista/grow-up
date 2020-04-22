@@ -1,13 +1,29 @@
 {% extends 'generic/base/dashboard.html' %}
 {% load static %}
 
+{% block navbar %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary border-bottom">
+        <button class="btn btn-light text-black" id="menu-toggle">
+            <i class="fas fa-align-justify"></i>
+        </button>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="{% url 'manage_organisations' %}" class="nav-link text-white">Gerir organizações</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
 {% block content %}
     <div class="row">
         {% if organisations %}
-        <div class="col-12 text-center" style="align-content: center">
-            <br>
+        <div class="col-12" style="align-content: center">
             <h1>Gerir organizações</h1>
-            <br>
             <table class="table" style="margin: 0 auto;">
                 <thead>
                     <tr>
@@ -32,8 +48,8 @@
                 </tbody>
             </table>
             {% else %}
-                <div class="col-12 text-center">
-                    <h2>Não há organizações por validar</h2>
+                <div class="col-12">
+                    <h2 class="h2 text-danger">Não há organizações por validar</h2>
                 </div>
             {% endif %}
         </div>
