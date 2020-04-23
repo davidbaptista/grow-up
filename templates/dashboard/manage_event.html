@@ -37,6 +37,18 @@
             <p><b>Região - </b> {{ event.location }}</p>
             <p class="mb-0"><b>Morada - </b> {{ event.address }} </p>
         </div>
+        <br>
+        <div>
+            {% if volunteers %}
+                <h4>Participantes</h4>
+                <ul>
+                    {% for volunteer in volunteers %}
+                        <li><a href="{% url 'profile' id=volunteer.id %}">{{ volunteer.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
     </div>
     <a class="btn btn-primary" href="{% url 'edit_event' id=event.id %}">Editar detalhes</a>
     <a class="btn btn-danger float-right" href="{% url 'delete_event' id=event.id %}">Desmarcar evento</a>

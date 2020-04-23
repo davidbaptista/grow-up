@@ -8,7 +8,7 @@ from django.utils.timezone import make_aware
 
 from dashboard.aux import get_organisation, get_volunteer, is_volunteer, is_organisation
 from dashboard.forms import EditVolunteerProfileForm, EditOrganisationProfileForm, PlanEventForm
-from dashboard.models import Event, Region, AgeRange, OrganisationType
+from dashboard.models import Event, Region, AgeRange, OrganisationType, OrganisationProfile, VolunteerProfile
 from dashboard.utils import Calendar, previous_date, next_date, get_date
 
 
@@ -134,12 +134,18 @@ def event(request, id):
 
         if profile:
             if event.organisation_id == profile.id:
-                return render(request, 'dashboard/manage_event.html', {'event': event})
+                volunteers = VolunteerProfile.objects.filter(events__id=id)
+
+                request.session['event_id'] = id
+
+                return render(request, 'dashboard/manage_event.html', {'event': event, 'volunteers': volunteers})
             else:
                 return redirect('error')
         else:
             profile = get_volunteer(request)
             timezone = event.start.tzinfo
+
+            request.session['event_id'] = id
 
             if profile and event.start > datetime.now(timezone):
                 return render(request, 'dashboard/event_details.html', {'event': event, 'profile': profile})
@@ -148,7 +154,7 @@ def event(request, id):
 
 
 @login_required
-def profile(request):
+def my_profile(request):
     if is_volunteer(request):
         profile = get_volunteer(request)
         profile_type = 'volunteer'
@@ -156,6 +162,27 @@ def profile(request):
         profile = get_organisation(request)
         profile_type = 'organisation'
 
+    else:
+        return redirect('error')
+
+    return render(request, 'dashboard/my_profile.html', {'profile': profile, 'profile_type': profile_type})
+
+
+@login_required
+def profile(request, id):
+    if is_organisation(request):
+        if VolunteerProfile.objects.filter(pk=id).count() == 1:
+            profile = VolunteerProfile.objects.get(pk=id)
+            profile_type = 'volunteer'
+        else:
+            return redirect('error')
+
+    elif is_volunteer(request):
+        if OrganisationProfile.objects.filter(pk=id).count() == 1:
+            profile = OrganisationProfile.objects.get(pk=id)
+            profile_type = 'organisation'
+        else:
+            return redirect('error')
     else:
         return redirect('error')
 

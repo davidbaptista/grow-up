@@ -2,25 +2,7 @@
 {% load static %}
 
 {% block navbar %}
-    {% if 'event_id' in request.session %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary border-bottom">
-            <button class="btn btn-light text-black" id="menu-toggle">
-                <i class="fas fa-align-justify"></i>
-            </button>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="{% url 'event' id=request.session.event_id %}" class="nav-link text-white"><i class="fas fa-arrow-left"></i></a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a href="{% url 'logout' %}" class="nav-link text-white">Logout</a>
-                </li>
-            </ul>
-        </nav>
-    {% else %}
-        {% include 'generic/navbar/dashboard.html' %}
-    {% endif %}
+    {% include 'generic/navbar/profile.html' %}
 {% endblock %}
 
 {% block content %}
@@ -108,4 +90,5 @@
             {% endif %}
         </div>
     </div>
+    <a href="{% url 'edit_profile' %}" class="btn btn-lg btn-primary">Editar perfil</a>
 {% endblock %}
