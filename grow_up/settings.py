@@ -61,7 +61,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'grow_up',
-        'USER': 'david',
+        'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306'
@@ -112,8 +112,8 @@ LOGOUT_REDIRECT_URL = '/index/'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'grow.up.portugal@gmail.com'
-EMAIL_HOST_PASSWORD = 'vlylnaqnqpkzaefb'
+EMAIL_HOST_USER = '
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
 DATE_INPUT_FORMATS = ['%d/%m/%Y']
